@@ -1,15 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        
-	}
+public class Player
+{
+    private int p_id;
+    private float p_blood;
+    private float p_attack;
+    private Skill p_skill;
+    private float p_skillattack;
+    private float p_defend;
+    private int p_level;
 }
