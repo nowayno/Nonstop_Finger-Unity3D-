@@ -18,7 +18,6 @@ public class Player
     private float p_blood;
     private float p_attack;
     private Skill p_skill;
-    private float p_skillattack;
     private float p_defend;
     private int p_level;
     private GameObject p_gameobject;
@@ -72,19 +71,6 @@ public class Player
         set
         {
             p_skill = value;
-        }
-    }
-
-    public float P_skillattack
-    {
-        get
-        {
-            return p_skillattack;
-        }
-
-        set
-        {
-            p_skillattack = value;
         }
     }
 
