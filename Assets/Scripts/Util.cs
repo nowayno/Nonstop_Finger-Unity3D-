@@ -20,9 +20,10 @@ public class Util
     }
 
     /// <summary>
-    /// 写入xml文件
+    /// 读取xml文件
     /// </summary>
-    /// <param name="obj">对象</param>
+    /// <typeparam name="T">传入类型</typeparam>
+    /// <param name="t">对象</param>
     /// <returns>是否成功</returns>
     public bool writeXML<T>(T t)
     {
@@ -39,10 +40,24 @@ public class Util
         return flag;
     }
 
+    /// <summary>
+    /// 读取xml文件
+    /// </summary>
+    /// <typeparam name="T">传入类型</typeparam>
+    /// <param name="t">对象</param>
+    /// <returns>返回类型</returns>
     public T readXML<T>(T t)
     {
         string class_name = t.GetType().Name;
         class_name += ".xml";
+        using (Stream stream = new FileStream(filename + class_name, FileMode.Open))
+        {
+            stream.Position = 0;
+            XmlSerializer xmlFomart = new XmlSerializer(t.GetType(), new Type[] { t.GetType() });
+            t = (T)xmlFomart.Deserialize(stream);
+            stream.Flush();
+            stream.Close();
+        }
         return t;
     }
 }
