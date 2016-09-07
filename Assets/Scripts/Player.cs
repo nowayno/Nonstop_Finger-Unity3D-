@@ -20,7 +20,7 @@ public class Player
     private Skill p_skill;
     private float p_defend;
     private int p_level;
-    private GameObject p_gameobject;
+    //private GameObject p_gameobject;
 
     public int P_id
     {
@@ -100,16 +100,16 @@ public class Player
         }
     }
 
-    public GameObject P_gameobject
-    {
-        get
-        {
-            return p_gameobject;
-        }
+    //public GameObject P_gameobject
+    //{
+    //    get
+    //    {
+    //        return p_gameobject;
+    //    }
 
-        set
-        {
-            p_gameobject = value;
-        }
-    }
+    //    set
+    //    {
+    //        p_gameobject = value;
+    //    }
+    //}
 }
