@@ -84,6 +84,8 @@
 -define:UNITY_TEAM_LICENSE
 -define:ENABLE_VSTU
 Assets/Scripts/Player.cs
+Assets/Scripts/Score.cs
 Assets/Scripts/Skill.cs
+Assets/Scripts/Util.cs
 -r:"C:\Program Files\Unity\Editor\Data\Mono\lib\mono\unity\System.Runtime.Serialization.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Mono\lib\mono\unity\System.Xml.Linq.dll"
