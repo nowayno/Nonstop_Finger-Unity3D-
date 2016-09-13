@@ -15,5 +15,6 @@ public interface IMathUtil
     float bloodAndMission(params float[] param);
     float actAndMission(params float[] param);
     float actAndBD(params float[] param);
+    float addBuff(BUFF _buff, params float[] param);
 }
 

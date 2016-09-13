@@ -35,7 +35,7 @@ class MonsterMath : IMathUtil
 
         float blood = 0;
         float data = param[0];
-        data = (data / 3 % 10 == 0 ? (data / 3 / 10) : 0);
+        data = (data / 3 % 10 == 0 ? (data / 3 / 10) : 0);//每30关做一次除法运算
         if (data == 0)
         {
             blood = 2.5f * data + (a + data) * index;
@@ -46,5 +46,10 @@ class MonsterMath : IMathUtil
             blood = 2.5f * data + (a + data) * index;
         }
         return blood;
+    }
+
+    public float addBuff(BUFF _buff, params float[] param)
+    {
+        throw new NotImplementedException();
     }
 }

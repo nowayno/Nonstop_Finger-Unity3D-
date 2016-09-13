@@ -23,7 +23,33 @@ class PlayerMath : IMathUtil
 
     public float bloodAndMission(params float[] param)
     {
-        throw new NotImplementedException();
+        float blood = 0;
+        if (param[0] < 0)
+            return -1;
+        blood = (1.25f * param[0] + 0.2f) * 37.3f / 556;
+        return blood;
+    }
+
+    public float addBuff(BUFF _buff, params float[] param)
+    {
+        float addBUFF = 0;
+        if (param[0] < 0)
+            return -1;
+        switch (_buff._PLAYERBUFF)
+        {
+            case BUFF.PLAYERBUFF.ADDACT:
+                break;
+            case BUFF.PLAYERBUFF.ADDBLOOD:
+                break;
+            case BUFF.PLAYERBUFF.ADDDEFEND:
+                break;
+            case BUFF.PLAYERBUFF.ADDSKILLACT:
+                break;
+            case BUFF.PLAYERBUFF.ADDSPEED:
+                break;
+        }
+
+        return addBUFF;
     }
 }
 
