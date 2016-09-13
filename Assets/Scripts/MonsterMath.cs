@@ -50,6 +50,22 @@ class MonsterMath : IMathUtil
 
     public float addBuff(BUFF _buff, params float[] param)
     {
-        throw new NotImplementedException();
+        float damage = 0;
+        if (param[0] < 0)
+            return -1;
+
+        switch (_buff._MONSTERBUFF)
+        {
+            case BUFF.MONSTERBUFF.FIREDAMAGE:
+                break;
+            case BUFF.MONSTERBUFF.HARDDAMAGE:
+                break;
+            case BUFF.MONSTERBUFF.ICEDAMAGE:
+                break;
+            case BUFF.MONSTERBUFF.POISIONDAMAGE:
+                break;
+        }
+
+        return damage;
     }
 }

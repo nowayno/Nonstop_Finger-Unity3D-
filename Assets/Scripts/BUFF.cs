@@ -17,12 +17,16 @@ public class BUFF
         ADDDEFEND,
         ADDACT,
         ADDBLOOD,
-        ADDSKILLACT
+        ADDSKILLACT,
+        CD
     }
 
     public enum MONSTERBUFF
     {
-
+        FIREDAMAGE,
+        ICEDAMAGE,
+        POISIONDAMAGE,
+        HARDDAMAGE
     }
     public PLAYERBUFF _PLAYERBUFF;
     public MONSTERBUFF _MONSTERBUFF;
