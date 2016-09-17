@@ -18,11 +18,13 @@ public class PlayerScript : MonoBehaviour
         player = da.readData<Player>(player);
 
         Debug.Log("blood:" + player.P_blood + "\nattack" + player.P_attack);
-        BUFF _buff = new BUFF();
-        _buff._PLAYERBUFF = BUFF.PLAYERBUFF.ADDACT;
-        Debug.Log("addAct:" + da.addBuff(0, _buff, player.P_attack, 0.5f));
-        _buff._PLAYERBUFF = BUFF.PLAYERBUFF.ADDBLOOD;
-        Debug.Log("addBlood:" + da.addBuff(0, _buff, player.P_blood, -0.3f));
+        IBehave pb = new PlayerBehave();
+        float act = player.P_attack;
+        pb.buffBehave(ref act, 2);
+        Debug.Log("addAct:" + act);
+        float blood = player.P_blood;
+        pb.buffBehave(ref blood, 3);
+        Debug.Log("addBlood:" + blood);
     }
 
     // Update is called once per frame

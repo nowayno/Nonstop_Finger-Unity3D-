@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <Player xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <P_id>1</P_id>
-  <P_blood>100</P_blood>
-  <P_attack>100</P_attack>
-  <P_defend>100</P_defend>
-  <P_level>20</P_level>
+  <P_blood>23</P_blood>
+  <P_attack>10</P_attack>
+  <P_defend>10</P_defend>
+  <P_level>1</P_level>
 </Player>
