@@ -28,7 +28,7 @@ class DoAction
 
     public T readData<T>(T t)
     {
-        return readData<T>(t);
+        return Util.getInstance().readXML<T>(t);
     }
 
     public float bloodAndMission(int which, params float[] param)
@@ -91,11 +91,10 @@ class DoAction
         }
         return act;
     }
-    public float addBuff(int which, params float[] param)
+    public float addBuff(int which,BUFF _buff, params float[] param)
     {
         float buff = 0;
         IMathUtil imathutil;
-        BUFF _buff = new BUFF();
         if (which == 0)
         {
             imathutil = new PlayerMath();

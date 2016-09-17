@@ -12,7 +12,7 @@ using System;
 public class Util
 {
     static Util util;
-    string filename = @"F:\allprojects\unitypro\Nonstop_Finger\Assets\Resources\";
+    string filename = @"F:\allprojects\unitypro\Nonstop_Finger\Assets\Data\";
     /// <summary>
     /// 获取单例
     /// </summary>
@@ -53,7 +53,8 @@ public class Util
     /// <returns>返回类型</returns>
     public T readXML<T>(T t)
     {
-        string class_name = t.GetType().Name;
+        string class_name = "";
+        class_name = t.GetType().Name;
         class_name += ".xml";
         using (Stream stream = new FileStream(filename + class_name, FileMode.Open))
         {
