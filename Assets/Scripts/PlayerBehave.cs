@@ -11,19 +11,20 @@ using System.Text;
 using UnityEngine;
 class PlayerBehave : IBehave
 {
-    public void aBloodBehave<T>(ref T t, float data)
+    public void aBloodBehave(ref float blood, float data)
     {
-        throw new NotImplementedException();
+        blood = blood + data;
     }
 
-    public void actBehave<T>(ref T t, float data)
+    public void actBehave(ref float blood, float data)
     {
-        throw new NotImplementedException();
+        MonsterBehave mb = new MonsterBehave();
+        mb.mBloodBehave(ref blood, data);
     }
 
-    public void beActedBehave<T>(ref T t, float data)
+    public void beActedBehave(ref float blood, float data)
     {
-        throw new NotImplementedException();
+        mBloodBehave(ref blood, data);
     }
 
     public void buffBehave(ref float t_date, int data)
@@ -37,7 +38,7 @@ class PlayerBehave : IBehave
             case 0://速度提升
                 _buff._PLAYERBUFF = BUFF.PLAYERBUFF.ADDSPEED;
                 m_num = rand.Next(3, 8);
-                r_num =(float)Convert.ToDecimal((rand.NextDouble() * m_num + m_num).ToString("0.00"));
+                r_num = (float)Convert.ToDecimal((rand.NextDouble() * m_num + m_num).ToString("0.00"));
                 break;
             case 1://防御提升
                 _buff._PLAYERBUFF = BUFF.PLAYERBUFF.ADDDEFEND;
@@ -70,14 +71,15 @@ class PlayerBehave : IBehave
         t_date = pm.addBuff(_buff, t_date, r_num);
     }
 
-    public void mBloodBehave<T>(ref T t, float data)
+    public void mBloodBehave(ref float blood, float data)
     {
-        throw new NotImplementedException();
+        blood = blood - data;
     }
 
-    public void skillBehave<T>(ref T t, float data)
+    public void skillBehave(ref float blood, float data)
     {
-        throw new NotImplementedException();
+        MonsterBehave mb = new MonsterBehave();
+        mb.mBloodBehave(ref blood, data);
     }
 }
 

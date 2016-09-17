@@ -11,11 +11,11 @@ using System.Text;
 
 public interface IBehave
 {
-    void actBehave<T>(ref T t,float data);
-    void beActedBehave<T>(ref T t,float data);
-    void skillBehave<T>(ref T t, float data);
-    void mBloodBehave<T>(ref T t,float data);
-    void aBloodBehave<T>(ref T t, float data);
+    void actBehave(ref float blood, float data);
+    void beActedBehave(ref float blood, float data);
+    void skillBehave(ref float t, float data);
+    void mBloodBehave(ref float blood,float data);
+    void aBloodBehave(ref float blood, float data);
     void buffBehave(ref float t_data, int data);
 }
 
