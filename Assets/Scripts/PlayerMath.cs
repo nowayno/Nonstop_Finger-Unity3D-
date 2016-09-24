@@ -26,7 +26,7 @@ class PlayerMath : IMathUtil
         float blood = 0;
         if (param[0] < 0)
             return -1;
-        blood = (1.25f * param[0] + 0.2f) * 37.3f / 556;
+        blood = (1.25f * param[0] - 0.6f) * 556 / 37.3f;
         return blood;
     }
 

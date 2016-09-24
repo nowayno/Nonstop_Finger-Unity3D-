@@ -34,11 +34,14 @@ public class PlayerScript : MonoBehaviour
         p_defend = player.P_defend;
         p_speed = player.P_speed;
         p_level = player.P_level;
+        Debug.Log(p_blood);
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        p_blood = DoAction.getInstance().bloodAndMission(0, Manager.mission);
+        if (((int)Manager.mission) % 10 == 0)
+            Debug.Log("player blood:" + p_blood);
     }
 }
