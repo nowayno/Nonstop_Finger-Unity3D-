@@ -3,17 +3,23 @@ using System.Collections;
 
 public class MonsterScript : MonoBehaviour
 {
+    float time_count = 0;
 
     Monster monster;
 
-    float time_count = 0;
-    float mission = 1;
+    private int m_id;
+    private float m_blood;
+    private float m_attack;
+    private float m_defend;
     // Use this for initialization
     void Start()
     {
         monster = new Monster();
         monster = DoAction.getInstance().readData<Monster>(monster);
-        Debug.Log("Monster:\n" + "monster blood:" + monster.Blood + "\nmonster attack:" + monster.Attack + "\nmonster defend:" + monster.Defend);
+        m_id = monster.Id;
+        m_blood = monster.Blood;
+        m_attack = monster.Attack;
+        m_defend = monster.Defend;
     }
 
     // Update is called once per frame
@@ -23,11 +29,7 @@ public class MonsterScript : MonoBehaviour
         if (time_count >= 10)
         {
             time_count = 0;
-            mission++;
-            monster.Blood = DoAction.getInstance().bloodAndMission(1, mission);
-            monster.Attack = DoAction.getInstance().actAndMission(1, mission);
-            Debug.Log("monster_bood and mission:" + monster.Blood + "\nmonster_act and mission:" + monster.Attack);
-            
+
         }
 
     }
