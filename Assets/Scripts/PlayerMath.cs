@@ -38,7 +38,7 @@ class PlayerMath : IMathUtil
         switch (_buff._PLAYERBUFF)
         {
             case BUFF.PLAYERBUFF.ADDACT:
-                addBUFF = param[0]+param[0] * param[1];
+                addBUFF = param[0] + param[0] * param[1];
                 break;
             case BUFF.PLAYERBUFF.ADDBLOOD:
                 addBUFF = param[0] + param[0] * param[1];
@@ -54,6 +54,8 @@ class PlayerMath : IMathUtil
                 break;
             case BUFF.PLAYERBUFF.CD:
                 addBUFF = param[0] + param[0] * param[1];
+                break;
+            case BUFF.PLAYERBUFF.NONE:
                 break;
         }
 

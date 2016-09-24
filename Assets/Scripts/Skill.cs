@@ -15,7 +15,10 @@ public class Skill
     private int skill_id;
     private string skill_name;
     private float skill_attack;
+    private float skill_tattack;
+    private float skill_time;
     private float skill_CD;
+    private BUFF _buff=new BUFF();
 
     public int Skill_id
     {
@@ -66,6 +69,45 @@ public class Skill
         set
         {
             skill_CD = value;
+        }
+    }
+
+    public float Skill_tattack
+    {
+        get
+        {
+            return skill_tattack;
+        }
+
+        set
+        {
+            skill_tattack = value;
+        }
+    }
+
+    public float Skill_time
+    {
+        get
+        {
+            return skill_time;
+        }
+
+        set
+        {
+            skill_time = value;
+        }
+    }
+
+    public BUFF Buff
+    {
+        get
+        {
+            return _buff;
+        }
+
+        set
+        {
+            _buff._MONSTERBUFF = BUFF.MONSTERBUFF.NONE;
         }
     }
 }

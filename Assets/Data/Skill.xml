@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="gb2312"?>
+<Skill xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Skill_id>1</Skill_id>
+  <Skill_name>fire</Skill_name>
+  <Skill_attack>9</Skill_attack>
+  <Skill_CD>3</Skill_CD>
+  <Skill_tattack>0</Skill_tattack>
+  <Skill_time>0</Skill_time>
+  <Buff>
+    <_PLAYERBUFF>ADDSPEED</_PLAYERBUFF>
+    <_MONSTERBUFF>NONE</_MONSTERBUFF>
+  </Buff>
+</Skill>

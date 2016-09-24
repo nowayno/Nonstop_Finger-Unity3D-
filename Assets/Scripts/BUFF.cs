@@ -18,7 +18,8 @@ public class BUFF
         ADDACT,
         ADDBLOOD,
         ADDSKILLACT,
-        CD
+        CD,
+        NONE
     }
 
     public enum MONSTERBUFF
@@ -26,7 +27,8 @@ public class BUFF
         FIREDAMAGE,
         ICEDAMAGE,
         POISIONDAMAGE,
-        HARDDAMAGE
+        HARDDAMAGE,
+        NONE
     }
     public PLAYERBUFF _PLAYERBUFF;
     public MONSTERBUFF _MONSTERBUFF;

@@ -38,12 +38,12 @@ class MonsterMath : IMathUtil
         data = (data / 3 % 10 == 0 ? (data / 3 / 10) : 0);//每30关做一次除法运算
         if (data == 0)
         {
-            blood = 2.5f * data + (a + data) * index;
+            blood = 2.5f * param[0] + (a + data) * index;
         }
         else
         {
             index = data;
-            blood = 2.5f * data + (a + data) * index;
+            blood = 2.5f * param[0] + (a + data) * index;
         }
         return blood;
     }
@@ -57,15 +57,22 @@ class MonsterMath : IMathUtil
         switch (_buff._MONSTERBUFF)
         {
             case BUFF.MONSTERBUFF.FIREDAMAGE:
+                param[0] = param[1] - param[0];
                 break;
             case BUFF.MONSTERBUFF.HARDDAMAGE:
+                param[0] = param[1] - param[0];
                 break;
             case BUFF.MONSTERBUFF.ICEDAMAGE:
+                param[0] = param[1] - param[0];
                 break;
             case BUFF.MONSTERBUFF.POISIONDAMAGE:
+                param[0] = param[1] - param[0];
+                break;
+            case BUFF.MONSTERBUFF.NONE:
+                param[0] = param[1] - param[0];
                 break;
         }
-
+        damage = param[0];
         return damage;
     }
 }

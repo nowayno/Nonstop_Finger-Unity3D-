@@ -8,28 +8,28 @@ using System.Collections;
 
 public class PlayerScript : MonoBehaviour
 {
-    Player player;
+    static Player player;
+    Skill skill;
     // Use this for initialization
     void Start()
     {
         player = new Player();
-        DoAction da = new DoAction();
+        player = DoAction.getInstance().readData<Player>(player);
+        Debug.Log("Player:\n" + "player blood:" + player.P_blood + "\nplayer attack:" + player.P_attack + "\nplayer defend:" + player.P_defend + "\nplayer speed:" + player.P_speed);
 
-        player = da.readData<Player>(player);
-
-        Debug.Log("blood:" + player.P_blood + "\nattack" + player.P_attack);
-        IBehave pb = new PlayerBehave();
-        float act = player.P_attack;
-        pb.buffBehave(ref act, 2);
-        Debug.Log("addAct:" + act);
-        float blood = player.P_blood;
-        pb.buffBehave(ref blood, 3);
-        Debug.Log("addBlood:" + blood);
+        skill = new Skill();
+        skill = DoAction.getInstance().readData<Skill>(skill);
+        Debug.Log("Skill:\n" + "skill attack:" + skill.Skill_attack + "\nskill cd:" + skill.Skill_CD + "\nskill buff:" + skill.Buff._MONSTERBUFF);
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+    public static void hur()
+    {
+        player.P_blood -= 5;
+        Debug.Log("player hurt:" + player.P_blood);
     }
 }
