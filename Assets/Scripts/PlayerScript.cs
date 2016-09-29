@@ -31,6 +31,12 @@ public class PlayerScript : MonoBehaviour
     float mission;
     static BUFF _buff;
     int isBuff = -1;
+
+    float counttime = 0;
+    float countMission = 0;
+    float temp_countTime = 0;
+    float temp_countMission = 0;
+
     void Awake()
     {
         _buff = new BUFF();
@@ -72,29 +78,59 @@ public class PlayerScript : MonoBehaviour
                 switch (_buff._PLAYERBUFF)
                 {
                     case BUFF.PLAYERBUFF.ADDACT:
-                        DoAction.getInstance().addBuff(0, _buff, p_attack, buff_p_attack);
+                        p_attack += DoAction.getInstance().addBuff(0, _buff, p_attack, buff_p_attack);
                         break;
                     case BUFF.PLAYERBUFF.ADDBLOOD:
-                        DoAction.getInstance().addBuff(0, _buff, p_blood, buff_p_blood);
+                        p_blood += DoAction.getInstance().addBuff(0, _buff, p_blood, buff_p_blood);
                         break;
                     case BUFF.PLAYERBUFF.ADDDEFEND:
-                        DoAction.getInstance().addBuff(0, _buff, p_speed, buff_p_speed);
+                        p_defend += DoAction.getInstance().addBuff(0, _buff, p_defend, buff_p_defend);
                         break;
                     case BUFF.PLAYERBUFF.ADDSKILLACT:
-                        DoAction.getInstance().addBuff(0, _buff, p_skill.Skill_attack, buff_p_skill.Skill_attack);
+                        p_skill.Skill_attack += DoAction.getInstance().addBuff(0, _buff, p_skill.Skill_attack, buff_p_skill.Skill_attack);
                         break;
                     case BUFF.PLAYERBUFF.ADDSPEED:
-                        DoAction.getInstance().addBuff(0, _buff, p_speed, buff_p_speed);
+                        p_speed += DoAction.getInstance().addBuff(0, _buff, p_speed, buff_p_speed);
                         break;
                     case BUFF.PLAYERBUFF.CD:
-                        DoAction.getInstance().addBuff(0, _buff, p_skill.Skill_CD, buff_p_skill.Skill_CD);
+                        if (p_skill.Skill_CD > 0)
+                        {
+                            p_skill.Skill_CD -= DoAction.getInstance().addBuff(0, _buff, p_skill.Skill_CD, buff_p_skill.Skill_CD);
+                        }
                         break;
                     case BUFF.PLAYERBUFF.NONE:
                         p_blood = DoAction.getInstance().bloodAndMission(0, Manager.mission, p_defend);
+                        p_attack = player.P_attack;
+                        p_defend = player.P_defend;
+                        p_skill.Skill_attack = skill.Skill_attack;
+                        p_speed = player.P_speed;
+                        p_skill.Skill_CD = skill.Skill_CD;
                         isBuff = -1;
                         break;
                 }
             }
         }
+    }
+
+    public void buffChange(BUFF _b, params float[] param)
+    {
+        _buff._PLAYERBUFF = _b._PLAYERBUFF;
+        if (param.Length > 1)
+        {
+            if (param[1] == -1)
+            {
+                temp_countTime = param[0];
+            }
+            else if (param[1] == 0)
+            {
+                temp_countMission = param[0];
+            }
+            else
+            {
+                temp_countTime = param[0];
+                temp_countMission = param[1];
+            }
+        }
+
     }
 }
