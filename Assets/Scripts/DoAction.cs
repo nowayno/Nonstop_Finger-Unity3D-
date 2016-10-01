@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 class DoAction
 {
@@ -91,7 +92,7 @@ class DoAction
         }
         return act;
     }
-    public float addBuff(int which,BUFF _buff, params float[] param)
+    public float addBuff(int which, BUFF _buff, params float[] param)
     {
         float buff = 0;
         IMathUtil imathutil;
@@ -110,6 +111,22 @@ class DoAction
             buff = -1;
         }
         return buff;
+    }
+
+    public void gameObjectBuff(GameObject go, BUFF _buff, params float[] param)
+    {
+        PlayerScript ps;
+        MonsterScript ms;
+        if (go.tag == "Player")
+        {
+            ps = go.GetComponent<PlayerScript>();
+            ps.buffChange(_buff, param);
+        }
+        else
+        {
+            ms = go.GetComponent<MonsterScript>();
+        }
+
     }
 }
 
