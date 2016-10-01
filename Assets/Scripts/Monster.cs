@@ -15,6 +15,7 @@ public class Monster
     private float m_blood;
     private float m_attack;
     private float m_defend;
+    private float m_speed;
 
     public int Id
     {
@@ -65,6 +66,19 @@ public class Monster
         set
         {
             m_defend = value;
+        }
+    }
+
+    public float Speed
+    {
+        get
+        {
+            return m_speed;
+        }
+
+        set
+        {
+            m_speed = value;
         }
     }
 }

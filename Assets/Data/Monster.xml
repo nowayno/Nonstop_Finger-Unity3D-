@@ -4,4 +4,5 @@
   <Blood>22.5</Blood>
   <Attack>0.45</Attack>
   <Defend>0</Defend>
+  <Speed>1</Speed>
 </Monster>

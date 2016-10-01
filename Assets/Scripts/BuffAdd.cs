@@ -125,7 +125,7 @@ public class BuffAdd : MonoBehaviour
             }
             else if (which == 1)
             {
-                go.GetComponent<MonsterScript>();
+                go.GetComponent<MonsterScript>().buffChange(_b, false, param);
             }
         }
 
@@ -138,7 +138,7 @@ public class BuffAdd : MonoBehaviour
         }
         else if (tempwhich == 1)
         {
-            m_go.GetComponent<MonsterScript>();
+            m_go.GetComponent<MonsterScript>().buffChange(_b, true, -data);
         }
     }
 
