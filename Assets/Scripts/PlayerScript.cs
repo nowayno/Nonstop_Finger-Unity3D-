@@ -63,6 +63,16 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //counttime += Time.deltaTime;
+        //if (counttime >= 5)
+        //{
+        //    gameObject.GetComponent<MonsterScript>().beAttacked(p_attack);
+        //    counttime = 0;
+        //}
+        if (p_blood <= 0)
+        {
+            Destroy(gameObject);
+        }
         if (isBuff == true)
         {
             if (mission < Manager.mission)
@@ -75,6 +85,7 @@ public class PlayerScript : MonoBehaviour
                 if (buffCount <= 0)
                 {
                     _buff._PLAYERBUFF = BUFF.PLAYERBUFF.NONE;
+                    isBuff = false;
                 }
                 switch (_buff._PLAYERBUFF)
                 {
@@ -106,7 +117,7 @@ public class PlayerScript : MonoBehaviour
                         p_skill.Skill_attack = skill.Skill_attack;
                         p_speed = player.P_speed;
                         p_skill.Skill_CD = skill.Skill_CD;
-                        isBuff = false;
+
                         break;
                 }
 
@@ -144,6 +155,24 @@ public class PlayerScript : MonoBehaviour
                 --buffCount;
                 buff_p_xxx = param[2];
             }
+        }
+    }
+    public void beAttacked(float damage)
+    {
+        p_blood  -= damage;
+        Debug.Log("p_blood" + p_blood);
+        if (p_blood <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void Attack(GameObject g, float skill_Attack, bool isSkill = false)
+    {
+        g.GetComponent<MonsterScript>().beAttacked(p_attack);
+        if (isSkill)
+        {
+            g.GetComponent<MonsterScript>().beAttacked(skill_Attack);
         }
     }
 }

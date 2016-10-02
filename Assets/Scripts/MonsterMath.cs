@@ -57,19 +57,19 @@ class MonsterMath : IMathUtil
         switch (_buff._MONSTERBUFF)
         {
             case BUFF.MONSTERBUFF.FIREDAMAGE:
-                param[0] = param[1] - param[0];
+                param[0] = param[0] - param[1];
                 break;
             case BUFF.MONSTERBUFF.HARDDAMAGE:
-                param[0] = param[1] - param[0];
+                param[0] = param[0] - param[1];
                 break;
             case BUFF.MONSTERBUFF.ICEDAMAGE:
-                param[0] = param[1] - param[0];
+                param[0] = param[0] - param[1];
                 break;
             case BUFF.MONSTERBUFF.POISIONDAMAGE:
-                param[0] = param[1] - param[0];
+                param[0] = param[0] - param[1];
                 break;
             case BUFF.MONSTERBUFF.NONE:
-                param[0] = param[1] - param[0];
+                param[0] = param[0] - param[1];
                 break;
         }
         damage = param[0];

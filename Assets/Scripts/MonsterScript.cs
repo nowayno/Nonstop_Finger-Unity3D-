@@ -48,6 +48,16 @@ public class MonsterScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //counttime+=Time.deltaTime;
+        //if (counttime >= 5)
+        //{
+        //    gameObject.GetComponent<PlayerScript>().beAttacked(m_attack);
+        //    counttime = 0;
+        //}
+        if (m_blood <= 0)
+        {
+            Destroy(gameObject);
+        }
         if (isBuff == true)
         {
             if (mission < Manager.mission)
@@ -60,6 +70,7 @@ public class MonsterScript : MonoBehaviour
                 if (buffCount <= 0)
                 {
                     _buff._MONSTERBUFF = BUFF.MONSTERBUFF.NONE;
+                    isBuff = false;
                 }
                 switch (_buff._MONSTERBUFF)
                 {
@@ -84,7 +95,7 @@ public class MonsterScript : MonoBehaviour
                         m_blood = DoAction.getInstance().bloodAndMission(0, Manager.mission, m_defend + m_blood);
                         m_attack = monster.Attack;
                         m_defend = monster.Defend;
-                        isBuff = false;
+
                         isFrozen = true;
                         break;
                 }
@@ -124,6 +135,21 @@ public class MonsterScript : MonoBehaviour
                 buff_p_xxx = param[2];
             }
         }
+    }
+
+    public void beAttacked(float damage)
+    {
+        m_blood -= damage;
+        Debug.Log("m_blood" + m_blood);
+        if (m_blood <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void Attack(GameObject g)
+    {
+        g.GetComponent<PlayerScript>().beAttacked(m_attack);
     }
 
 }

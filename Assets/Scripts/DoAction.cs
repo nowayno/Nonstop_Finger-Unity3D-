@@ -120,7 +120,7 @@ class DoAction
         if (go.tag == "Player")
         {
             ps = go.GetComponent<PlayerScript>();
-            ps.buffChange(_buff, param);
+            ps.buffChange(_buff, false, param);
         }
         else
         {
