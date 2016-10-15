@@ -17,5 +17,6 @@ public interface IBehave
     void mBloodBehave(ref float blood,float data);
     void aBloodBehave(ref float blood, float data);
     void buffBehave(ref float t_data, int data);
+
 }
 

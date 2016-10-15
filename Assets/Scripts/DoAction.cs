@@ -12,6 +12,7 @@ using UnityEngine;
 
 class DoAction
 {
+    private DoAction() { }
     static DoAction _action;
     static public DoAction getInstance()
     {

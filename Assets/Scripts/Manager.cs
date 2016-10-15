@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Manager : MonoBehaviour
 {
+    private Manager() { }
     public static float mission = 1;
     public static int score = 0;
 
