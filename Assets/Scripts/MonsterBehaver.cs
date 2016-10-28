@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-class MonsterBehave : IBehave
+class MonsterBehaver : IBehave
 {
     public void aBloodBehave(ref float blood, float data)
     {

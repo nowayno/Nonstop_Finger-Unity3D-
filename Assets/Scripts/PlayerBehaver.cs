@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-class PlayerBehave : IBehave
+class PlayerBehaver : IBehave
 {
     public void aBloodBehave(ref float blood, float data)
     {

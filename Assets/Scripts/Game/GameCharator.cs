@@ -3,13 +3,7 @@ using System.Collections;
 
 public class GameCharator : MonoBehaviour
 {
-    public enum ACTION
-    {
-        ATTACK,
-        RUN,
-        DEAD,
-        ALIVE
-    }
+
     public enum SKILL
     {
         SKILL1,
@@ -21,17 +15,7 @@ public class GameCharator : MonoBehaviour
         SKILL7,
         SKILL8,
     }
-    ACTION _action;
     SKILL _skill;
-
-    public ACTION Action
-    {
-        get { return _action; }
-        set
-        {
-            _action = value;
-        }
-    }
     public SKILL Skill
     {
         get
