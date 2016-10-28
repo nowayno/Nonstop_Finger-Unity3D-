@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class Monster
+public class Monster : GameCharator
 {
     private int m_id;
     private float m_blood;

@@ -159,11 +159,9 @@ public class PlayerScript : MonoBehaviour
     }
     public void beAttacked(float damage)
     {
-        p_blood  -= damage;
-        Debug.Log("p_blood" + p_blood);
-        if (p_blood <= 0)
+        if (DoAction.getInstance().beAttacked(ref p_blood, damage) == -1)
         {
-            Destroy(gameObject);
+            Destroy(p_go);
         }
     }
 

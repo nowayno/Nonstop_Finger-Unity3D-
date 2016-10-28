@@ -129,5 +129,21 @@ class DoAction
         }
 
     }
+
+    public float beAttacked(ref float blood, float damage)
+    {
+        blood -= damage;
+        Debug.Log("p_blood" + blood);
+        if (blood <= 0)
+        {
+            return -1;
+        }
+        return 0;
+    }
 }
+
+    //public float Attack()
+    //{
+
+    //}
 
