@@ -1,8 +1,10 @@
-﻿public class PlayerBehave : Behave
+﻿using UnityEngine;
+public class PlayerBehave : Behave
 {
     public PlayerBehave()
     {
-
+        ani.GetComponent<Animator>();
+        stateInfo = ani.GetCurrentAnimatorStateInfo(0);
     }
     override protected void attackBehave()
     {

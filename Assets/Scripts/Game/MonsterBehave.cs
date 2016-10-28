@@ -1,8 +1,10 @@
-﻿public class MonsterBehave : Behave
+﻿using UnityEngine;
+public class MonsterBehave : Behave
 {
     public MonsterBehave()
     {
-        
+        ani.GetComponent<Animator>();
+        stateInfo = ani.GetCurrentAnimatorStateInfo(0);
     }
 
     protected override void attackBehave()
