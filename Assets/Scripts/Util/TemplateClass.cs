@@ -8,8 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
-class TemplateClass<T>
+using UnityEngine;
+public class TemplateClass<T> : MonoBehaviour
 {
     protected delegate void GetNumber(int number);
     protected event GetNumber getNumber_;

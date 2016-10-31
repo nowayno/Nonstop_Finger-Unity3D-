@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Behave : MonoBehaviour
+public class Behave : TemplateClass<Behave>
 {
     public enum ACTION
     {
