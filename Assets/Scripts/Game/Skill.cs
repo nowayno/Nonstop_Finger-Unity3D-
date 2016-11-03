@@ -18,7 +18,7 @@ public class Skill
     private float skill_tattack;
     private float skill_time;
     private float skill_CD;
-    private BUFF _buff=new BUFF();
+    private BUFF _buff = new BUFF();
 
     public int Skill_id
     {
