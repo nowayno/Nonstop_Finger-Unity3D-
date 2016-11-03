@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerBuffScript : TemplateClass<PlayerBuffScript>
+public class MonsterBuffScript : MonoBehaviour
 {
     Buff buff;
 
@@ -20,25 +20,19 @@ public class PlayerBuffScript : TemplateClass<PlayerBuffScript>
         switch (r)
         {
             case 0:
-                buff.PlayerBuff = Buff.PLAYERBUFF.ADDSPEED;
+                buff.MonsterBuff = Buff.MONSTERBUFF.FIREDAMAGE;
                 break;
             case 1:
-                buff.PlayerBuff = Buff.PLAYERBUFF.ADDDEFEND;
+                buff.MonsterBuff = Buff.MONSTERBUFF.ICEDAMAGE;
                 break;
             case 2:
-                buff.PlayerBuff = Buff.PLAYERBUFF.ADDACT;
+                buff.MonsterBuff = Buff.MONSTERBUFF.POISIONDAMAGE;
                 break;
             case 3:
-                buff.PlayerBuff = Buff.PLAYERBUFF.ADDBLOOD;
-                break;
-            case 4:
-                buff.PlayerBuff = Buff.PLAYERBUFF.ADDSKILLACT;
-                break;
-            case 5:
-                buff.PlayerBuff = Buff.PLAYERBUFF.CD;
+                buff.MonsterBuff = Buff.MONSTERBUFF.HARDDAMAGE;
                 break;
             default:
-                buff.PlayerBuff = Buff.PLAYERBUFF.NONE;
+                buff.MonsterBuff = Buff.MONSTERBUFF.NONE;
                 break;
         }
     }
@@ -46,20 +40,19 @@ public class PlayerBuffScript : TemplateClass<PlayerBuffScript>
     // Use this for initialization
     void Start()
     {
-
+        buff.BuffTime -= Time.deltaTime;
+        if (buff.BuffTime <= 0)
+        {
+            buff.MonsterBuff = Buff.MONSTERBUFF.NONE;
+            buff.IsEnd = true;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        buff.BuffTime -= Time.deltaTime;
-        if (buff.BuffTime <= 0)
-        {
-            buff.PlayerBuff = Buff.PLAYERBUFF.NONE;
-            buff.IsEnd = true;
-        }
-    }
 
+    }
     public void destroySelf()
     {
         if (buff.IsEnd)
