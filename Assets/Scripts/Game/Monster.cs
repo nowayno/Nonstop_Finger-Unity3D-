@@ -16,6 +16,7 @@ public class Monster : GameCharator
     private float m_attack;
     private float m_defend;
     private float m_speed;
+    private MonsterBehave m_behave;
 
     public int Id
     {
@@ -79,6 +80,19 @@ public class Monster : GameCharator
         set
         {
             m_speed = value;
+        }
+    }
+
+    public MonsterBehave Behave
+    {
+        get
+        {
+            return m_behave;
+        }
+
+        set
+        {
+            m_behave = value;
         }
     }
 }

@@ -14,7 +14,7 @@ public class TemplateClass<T> : MonoBehaviour
     protected delegate void GetNumber(int number);
     protected event GetNumber getNumber_;
 
-    protected void GetNumber_Event(int number)
+    virtual protected void GetNumber_Event(int number)
     {
         getNumber_(number);
     }

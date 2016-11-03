@@ -21,9 +21,10 @@ public class Player
     private float p_defend;
     private float p_speed;
     private int p_level;
+    private PlayerBehave p_behave;
     //private GameObject p_gameobject;
 
-    public int P_id
+    public int Id
     {
         get
         {
@@ -36,7 +37,7 @@ public class Player
         }
     }
 
-    public float P_blood
+    public float Blood
     {
         get
         {
@@ -49,7 +50,7 @@ public class Player
         }
     }
 
-    public float P_attack
+    public float Attack
     {
         get
         {
@@ -62,7 +63,7 @@ public class Player
         }
     }
 
-    public Skill P_skill
+    public Skill Skill
     {
         get
         {
@@ -75,7 +76,7 @@ public class Player
         }
     }
 
-    public float P_defend
+    public float Defend
     {
         get
         {
@@ -88,7 +89,7 @@ public class Player
         }
     }
 
-    public int P_level
+    public int Level
     {
         get
         {
@@ -101,7 +102,7 @@ public class Player
         }
     }
 
-    public float P_speed
+    public float Speed
     {
         get
         {
@@ -111,6 +112,19 @@ public class Player
         set
         {
             p_speed = value;
+        }
+    }
+
+    public PlayerBehave Behave
+    {
+        get
+        {
+            return p_behave;
+        }
+
+        set
+        {
+            p_behave = value;
         }
     }
 

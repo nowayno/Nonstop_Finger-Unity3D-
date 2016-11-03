@@ -42,13 +42,13 @@ public class PlayerScript : MonoBehaviour
 
         player = new Player();
         player = DoAction.getInstance().readData<Player>(player);
-        p_id = player.P_id;
-        p_blood = player.P_blood;
-        p_attack = player.P_attack;
-        p_skill = player.P_skill;
-        p_defend = player.P_defend;
-        p_speed = player.P_speed;
-        p_level = player.P_level;
+        p_id = player.Id;
+        p_blood = player.Blood;
+        p_attack = player.Attack;
+        p_skill = player.Skill;
+        p_defend = player.Defend;
+        p_speed = player.Speed;
+        p_level = player.Level;
 
         mission = Manager.mission;
         Debug.Log(p_blood);
@@ -112,10 +112,10 @@ public class PlayerScript : MonoBehaviour
                         break;
                     case BUFF.PLAYERBUFF.NONE:
                         p_blood = DoAction.getInstance().bloodAndMission(0, Manager.mission, p_defend + p_blood);
-                        p_attack = player.P_attack;
-                        p_defend = player.P_defend;
+                        p_attack = player.Attack;
+                        p_defend = player.Defend;
                         p_skill.Skill_attack = skill.Skill_attack;
-                        p_speed = player.P_speed;
+                        p_speed = player.Speed;
                         p_skill.Skill_CD = skill.Skill_CD;
 
                         break;
