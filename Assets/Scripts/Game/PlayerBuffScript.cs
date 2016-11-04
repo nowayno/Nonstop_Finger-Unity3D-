@@ -4,10 +4,21 @@ using System.Collections;
 public class PlayerBuffScript : TemplateClass<PlayerBuffScript>
 {
     Buff buff;
+    GameManager gm;
+
+    public Buff Buff
+    {
+        get
+        {
+            return buff;
+        }
+    }
 
     void Awake()
     {
         initBuff();
+        gm = Camera.main.GetComponent<GameManager>();
+        gm.PlayerBuffList.Add(this);
     }
 
     void initBuff()

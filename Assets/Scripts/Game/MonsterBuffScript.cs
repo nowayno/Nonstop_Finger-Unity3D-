@@ -4,10 +4,21 @@ using System.Collections;
 public class MonsterBuffScript : MonoBehaviour
 {
     Buff buff;
+    GameManager gm;
+
+    public Buff Buff
+    {
+        get
+        {
+            return buff;
+        }
+    }
 
     void Awake()
     {
         initBuff();
+        gm = Camera.main.GetComponent<GameManager>();
+        gm.MonsterBuffList.Add(this);
     }
 
     void initBuff()
