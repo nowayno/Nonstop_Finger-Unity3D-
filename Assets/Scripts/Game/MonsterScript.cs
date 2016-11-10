@@ -5,6 +5,8 @@ public class MonsterScript : MonoBehaviour
 {
     Monster monster;
 
+    GameObject gameManager;
+
     private int m_id;
     private float m_blood;
     private float m_attack;
@@ -56,7 +58,12 @@ public class MonsterScript : MonoBehaviour
         //}
         if (m_blood <= 0)
         {
-            Destroy(gameObject);
+            float buffCatch = Random.Range(0.0f, 50.0f);
+            if (buffCatch > 10.0f && buffCatch < 30.0f)
+            {
+                gameManager.GetComponent<GameManager>().addPlayerBuff(new PlayerBuff());
+            }
+            gameObject.SetActive(false);
         }
 
         timeCount += Time.deltaTime;

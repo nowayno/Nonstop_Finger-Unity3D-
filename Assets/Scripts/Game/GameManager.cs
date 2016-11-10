@@ -94,7 +94,7 @@ public class GameManager : TemplateClass<GameManager>
         }
     }
 
-    public void addMonsterBuff(ref MonsterBuff bfs, float tar_length)
+    public void addMonsterBuff(MonsterBuff bfs, float tar_length)
     {
         foreach (GameObject go in monsterGOList)
         {
@@ -105,7 +105,7 @@ public class GameManager : TemplateClass<GameManager>
             }
         }
     }
-    public void addPlayerBuff(ref PlayerBuff pfs)
+    public void addPlayerBuff(PlayerBuff pfs)
     {
         playerGO.GetComponent<PlayerBuffScript>().addBuff(pfs);
     }
