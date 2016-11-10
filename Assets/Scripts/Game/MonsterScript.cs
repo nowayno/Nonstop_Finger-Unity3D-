@@ -32,6 +32,7 @@ public class MonsterScript : MonoBehaviour
 
     void Awake()
     {
+        gameManager = Camera.main.gameObject;
         monster = new Monster();
         monster = DoAction.getInstance().readData<Monster>(monster);
         m_id = monster.Id;
@@ -50,16 +51,10 @@ public class MonsterScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //counttime+=Time.deltaTime;
-        //if (counttime >= 5)
-        //{
-        //    gameObject.GetComponent<PlayerScript>().beAttacked(m_attack);
-        //    counttime = 0;
-        //}
         if (m_blood <= 0)
         {
             float buffCatch = Random.Range(0.0f, 50.0f);
-            if (buffCatch > 10.0f && buffCatch < 30.0f)
+            if (buffCatch > 10.0f && buffCatch < 20.0f)
             {
                 gameManager.GetComponent<GameManager>().addPlayerBuff(new PlayerBuff());
             }
