@@ -71,7 +71,8 @@ public class PlayerScript : MonoBehaviour
         //}
         if (p_blood <= 0)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            //Destroy(gameObject);
         }
         if (isBuff == true)
         {
@@ -125,9 +126,9 @@ public class PlayerScript : MonoBehaviour
     }
     public void beAttacked(float damage)
     {
-        if (DoAction.getInstance().beAttacked(ref p_blood, damage) == -1)
+        if (p_blood>0)
         {
-            Destroy(p_go);
+            p_blood -= damage;
         }
     }
 

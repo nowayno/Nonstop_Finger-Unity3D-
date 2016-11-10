@@ -106,11 +106,10 @@ public class MonsterScript : MonoBehaviour
 
     public void beAttacked(float damage)
     {
-        m_blood -= damage;
         Debug.Log("m_blood" + m_blood);
-        if (m_blood <= 0)
+        if (m_blood > 0)
         {
-            Destroy(gameObject);
+            m_blood -= damage;
         }
     }
 
