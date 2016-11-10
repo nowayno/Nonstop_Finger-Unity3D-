@@ -4,13 +4,16 @@ using System.Collections.Generic;
 
 public class GameManager : TemplateClass<GameManager>
 {
+    int buffTarget = -1;
 
     GameObject playerGO;
     List<GameObject> monsterGOList;
-    List<MonsterBuffScript> monsterBuffList = new List<MonsterBuffScript>();
-    List<PlayerBuffScript> playerBuffList = new List<PlayerBuffScript>();
+    static List<float> monsterAttack;
+    static List<float> playerAttack;
+    List<MonsterBuff> monsterBuffList = new List<MonsterBuff>();
+    List<PlayerBuff> playerBuffList = new List<PlayerBuff>();
 
-    public List<MonsterBuffScript> MonsterBuffList
+    public List<MonsterBuff> MonsterBuffList
     {
         get
         {
@@ -23,7 +26,7 @@ public class GameManager : TemplateClass<GameManager>
         }
     }
 
-    public List<PlayerBuffScript> PlayerBuffList
+    public List<PlayerBuff> PlayerBuffList
     {
         get
         {
@@ -44,6 +47,19 @@ public class GameManager : TemplateClass<GameManager>
     // Use this for initialization
     void Start()
     {
+
+    }
+
+    void initMonsterGameObject()
+    {
+        /*
+         *List.add(go) 
+         */
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         if (playerGO != null)
         {
             if (monsterGOList.Count < 0)
@@ -60,37 +76,47 @@ public class GameManager : TemplateClass<GameManager>
                 }
             }
         }
-    }
-
-    void initMonsterGameObject()
-    {
-        /*
-         *List.add(go) 
-         */
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (monsterBuffList.Count > 0)
+        for (int index = monsterAttack.Count; index > 0; --index)
         {
-            foreach (MonsterBuffScript _b in monsterBuffList)
+            if (monsterAttack[index - 1] > 0)
             {
-                if (_b.Buff.IsEnd)
-                {
-                    _b.destroySelf();
-                    monsterBuffList.Remove(_b);
-                }
+                playerGO.GetComponent<PlayerScript>().beAttacked(monsterAttack[index]);
+                monsterAttack.Remove(index);
+            }
+        }
+        for (int index = playerAttack.Count; index > 0; --index)
+        {
+            if (playerAttack[index] > 0)
+            {
+                monsterGOList[0].GetComponent<MonsterScript>().beAttacked(playerAttack[index]);
+                playerAttack.Remove(index);
             }
         }
     }
 
-    public void addMonsterBuff(ref MonsterBuffScript bfs)
+    public void addMonsterBuff(ref MonsterBuff bfs, float tar_length)
     {
-        monsterBuffList.Add(bfs);
+        foreach (GameObject go in monsterGOList)
+        {
+            float length = Vector3.Distance(playerGO.transform.localPosition, go.transform.localPosition);
+            if (length <= tar_length)
+            {
+                go.GetComponent<MonsterBuffScript>().addBuff(bfs);
+            }
+        }
     }
-    public void addPlayerBuff(ref PlayerBuffScript pfs)
+    public void addPlayerBuff(ref PlayerBuff pfs)
     {
-        playerBuffList.Add(pfs);
+        playerGO.GetComponent<PlayerBuffScript>().addBuff(pfs);
+    }
+
+    public static void monsterAttackplayer(float attack)
+    {
+        monsterAttack.Insert(0, attack);
+    }
+
+    public static void playerAttackmonster(float attack)
+    {
+        playerAttack.Insert(0, attack);
     }
 }

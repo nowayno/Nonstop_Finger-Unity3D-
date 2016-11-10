@@ -48,6 +48,7 @@ public class Buff
     private float buffMission;
     private float buffData;
     private bool isEnd;
+    private bool isAdd;
     private Buff next;
     private Buff previous;
 
@@ -146,6 +147,19 @@ public class Buff
         set
         {
             isEnd = value;
+        }
+    }
+
+    public bool IsAdd
+    {
+        get
+        {
+            return isAdd;
+        }
+
+        set
+        {
+            isAdd = value;
         }
     }
 }

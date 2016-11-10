@@ -25,7 +25,7 @@ public class PlayerScript : MonoBehaviour
     float buff_p_xxx;
 
     float mission;
-    static BUFF _buff;
+    static PlayerBuff _buff;
     bool isBuff = false;
 
     float counttime = 0;
@@ -36,8 +36,8 @@ public class PlayerScript : MonoBehaviour
     static int buffCount = 0;
     void Awake()
     {
-        _buff = new BUFF();
-        _buff._PLAYERBUFF = BUFF.PLAYERBUFF.NONE;
+        _buff = new PlayerBuff();
+        _buff.getBuff().PlayerBuff = Buff.PLAYERBUFF.NONE;
         p_go = gameObject;
 
         player = new Player();
@@ -84,51 +84,17 @@ public class PlayerScript : MonoBehaviour
             {
                 if (buffCount <= 0)
                 {
-                    _buff._PLAYERBUFF = BUFF.PLAYERBUFF.NONE;
+                    _buff.getBuff().PlayerBuff = Buff.PLAYERBUFF.NONE;
                     isBuff = false;
                 }
-                switch (_buff._PLAYERBUFF)
-                {
-                    case BUFF.PLAYERBUFF.ADDACT:
-                        p_attack += DoAction.getInstance().addBuff(0, _buff, p_attack, buff_p_xxx);
-                        break;
-                    case BUFF.PLAYERBUFF.ADDBLOOD:
-                        p_blood += DoAction.getInstance().addBuff(0, _buff, p_blood, buff_p_xxx);
-                        break;
-                    case BUFF.PLAYERBUFF.ADDDEFEND:
-                        p_defend += DoAction.getInstance().addBuff(0, _buff, p_defend, buff_p_xxx);
-                        break;
-                    case BUFF.PLAYERBUFF.ADDSKILLACT:
-                        p_skill.Skill_attack += DoAction.getInstance().addBuff(0, _buff, p_skill.Skill_attack, buff_p_xxx);
-                        break;
-                    case BUFF.PLAYERBUFF.ADDSPEED:
-                        p_speed += DoAction.getInstance().addBuff(0, _buff, p_speed, buff_p_xxx);
-                        break;
-                    case BUFF.PLAYERBUFF.CD:
-                        if (p_skill.Skill_CD > 0)
-                        {
-                            p_skill.Skill_CD -= DoAction.getInstance().addBuff(0, _buff, p_skill.Skill_CD, buff_p_xxx);
-                        }
-                        break;
-                    case BUFF.PLAYERBUFF.NONE:
-                        p_blood = DoAction.getInstance().bloodAndMission(0, Manager.mission, p_defend + p_blood);
-                        p_attack = player.Attack;
-                        p_defend = player.Defend;
-                        p_skill.Skill_attack = skill.Skill_attack;
-                        p_speed = player.Speed;
-                        p_skill.Skill_CD = skill.Skill_CD;
-
-                        break;
-                }
-
             }
         }
 
     }
 
-    public void buffChange(BUFF _b, bool isTimeup = false, params float[] param)
+    public void buffChange(Buff _b, bool isTimeup = false, params float[] param)
     {
-        _buff._PLAYERBUFF = _b._PLAYERBUFF;
+        _buff.getBuff().PlayerBuff = _b.PlayerBuff;
         if (param.Length > 1)
         {
             if (isTimeup == false)
@@ -172,5 +138,70 @@ public class PlayerScript : MonoBehaviour
         {
             g.GetComponent<MonsterScript>().beAttacked(skill_Attack);
         }
+    }
+
+    public void addSpeedBuff(float data)
+    {
+        p_speed = buffChange(p_speed, data);
+    }
+
+    public void addDefendBuff(float data)
+    {
+        p_defend = buffChange(p_defend, data);
+    }
+
+    public void addActBuff(float data)
+    {
+        p_attack = buffChange(p_attack, data);
+    }
+
+    public void addBloodBuff(float data)
+    {
+        p_blood = buffChange(p_blood, data);
+    }
+
+    public void addSkillActBuff(float data)
+    {
+        p_skill.Skill_attack = buffChange(p_skill.Skill_attack, data);
+    }
+
+    public void addCDBuff(float data)
+    {
+        p_skill.Skill_CD = buffChange(p_skill.Skill_CD, data);
+    }
+
+    public void minSpeedBuff(float data)
+    {
+        p_speed = buffChange(p_speed, data);
+    }
+
+    public void minDefendBuff(float data)
+    {
+        p_defend = buffChange(p_defend, data);
+    }
+
+    public void minActBuff(float data)
+    {
+        p_attack = buffChange(p_attack, data);
+    }
+
+    public void minBloodBuff(float data)
+    {
+        p_blood = buffChange( p_blood, data);
+    }
+
+    public void minSkillActBuff(float data)
+    {
+        p_skill.Skill_attack = buffChange(p_skill.Skill_attack, data);
+    }
+
+    public void minCDBuff(float data)
+    {
+        p_skill.Skill_CD = buffChange(p_skill.Skill_CD, data);
+    }
+
+    float buffChange(float predata,float adddata)
+    {
+        return DoAction.getInstance().addBuff(0, predata, adddata);
     }
 }

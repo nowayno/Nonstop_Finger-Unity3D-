@@ -1,59 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class PlayerBuffScript : TemplateClass<PlayerBuffScript>
+public class PlayerBuffScript : MonoBehaviour
 {
-    Buff buff;
-    GameManager gm;
-
-    public Buff Buff
-    {
-        get
-        {
-            return buff;
-        }
-    }
+    List<PlayerBuff> playerBuffList;
 
     void Awake()
     {
-        initBuff();
-        gm = Camera.main.GetComponent<GameManager>();
-        gm.PlayerBuffList.Add(this);
+        playerBuffList = new List<PlayerBuff>();
     }
-
-    void initBuff()
-    {
-        buff = new Buff();
-        buff.BuffTime = Random.Range(1.0f, 5.0f);
-        buff.BuffMission = Random.Range(1.0f, 5.0f);
-        buff.BuffData = Random.Range(0.1f, 1.0f);
-        int r = Random.Range(0, 6);
-        switch (r)
-        {
-            case 0:
-                buff.PlayerBuff = Buff.PLAYERBUFF.ADDSPEED;
-                break;
-            case 1:
-                buff.PlayerBuff = Buff.PLAYERBUFF.ADDDEFEND;
-                break;
-            case 2:
-                buff.PlayerBuff = Buff.PLAYERBUFF.ADDACT;
-                break;
-            case 3:
-                buff.PlayerBuff = Buff.PLAYERBUFF.ADDBLOOD;
-                break;
-            case 4:
-                buff.PlayerBuff = Buff.PLAYERBUFF.ADDSKILLACT;
-                break;
-            case 5:
-                buff.PlayerBuff = Buff.PLAYERBUFF.CD;
-                break;
-            default:
-                buff.PlayerBuff = Buff.PLAYERBUFF.NONE;
-                break;
-        }
-    }
-
     // Use this for initialization
     void Start()
     {
@@ -63,20 +19,76 @@ public class PlayerBuffScript : TemplateClass<PlayerBuffScript>
     // Update is called once per frame
     void Update()
     {
-        buff.BuffTime -= Time.deltaTime;
-        if (buff.BuffTime <= 0)
+        for (int index = playerBuffList.Count; index > 0; --index)
         {
-            buff.PlayerBuff = Buff.PLAYERBUFF.NONE;
-            buff.IsEnd = true;
+            if (playerBuffList[index - 1].isEnd())
+            {
+                float data = playerBuffList[index - 1].getBuffData() * -1;
+                buffMIN(playerBuffList[index - 1].getBuff(), data);
+                playerBuffList.Remove(playerBuffList[index - 1]);
+                playerBuffList[index - 1].destroySelf();
+            }
+            if (playerBuffList[index - 1].isAdd() != true)
+            {
+                playerBuffList[index - 1].isAdd(true);
+                buffADD(playerBuffList[index - 1].getBuff(), playerBuffList[index - 1].getBuffData());
+                playerBuffList[index - 1].startBuff();
+                //gameObject.GetComponent<PlayerScript>().buffChange(pb.getBuff(), false, pb.getBuffData());
+            }
         }
     }
 
-    public void destroySelf()
+    public void addBuff(PlayerBuff pbs)
     {
-        if (buff.IsEnd)
+        playerBuffList.Insert(0, pbs);
+    }
+
+    void buffADD(Buff buff, float data)
+    {
+        switch (buff.PlayerBuff)
         {
-            buff = null;
-            Destroy(this);
+            case Buff.PLAYERBUFF.ADDSPEED:
+                gameObject.GetComponent<PlayerScript>().addSpeedBuff(data);
+                break;
+            case Buff.PLAYERBUFF.ADDDEFEND:
+                gameObject.GetComponent<PlayerScript>().addSpeedBuff(data);
+                break;
+            case Buff.PLAYERBUFF.ADDACT:
+                gameObject.GetComponent<PlayerScript>().addSpeedBuff(data);
+                break;
+            case Buff.PLAYERBUFF.ADDBLOOD:
+                gameObject.GetComponent<PlayerScript>().addSpeedBuff(data);
+                break;
+            case Buff.PLAYERBUFF.ADDSKILLACT:
+                gameObject.GetComponent<PlayerScript>().addSpeedBuff(data);
+                break;
+            case Buff.PLAYERBUFF.CD:
+                gameObject.GetComponent<PlayerScript>().addSpeedBuff(-data);
+                break;
+        }
+    }
+    void buffMIN(Buff buff, float data)
+    {
+        switch (buff.PlayerBuff)
+        {
+            case Buff.PLAYERBUFF.ADDSPEED:
+                gameObject.GetComponent<PlayerScript>().minSpeedBuff(data);
+                break;
+            case Buff.PLAYERBUFF.ADDDEFEND:
+                gameObject.GetComponent<PlayerScript>().minSpeedBuff(data);
+                break;
+            case Buff.PLAYERBUFF.ADDACT:
+                gameObject.GetComponent<PlayerScript>().minSpeedBuff(data);
+                break;
+            case Buff.PLAYERBUFF.ADDBLOOD:
+                gameObject.GetComponent<PlayerScript>().minSpeedBuff(data);
+                break;
+            case Buff.PLAYERBUFF.ADDSKILLACT:
+                gameObject.GetComponent<PlayerScript>().minSpeedBuff(data);
+                break;
+            case Buff.PLAYERBUFF.CD:
+                gameObject.GetComponent<PlayerScript>().minSpeedBuff(-data);
+                break;
         }
     }
 }

@@ -1,75 +1,82 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class MonsterBuffScript : MonoBehaviour
 {
-    Buff buff;
-    GameManager gm;
-
-    public Buff Buff
-    {
-        get
-        {
-            return buff;
-        }
-    }
+    List<MonsterBuff> monsterBuffList;
 
     void Awake()
     {
-        initBuff();
-        gm = Camera.main.GetComponent<GameManager>();
-        gm.MonsterBuffList.Add(this);
+        monsterBuffList = new List<MonsterBuff>();
     }
-
-    void initBuff()
-    {
-        buff = new Buff();
-        buff.BuffTime = Random.Range(1.0f, 5.0f);
-        buff.BuffMission = Random.Range(1.0f, 5.0f);
-        buff.BuffData = Random.Range(0.1f, 1.0f);
-        int r = Random.Range(0, 6);
-        switch (r)
-        {
-            case 0:
-                buff.MonsterBuff = Buff.MONSTERBUFF.FIREDAMAGE;
-                break;
-            case 1:
-                buff.MonsterBuff = Buff.MONSTERBUFF.ICEDAMAGE;
-                break;
-            case 2:
-                buff.MonsterBuff = Buff.MONSTERBUFF.POISIONDAMAGE;
-                break;
-            case 3:
-                buff.MonsterBuff = Buff.MONSTERBUFF.HARDDAMAGE;
-                break;
-            default:
-                buff.MonsterBuff = Buff.MONSTERBUFF.NONE;
-                break;
-        }
-    }
-
     // Use this for initialization
     void Start()
     {
-        buff.BuffTime -= Time.deltaTime;
-        if (buff.BuffTime <= 0)
-        {
-            buff.MonsterBuff = Buff.MONSTERBUFF.NONE;
-            buff.IsEnd = true;
-        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
-    }
-    public void destroySelf()
-    {
-        if (buff.IsEnd)
+        for (int index = monsterBuffList.Count; index > 0; --index)
         {
-            buff = null;
-            Destroy(this);
+            if (monsterBuffList[index - 1].isEnd())
+            {
+                float data = monsterBuffList[index - 1].getBuffData() * -1;
+                buffMIN(monsterBuffList[index - 1].getBuff(), data);
+                monsterBuffList.Remove(monsterBuffList[index - 1]);
+                monsterBuffList[index - 1].destroySelf();
+            }
+            if (monsterBuffList[index - 1].isAdd() != true)
+            {
+                monsterBuffList[index - 1].isAdd(true);
+                buffADD(monsterBuffList[index - 1].getBuff(), monsterBuffList[index - 1].getBuffData());
+                monsterBuffList[index - 1].startBuff();
+                //gameObject.GetComponent<PlayerScript>().buffChange(pb.getBuff(), false, pb.getBuffData());
+            }
+        }
+    }
+
+    public void addBuff(MonsterBuff pbs)
+    {
+        monsterBuffList.Insert(0, pbs);
+    }
+
+    void buffADD(Buff buff, float data)
+    {
+        switch (buff.MonsterBuff)
+        {
+            case Buff.MONSTERBUFF.FIREDAMAGE:
+                gameObject.GetComponent<MonsterScript>().addFireBuff(data * 0.2f);
+                break;
+            case Buff.MONSTERBUFF.ICEDAMAGE:
+                gameObject.GetComponent<MonsterScript>().addIceBuff(data);
+                break;
+            case Buff.MONSTERBUFF.POISIONDAMAGE:
+                gameObject.GetComponent<MonsterScript>().addPoisionBuff(data * 0.2f);
+                break;
+            case Buff.MONSTERBUFF.HARDDAMAGE:
+                gameObject.GetComponent<MonsterScript>().addHardBuff();
+                break;
+        }
+    }
+    void buffMIN(Buff buff, float data)
+    {
+        switch (buff.MonsterBuff)
+        {
+            case Buff.MONSTERBUFF.FIREDAMAGE:
+                gameObject.GetComponent<MonsterScript>().minFireBuff();
+                break;
+            case Buff.MONSTERBUFF.ICEDAMAGE:
+                gameObject.GetComponent<MonsterScript>().minIceBuff();
+                break;
+            case Buff.MONSTERBUFF.POISIONDAMAGE:
+                gameObject.GetComponent<MonsterScript>().minPoisionBuff();
+                break;
+            case Buff.MONSTERBUFF.HARDDAMAGE:
+                gameObject.GetComponent<MonsterScript>().minHardBuff();
+                break;
         }
     }
 }

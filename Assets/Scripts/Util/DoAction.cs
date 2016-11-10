@@ -93,19 +93,19 @@ class DoAction
         }
         return act;
     }
-    public float addBuff(int which, BUFF _buff, params float[] param)
+    public float addBuff(int which, params float[] param)
     {
         float buff = 0;
         IMathUtil imathutil;
         if (which == 0)
         {
             imathutil = new PlayerMath();
-            buff = imathutil.addBuff(_buff, param);
+            buff = imathutil.addBuff(param);
         }
         else if (which == 1)
         {
             imathutil = new MonsterMath();
-            buff = imathutil.addBuff(_buff, param);
+            buff = imathutil.addBuff(param);
         }
         else
         {
@@ -114,7 +114,7 @@ class DoAction
         return buff;
     }
 
-    public void gameObjectBuff(GameObject go, BUFF _buff, params float[] param)
+    public void gameObjectBuff(GameObject go, Buff _buff, params float[] param)
     {
         PlayerScript ps;
         MonsterScript ms;
@@ -142,8 +142,8 @@ class DoAction
     }
 }
 
-    //public float Attack()
-    //{
+//public float Attack()
+//{
 
-    //}
+//}
 

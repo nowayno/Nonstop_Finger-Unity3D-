@@ -3,8 +3,6 @@ using System.Collections;
 
 public class MonsterScript : MonoBehaviour
 {
-    float time_count = 0;
-
     Monster monster;
 
     private int m_id;
@@ -16,7 +14,7 @@ public class MonsterScript : MonoBehaviour
     float buff_p_xxx;
 
     float mission;
-    static BUFF _buff;
+    static PlayerBuff _buff;
     bool isBuff = false;
     bool isFrozen = true;
 
@@ -24,9 +22,11 @@ public class MonsterScript : MonoBehaviour
     float countMission = 0;
     float temp_countTime = 0;
     float temp_countMission = 0;
+    float temp_speed = 0;
+    float temp_damage = 0;
 
     static int buffCount = 0;
-
+    float timeCount = 0;
 
     void Awake()
     {
@@ -58,56 +58,21 @@ public class MonsterScript : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        if (isBuff == true)
+
+        timeCount += Time.deltaTime;
+        if (timeCount >= 1)
         {
-            if (mission < Manager.mission)
+            if (m_blood > 0)
             {
-                m_blood = DoAction.getInstance().bloodAndMission(0, Manager.mission, m_defend + m_blood);
-                //Debug.Log("player_blood:" + p_blood);
+                m_blood -= temp_damage;
             }
-            else if (mission == Manager.mission)
-            {
-                if (buffCount <= 0)
-                {
-                    _buff._MONSTERBUFF = BUFF.MONSTERBUFF.NONE;
-                    isBuff = false;
-                }
-                switch (_buff._MONSTERBUFF)
-                {
-                    case BUFF.MONSTERBUFF.FIREDAMAGE:
-                        m_blood -= DoAction.getInstance().addBuff(0, _buff, m_blood, buff_p_xxx);
-                        break;
-                    case BUFF.MONSTERBUFF.ICEDAMAGE:
-                        m_blood -= DoAction.getInstance().addBuff(0, _buff, m_blood, buff_p_xxx);
-                        if (isFrozen)
-                        {
-                            isFrozen = false;
-                            m_speed -= DoAction.getInstance().addBuff(0, _buff, m_speed, buff_p_xxx);
-                        }
-                        break;
-                    case BUFF.MONSTERBUFF.POISIONDAMAGE:
-                        m_blood -= DoAction.getInstance().addBuff(0, _buff, m_blood, buff_p_xxx);
-                        break;
-                    case BUFF.MONSTERBUFF.HARDDAMAGE:
-                        m_blood -= DoAction.getInstance().addBuff(0, _buff, m_blood, buff_p_xxx);
-                        break;
-                    case BUFF.MONSTERBUFF.NONE:
-                        m_blood = DoAction.getInstance().bloodAndMission(0, Manager.mission, m_defend + m_blood);
-                        m_attack = monster.Attack;
-                        m_defend = monster.Defend;
-
-                        isFrozen = true;
-                        break;
-                }
-
-            }
+            timeCount = 0;
         }
-
     }
 
-    public void buffChange(BUFF _b, bool isTimeup = false, params float[] param)
+    public void buffChange(Buff _b, bool isTimeup = false, params float[] param)
     {
-        _buff._MONSTERBUFF = _b._MONSTERBUFF;
+        _buff.getBuff().MonsterBuff = _b.MonsterBuff;
         if (param.Length > 1)
         {
             if (isTimeup == false)
@@ -152,4 +117,49 @@ public class MonsterScript : MonoBehaviour
         g.GetComponent<PlayerScript>().beAttacked(m_attack);
     }
 
+    public void addFireBuff(float delaydamage)
+    {
+        temp_damage = delaydamage;
+    }
+
+    public void addIceBuff(float dtime)
+    {
+        m_speed = m_speed * dtime;
+    }
+
+    public void addPoisionBuff(float delaydamage)
+    {
+        temp_damage = delaydamage;
+    }
+
+    public void addHardBuff()
+    {
+        temp_speed = m_speed;
+        m_speed = 0;
+    }
+
+    public void minFireBuff()
+    {
+
+    }
+
+    public void minIceBuff()
+    {
+
+    }
+
+    public void minPoisionBuff()
+    {
+        m_speed = m_speed * 2;
+    }
+
+    public void minHardBuff()
+    {
+        m_speed = temp_speed;
+    }
+
+    float buffChange(float preData, float damage)
+    {
+        return DoAction.getInstance().addBuff(1, preData, damage);
+    }
 }

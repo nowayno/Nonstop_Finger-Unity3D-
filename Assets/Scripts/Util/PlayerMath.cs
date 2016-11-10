@@ -30,35 +30,12 @@ class PlayerMath : IMathUtil
         return blood;
     }
 
-    public float addBuff(BUFF _buff, params float[] param)
+    public float addBuff(params float[] param)
     {
         float addBUFF = 0;
         if (param[0] < 0)
             return -1;
-        switch (_buff._PLAYERBUFF)
-        {
-            case BUFF.PLAYERBUFF.ADDACT:
-                addBUFF = param[0] + param[0] * param[1];
-                break;
-            case BUFF.PLAYERBUFF.ADDBLOOD:
-                addBUFF = param[0] + param[0] * param[1];
-                break;
-            case BUFF.PLAYERBUFF.ADDDEFEND:
-                addBUFF = param[0] + param[0] * param[1];
-                break;
-            case BUFF.PLAYERBUFF.ADDSKILLACT:
-                addBUFF = param[0] + param[0] * param[1];
-                break;
-            case BUFF.PLAYERBUFF.ADDSPEED:
-                addBUFF = param[0] + param[0] * param[1];
-                break;
-            case BUFF.PLAYERBUFF.CD:
-                addBUFF = param[0] + param[0] * param[1];
-                break;
-            case BUFF.PLAYERBUFF.NONE:
-                break;
-        }
-
+        addBUFF = param[0] + param[0] * param[1];
         return addBUFF;
     }
 }
