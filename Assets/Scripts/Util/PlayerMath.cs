@@ -35,7 +35,7 @@ class PlayerMath : IMathUtil
         float addBUFF = 0;
         if (param[0] < 0)
             return -1;
-        addBUFF = param[0] + param[0] * param[1];
+        addBUFF = param[0] + param[1] * param[2];
         return addBUFF;
     }
 }

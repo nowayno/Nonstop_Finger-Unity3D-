@@ -21,19 +21,20 @@ public class MonsterBuffScript : MonoBehaviour
     {
         for (int index = monsterBuffList.Count; index > 0; --index)
         {
-            if (monsterBuffList[index - 1].isEnd())
-            {
-                float data = monsterBuffList[index - 1].getBuffData() * -1;
-                buffMIN(monsterBuffList[index - 1].getBuff(), data);
-                monsterBuffList.Remove(monsterBuffList[index - 1]);
-                monsterBuffList[index - 1].destroySelf();
-            }
             if (monsterBuffList[index - 1].isAdd() != true)
             {
                 monsterBuffList[index - 1].isAdd(true);
                 buffADD(monsterBuffList[index - 1].getBuff(), monsterBuffList[index - 1].getBuffData());
                 monsterBuffList[index - 1].startBuff();
                 //gameObject.GetComponent<PlayerScript>().buffChange(pb.getBuff(), false, pb.getBuffData());
+            }
+            if (monsterBuffList[index - 1].isEnd())
+            {
+                monsterBuffList[index - 1].isEnd(false);
+                float data = monsterBuffList[index - 1].getBuffData() * -1;
+                buffMIN(monsterBuffList[index - 1].getBuff(), data);
+                monsterBuffList[index - 1].destroySelf();
+                monsterBuffList.Remove(monsterBuffList[index - 1]);
             }
         }
     }
@@ -48,13 +49,13 @@ public class MonsterBuffScript : MonoBehaviour
         switch (buff.MonsterBuff)
         {
             case Buff.MONSTERBUFF.FIREDAMAGE:
-                gameObject.GetComponent<MonsterScript>().addFireBuff(data * 0.2f);
+                gameObject.GetComponent<MonsterScript>().addFireBuff(data);
                 break;
             case Buff.MONSTERBUFF.ICEDAMAGE:
                 gameObject.GetComponent<MonsterScript>().addIceBuff(data);
                 break;
             case Buff.MONSTERBUFF.POISIONDAMAGE:
-                gameObject.GetComponent<MonsterScript>().addPoisionBuff(data * 0.2f);
+                gameObject.GetComponent<MonsterScript>().addPoisionBuff(data);
                 break;
             case Buff.MONSTERBUFF.HARDDAMAGE:
                 gameObject.GetComponent<MonsterScript>().addHardBuff();

@@ -15,17 +15,17 @@ public class GameCharator : MonoBehaviour
         SKILL7,
         SKILL8,
     }
-    SKILL _skill;
-    public SKILL Skill
+    SKILL _skillWitch;
+    public SKILL SkillWitch
     {
         get
         {
-            return _skill;
+            return _skillWitch;
         }
 
         set
         {
-            _skill = value;
+            _skillWitch = value;
         }
     }
 

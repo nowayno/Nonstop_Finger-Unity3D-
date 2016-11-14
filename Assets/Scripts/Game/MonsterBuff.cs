@@ -14,7 +14,7 @@ public class MonsterBuff : TemplateClass<MonsterBuff>
     //    }
     //}
 
-    MonsterBuff()
+    public MonsterBuff()
     {
         initBuff();
     }
@@ -53,7 +53,7 @@ public class MonsterBuff : TemplateClass<MonsterBuff>
 
     public void endBuff()
     {
-        buff.IsEnd = true;
+        buff.IsEnd = false;
     }
 
     void buffTime()
@@ -66,13 +66,13 @@ public class MonsterBuff : TemplateClass<MonsterBuff>
             if (buff.BuffTime <= 0)
             {
                 buff.PlayerBuff = Buff.PLAYERBUFF.NONE;
-                buff.IsEnd = true;
+                buff.IsEnd = false;
             }
             if (buff.BuffTime <= 0.9)
             {
                 Thread.Sleep((int)(buff.BuffTime * 1000));
                 buff.PlayerBuff = Buff.PLAYERBUFF.NONE;
-                buff.IsEnd = true;
+                buff.IsEnd = false;
             }
         }
     }
@@ -97,9 +97,17 @@ public class MonsterBuff : TemplateClass<MonsterBuff>
     {
         return buff.BuffData;
     }
+    public void setBuffData(float data)
+    {
+        buff.BuffData = data;
+    }
     public Buff getBuff()
     {
         return buff;
+    }
+   public void setMonsterBuff(Buff b)
+    {
+        buff.MonsterBuff = b.MonsterBuff;
     }
     public void destroySelf()
     {

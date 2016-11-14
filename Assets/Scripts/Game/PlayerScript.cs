@@ -9,7 +9,7 @@ using System.Collections;
 public class PlayerScript : MonoBehaviour
 {
 
-    GameObject p_go;
+    GameObject gameManager;
 
     Player player;
     Skill skill;
@@ -32,26 +32,52 @@ public class PlayerScript : MonoBehaviour
     float countMission = 0;
     float temp_countTime = 0;
     float temp_countMission = 0;
+    float temp_blood;
+    float temp_attack;
+    float temp_defend;
+    float temp_speed;
+    int temp_level;
 
     static int buffCount = 0;
     void Awake()
     {
-        _buff = new PlayerBuff();
-        _buff.getBuff().PlayerBuff = Buff.PLAYERBUFF.NONE;
-        p_go = gameObject;
+        //_buff = new PlayerBuff();
+        //_buff.getBuff().PlayerBuff = Buff.PLAYERBUFF.NONE;
+        gameManager = Camera.main.gameObject;
 
         player = new Player();
+
+        //try
+        //{
         player = DoAction.getInstance().readData<Player>(player);
+        //}
+        //catch (System.Exception e)
+        //{ }
+        //finally
+        //{
+        //    player.Id = 0;
+        //    player.Blood = 23;
+        //    player.Attack = 10;
+        //    player.Defend = 10;
+        //    player.Level = 1;
+        //    player.Speed = 1;
+        //    DoAction.getInstance().writeData<Player>(player);
+        //}
         p_id = player.Id;
         p_blood = player.Blood;
         p_attack = player.Attack;
-        p_skill = player.Skill;
+        p_skill = new Skill();
         p_defend = player.Defend;
         p_speed = player.Speed;
         p_level = player.Level;
 
+        temp_blood = p_blood;
+        temp_attack = p_attack;
+        temp_defend = p_defend;
+        temp_speed = p_speed;
+
         mission = Manager.mission;
-        Debug.Log(p_blood);
+        //Debug.Log(p_blood);
     }
 
     // Use this for initialization
@@ -71,7 +97,9 @@ public class PlayerScript : MonoBehaviour
         //}
         if (p_blood <= 0)
         {
-            gameObject.SetActive(false);
+            p_blood = player.Blood;
+            //gameObject.SetActive(false);
+            //player.Behave.setAction(Behave.ACTION.DEAD);
             //Destroy(gameObject);
         }
         if (isBuff == true)
@@ -79,6 +107,7 @@ public class PlayerScript : MonoBehaviour
             if (mission < Manager.mission)
             {
                 p_blood = DoAction.getInstance().bloodAndMission(0, Manager.mission, p_defend + p_blood);
+                temp_blood = DoAction.getInstance().bloodAndMission(0, Manager.mission, temp_defend + temp_blood);
                 //Debug.Log("player_blood:" + p_blood);
             }
             else if (mission == Manager.mission)
@@ -90,119 +119,127 @@ public class PlayerScript : MonoBehaviour
                 }
             }
         }
-
+        //Debug.Log("血量:"+p_blood + " 攻击力:" + p_attack + " 防御力:" + p_defend + " 速度:" + p_speed);
     }
 
-    public void buffChange(Buff _b, bool isTimeup = false, params float[] param)
-    {
-        _buff.getBuff().PlayerBuff = _b.PlayerBuff;
-        if (param.Length > 1)
-        {
-            if (isTimeup == false)
-            {
-                ++buffCount;
-                if (param[1] == -1)
-                {
-                    temp_countTime = param[0];
-                }
-                else if (param[1] == 0)
-                {
-                    temp_countMission = param[0];
-                }
-                else
-                {
-                    temp_countTime = param[0];
-                    temp_countMission = param[1];
-                }
-                buff_p_xxx = param[2];
-                isBuff = true;
-            }
-            else if (isTimeup == true)
-            {
-                --buffCount;
-                buff_p_xxx = param[2];
-            }
-        }
-    }
     public void beAttacked(float damage)
     {
-        if (p_blood>0)
+        if (p_blood > 0)
         {
             p_blood -= damage;
         }
     }
 
-    public void Attack(GameObject g, float skill_Attack, bool isSkill = false)
+    public void Attack(GameObject g)
     {
-        g.GetComponent<MonsterScript>().beAttacked(p_attack);
-        if (isSkill)
+        //g.GetComponent<MonsterScript>().beAttacked(p_attack);
+        GameManager.playerAttackmonster(p_attack);
+    }
+    public void skillAttack(GameObject g, Skill skill)
+    {
+        //g.GetComponent<MonsterScript>().beAttacked(skill.Skill_attack);
+        GameManager.playerAttackmonster(skill.Skill_attack);
+        float buffCatch = Random.Range(0.0f, 50.0f);
+        if (buffCatch > 10.0f && buffCatch < 30.0f)
         {
-            g.GetComponent<MonsterScript>().beAttacked(skill_Attack);
+            MonsterBuff mb = new MonsterBuff();
+            switch (skill.Skill_id)
+            {
+                case 0:
+                    mb.getBuff().MonsterBuff = Buff.MONSTERBUFF.FIREDAMAGE;
+                    mb.setMonsterBuff(mb.getBuff());
+                    mb.setBuffData(mb.getBuffData() * skill.Skill_attack);
+                    break;
+                case 1:
+                    mb.getBuff().MonsterBuff = Buff.MONSTERBUFF.ICEDAMAGE;
+                    mb.setMonsterBuff(mb.getBuff());
+                    break;
+                case 2:
+                    mb.getBuff().MonsterBuff = Buff.MONSTERBUFF.POISIONDAMAGE;
+                    mb.setMonsterBuff(mb.getBuff());
+                    mb.setBuffData(mb.getBuffData() * skill.Skill_attack);
+                    break;
+                case 3:
+                    mb.getBuff().MonsterBuff = Buff.MONSTERBUFF.HARDDAMAGE;
+                    break;
+            }
+            //gameManager.GetComponent<GameManager>().addMonsterBuff(mb, p_skill.Skill_Dir);
         }
+    }
+
+    public void missionBlood(int mission)
+    {
+        p_blood = DoAction.getInstance().bloodAndMission(0, p_blood, mission);
+        temp_blood = p_blood;
+    }
+
+    public bool isDead()
+    {
+        return player.Behave.getAction() == Behave.ACTION.DEAD ? true : false;
     }
 
     public void addSpeedBuff(float data)
     {
-        p_speed = buffChange(p_speed, data);
+        p_speed = buffChange(p_speed, temp_speed, data);
     }
 
     public void addDefendBuff(float data)
     {
-        p_defend = buffChange(p_defend, data);
+        p_defend = buffChange(p_defend, temp_defend, data);
     }
 
     public void addActBuff(float data)
     {
-        p_attack = buffChange(p_attack, data);
+        p_attack = buffChange(p_attack, temp_attack, data);
     }
 
     public void addBloodBuff(float data)
     {
-        p_blood = buffChange(p_blood, data);
+        p_blood = buffChange(p_blood, temp_blood, data);
     }
 
     public void addSkillActBuff(float data)
     {
-        p_skill.Skill_attack = buffChange(p_skill.Skill_attack, data);
+        p_skill.Skill_attack = buffChange(p_skill.Skill_attack, 1, data);
     }
 
     public void addCDBuff(float data)
     {
-        p_skill.Skill_CD = buffChange(p_skill.Skill_CD, data);
+        p_skill.Skill_CD = buffChange(p_skill.Skill_CD, 1, data);
     }
 
     public void minSpeedBuff(float data)
     {
-        p_speed = buffChange(p_speed, data);
+        p_speed = buffChange(p_speed, temp_speed, data);
     }
 
     public void minDefendBuff(float data)
     {
-        p_defend = buffChange(p_defend, data);
+        p_defend = buffChange(p_defend, temp_defend, data);
     }
 
     public void minActBuff(float data)
     {
-        p_attack = buffChange(p_attack, data);
+        p_attack = buffChange(p_attack, temp_attack, data);
     }
 
     public void minBloodBuff(float data)
     {
-        p_blood = buffChange( p_blood, data);
+        p_blood = buffChange(p_blood, temp_blood, data);
     }
 
     public void minSkillActBuff(float data)
     {
-        p_skill.Skill_attack = buffChange(p_skill.Skill_attack, data);
+        p_skill.Skill_attack = buffChange(p_skill.Skill_attack, 1, data);
     }
 
     public void minCDBuff(float data)
     {
-        p_skill.Skill_CD = buffChange(p_skill.Skill_CD, data);
+        p_skill.Skill_CD = buffChange(p_skill.Skill_CD, 1, data);
     }
 
-    float buffChange(float predata,float adddata)
+    float buffChange(float predata, float tempdata, float adddata)
     {
-        return DoAction.getInstance().addBuff(0, predata, adddata);
+        return DoAction.getInstance().addBuff(0, predata, tempdata, adddata);
     }
 }

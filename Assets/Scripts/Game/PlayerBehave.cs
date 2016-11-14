@@ -3,9 +3,20 @@ public class PlayerBehave : Behave
 {
     public PlayerBehave()
     {
-        ani.GetComponent<Animator>();
-        stateInfo = ani.GetCurrentAnimatorStateInfo(0);
+        //ani.GetComponent<Animator>();
+        //stateInfo = ani.GetCurrentAnimatorStateInfo(0);
     }
+
+    public ACTION getAction()
+    {
+        return _action;
+    }
+
+    public void setAction(Behave.ACTION ac)
+    {
+        _action = ac;
+    }
+
     override protected void attackBehave()
     {
         ani.SetBool("idle", false);

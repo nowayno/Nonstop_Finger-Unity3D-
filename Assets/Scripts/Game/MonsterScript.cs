@@ -3,6 +3,8 @@ using System.Collections;
 
 public class MonsterScript : MonoBehaviour
 {
+    public static int deadnum = 0;
+    public int id = 0;
     Monster monster;
 
     GameObject gameManager;
@@ -35,7 +37,7 @@ public class MonsterScript : MonoBehaviour
         gameManager = Camera.main.gameObject;
         monster = new Monster();
         monster = DoAction.getInstance().readData<Monster>(monster);
-        m_id = monster.Id;
+        m_id = id;
         m_blood = monster.Blood;
         m_attack = monster.Attack;
         m_defend = monster.Defend;
@@ -53,12 +55,20 @@ public class MonsterScript : MonoBehaviour
     {
         if (m_blood <= 0)
         {
+            //Debug.Log("dead");
+            monster.Behave.setAction(Behave.ACTION.DEAD);
             float buffCatch = Random.Range(0.0f, 50.0f);
             if (buffCatch > 10.0f && buffCatch < 20.0f)
             {
                 gameManager.GetComponent<GameManager>().addPlayerBuff(new PlayerBuff());
+                //Debug.Log("add buff");
             }
-            gameObject.SetActive(false);
+            deadnum += 1;
+            gameManager.GetComponent<GameManager>().deadNum();
+            m_blood = monster.Blood;
+            m_attack = monster.Attack;
+
+            //gameObject.SetActive(false);
         }
 
         timeCount += Time.deltaTime;
@@ -106,7 +116,7 @@ public class MonsterScript : MonoBehaviour
 
     public void beAttacked(float damage)
     {
-        Debug.Log("m_blood" + m_blood);
+        //Debug.Log(id + " m_blood " + m_blood);
         if (m_blood > 0)
         {
             m_blood -= damage;
@@ -115,9 +125,38 @@ public class MonsterScript : MonoBehaviour
 
     public void Attack(GameObject g)
     {
-        g.GetComponent<PlayerScript>().beAttacked(m_attack);
+        //g.GetComponent<PlayerScript>().beAttacked(m_attack);
+        GameManager.monsterAttackplayer(m_attack);
     }
 
+    public void missionAct(int mission)
+    {
+        m_attack = DoAction.getInstance().actAndMission(1, m_attack, mission);
+    }
+
+    public void missionBlood(int mission)
+    {
+        m_blood = DoAction.getInstance().bloodAndMission(1, m_blood, mission);
+    }
+
+    public void reBlood()
+    {
+        m_blood = monster.Blood;
+    }
+
+    public void reAct()
+    {
+        m_attack = monster.Attack;
+    }
+
+    public bool isDead()
+    {
+        return monster.Behave.getAction() == Behave.ACTION.DEAD ? true : false;
+    }
+    public void Relife()
+    {
+        monster.Behave.setAction(Behave.ACTION.ALIVE);
+    }
     public void addFireBuff(float delaydamage)
     {
         temp_damage = delaydamage;

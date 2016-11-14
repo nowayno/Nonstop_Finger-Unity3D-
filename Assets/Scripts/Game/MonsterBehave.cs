@@ -3,8 +3,18 @@ public class MonsterBehave : Behave
 {
     public MonsterBehave()
     {
-        ani.GetComponent<Animator>();
-        stateInfo = ani.GetCurrentAnimatorStateInfo(0);
+        //ani.GetComponent<Animator>();
+        //stateInfo = ani.GetCurrentAnimatorStateInfo(0);
+    }
+
+    public ACTION getAction()
+    {
+        return _action;
+    }
+
+    public void setAction(Behave.ACTION ac)
+    {
+        _action = ac;
     }
 
     protected override void attackBehave()

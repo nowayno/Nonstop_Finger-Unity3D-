@@ -21,25 +21,34 @@ public class PlayerBuffScript : MonoBehaviour
     {
         for (int index = playerBuffList.Count; index > 0; --index)
         {
-            if (playerBuffList[index - 1].isEnd())
-            {
-                float data = playerBuffList[index - 1].getBuffData() * -1;
-                buffMIN(playerBuffList[index - 1].getBuff(), data);
-                playerBuffList.Remove(playerBuffList[index - 1]);
-                playerBuffList[index - 1].destroySelf();
-            }
+
+        }
+        for (int index = playerBuffList.Count; index > 0; --index)
+        {
+            //Debug.Log("index:" + playerBuffList.Count + " data:" + playerBuffList[index - 1].getBuffData() +" t:" + playerBuffList[index - 1].getBuff().BuffTime + " time:" + Time.time);
             if (playerBuffList[index - 1].isAdd() != true)
             {
+                //Debug.Log("Buff is added");
                 playerBuffList[index - 1].isAdd(true);
                 buffADD(playerBuffList[index - 1].getBuff(), playerBuffList[index - 1].getBuffData());
                 playerBuffList[index - 1].startBuff();
                 //gameObject.GetComponent<PlayerScript>().buffChange(pb.getBuff(), false, pb.getBuffData());
+            }
+            if (playerBuffList[index - 1].isEnd())
+            {
+                //Debug.Log("Buff is ending");
+                playerBuffList[index - 1].isEnd(false);
+                float data = playerBuffList[index - 1].getBuffData() * -1;
+                buffMIN(playerBuffList[index - 1].getBuff(), data);
+                playerBuffList[index - 1].destroySelf();
+                playerBuffList.Remove(playerBuffList[index - 1]);
             }
         }
     }
 
     public void addBuff(PlayerBuff pbs)
     {
+        //Debug.Log("Adding buff" + " count:" + playerBuffList.Count);
         playerBuffList.Insert(0, pbs);
     }
 
@@ -51,19 +60,19 @@ public class PlayerBuffScript : MonoBehaviour
                 gameObject.GetComponent<PlayerScript>().addSpeedBuff(data);
                 break;
             case Buff.PLAYERBUFF.ADDDEFEND:
-                gameObject.GetComponent<PlayerScript>().addSpeedBuff(data);
+                gameObject.GetComponent<PlayerScript>().addDefendBuff(data);
                 break;
             case Buff.PLAYERBUFF.ADDACT:
-                gameObject.GetComponent<PlayerScript>().addSpeedBuff(data);
+                gameObject.GetComponent<PlayerScript>().addActBuff(data);
                 break;
             case Buff.PLAYERBUFF.ADDBLOOD:
-                gameObject.GetComponent<PlayerScript>().addSpeedBuff(data);
+                gameObject.GetComponent<PlayerScript>().addBloodBuff(data);
                 break;
             case Buff.PLAYERBUFF.ADDSKILLACT:
-                gameObject.GetComponent<PlayerScript>().addSpeedBuff(data);
+                gameObject.GetComponent<PlayerScript>().addSkillActBuff(data);
                 break;
             case Buff.PLAYERBUFF.CD:
-                gameObject.GetComponent<PlayerScript>().addSpeedBuff(-data);
+                gameObject.GetComponent<PlayerScript>().addCDBuff(-data);
                 break;
         }
     }
@@ -75,19 +84,19 @@ public class PlayerBuffScript : MonoBehaviour
                 gameObject.GetComponent<PlayerScript>().minSpeedBuff(data);
                 break;
             case Buff.PLAYERBUFF.ADDDEFEND:
-                gameObject.GetComponent<PlayerScript>().minSpeedBuff(data);
+                gameObject.GetComponent<PlayerScript>().minDefendBuff(data);
                 break;
             case Buff.PLAYERBUFF.ADDACT:
-                gameObject.GetComponent<PlayerScript>().minSpeedBuff(data);
+                gameObject.GetComponent<PlayerScript>().minActBuff(data);
                 break;
             case Buff.PLAYERBUFF.ADDBLOOD:
-                gameObject.GetComponent<PlayerScript>().minSpeedBuff(data);
+                gameObject.GetComponent<PlayerScript>().minBloodBuff(data);
                 break;
             case Buff.PLAYERBUFF.ADDSKILLACT:
-                gameObject.GetComponent<PlayerScript>().minSpeedBuff(data);
+                gameObject.GetComponent<PlayerScript>().minSkillActBuff(data);
                 break;
             case Buff.PLAYERBUFF.CD:
-                gameObject.GetComponent<PlayerScript>().minSpeedBuff(-data);
+                gameObject.GetComponent<PlayerScript>().minCDBuff(-data);
                 break;
         }
     }

@@ -1,0 +1,111 @@
+Initialize engine version: 5.4.0f3 (a6d8d714de6f)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GT 740M (ID=0x1292)
+    Vendor:   NVIDIA
+    VRAM:     2020 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: F:\allprojects\unitypro\Nonstop_Finger\run\run_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading F:\allprojects\unitypro\Nonstop_Finger\run\run_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: F:\allprojects\unitypro\Nonstop_Finger\run\run_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading F:\allprojects\unitypro\Nonstop_Finger\run\run_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: F:\allprojects\unitypro\Nonstop_Finger\run\run_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading F:\allprojects\unitypro\Nonstop_Finger\run\run_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: F:\allprojects\unitypro\Nonstop_Finger\run\run_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading F:\allprojects\unitypro\Nonstop_Finger\run\run_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+- Completed reload, in  0.219 seconds
+Platform assembly: F:\allprojects\unitypro\Nonstop_Finger\run\run_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: F:\allprojects\unitypro\Nonstop_Finger\run\run_Data\Managed\System.dll (this message is harmless)
+desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 1.922378 ms
+Platform assembly: F:\allprojects\unitypro\Nonstop_Finger\run\run_Data\Managed\System.Xml.dll (this message is harmless)
+ArgumentException: Encoding name 'gb2312' not supported
+Parameter name: name
+  at System.Text.Encoding.GetEncoding (System.String name) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlInputStream.Initialize (System.IO.Stream stream) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlInputStream..ctor (System.IO.Stream stream) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlStreamReader..ctor (System.IO.Stream input) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.IO.Stream input) [0x00000] in <filename unknown>:0 
+  at System.Xml.Serialization.XmlSerializer.Deserialize (System.IO.Stream stream) [0x00000] in <filename unknown>:0 
+  at Util.readXML[Monster] (.Monster t) [0x00000] in <filename unknown>:0 
+  at DoAction.readData[Monster] (.Monster t) [0x00000] in <filename unknown>:0 
+  at MonsterScript.Awake () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentException: Encoding name 'gb2312' not supported
+Parameter name: name
+  at System.Text.Encoding.GetEncoding (System.String name) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlInputStream.Initialize (System.IO.Stream stream) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlInputStream..ctor (System.IO.Stream stream) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlStreamReader..ctor (System.IO.Stream input) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.IO.Stream input) [0x00000] in <filename unknown>:0 
+  at System.Xml.Serialization.XmlSerializer.Deserialize (System.IO.Stream stream) [0x00000] in <filename unknown>:0 
+  at Util.readXML[Monster] (.Monster t) [0x00000] in <filename unknown>:0 
+  at DoAction.readData[Monster] (.Monster t) [0x00000] in <filename unknown>:0 
+  at MonsterScript.Awake () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentException: Encoding name 'gb2312' not supported
+Parameter name: name
+  at System.Text.Encoding.GetEncoding (System.String name) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlInputStream.Initialize (System.IO.Stream stream) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlInputStream..ctor (System.IO.Stream stream) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlStreamReader..ctor (System.IO.Stream input) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.IO.Stream input) [0x00000] in <filename unknown>:0 
+  at System.Xml.Serialization.XmlSerializer.Deserialize (System.IO.Stream stream) [0x00000] in <filename unknown>:0 
+  at Util.readXML[Monster] (.Monster t) [0x00000] in <filename unknown>:0 
+  at DoAction.readData[Monster] (.Monster t) [0x00000] in <filename unknown>:0 
+  at MonsterScript.Awake () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentException: Encoding name 'gb2312' not supported
+Parameter name: name
+  at System.Text.Encoding.GetEncoding (System.String name) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlInputStream.Initialize (System.IO.Stream stream) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlInputStream..ctor (System.IO.Stream stream) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlStreamReader..ctor (System.IO.Stream input) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.IO.Stream input) [0x00000] in <filename unknown>:0 
+  at System.Xml.Serialization.XmlSerializer.Deserialize (System.IO.Stream stream) [0x00000] in <filename unknown>:0 
+  at Util.readXML[Monster] (.Monster t) [0x00000] in <filename unknown>:0 
+  at DoAction.readData[Monster] (.Monster t) [0x00000] in <filename unknown>:0 
+  at MonsterScript.Awake () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentException: Encoding name 'gb2312' not supported
+Parameter name: name
+  at System.Text.Encoding.GetEncoding (System.String name) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlInputStream.Initialize (System.IO.Stream stream) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlInputStream..ctor (System.IO.Stream stream) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlStreamReader..ctor (System.IO.Stream input) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.IO.Stream input) [0x00000] in <filename unknown>:0 
+  at System.Xml.Serialization.XmlSerializer.Deserialize (System.IO.Stream stream) [0x00000] in <filename unknown>:0 
+  at Util.readXML[Monster] (.Monster t) [0x00000] in <filename unknown>:0 
+  at DoAction.readData[Monster] (.Monster t) [0x00000] in <filename unknown>:0 
+  at MonsterScript.Awake () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentException: Encoding name 'gb2312' not supported
+Parameter name: name
+  at System.Text.Encoding.GetEncoding (System.String name) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlInputStream.Initialize (System.IO.Stream stream) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlInputStream..ctor (System.IO.Stream stream) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlStreamReader..ctor (System.IO.Stream input) [0x00000] in <filename unknown>:0 
+  at System.Xml.XmlTextReader..ctor (System.IO.Stream input) [0x00000] in <filename unknown>:0 
+  at System.Xml.Serialization.XmlSerializer.Deserialize (System.IO.Stream stream) [0x00000] in <filename unknown>:0 
+  at Util.readXML[Player] (.Player t) [0x00000] in <filename unknown>:0 
+  at DoAction.readData[Player] (.Player t) [0x00000] in <filename unknown>:0 
+  at PlayerScript.Awake () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: 1404 -> priority: 1 

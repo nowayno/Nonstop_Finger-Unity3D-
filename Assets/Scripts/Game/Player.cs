@@ -14,52 +14,26 @@ public class Player
      *以下是玩家的标志号，血量，攻击力，技能，技能攻击力，防御力，等级，还有游戏体 
      * 
      */
-    private int p_id;
-    private float p_blood;
-    private float p_attack;
+    private int g_id;
+    private float g_blood;
+    private float g_attack;
+    private float g_defend;
+    private float g_speed;
+    private int g_level;
     private Skill p_skill;
-    private float p_defend;
-    private float p_speed;
-    private int p_level;
     private PlayerBehave p_behave;
     //private GameObject p_gameobject;
 
-    public int Id
+    public Player()
     {
-        get
-        {
-            return p_id;
-        }
-
-        set
-        {
-            p_id = value;
-        }
+        p_behave = new PlayerBehave();
     }
 
-    public float Blood
+    public PlayerBehave Behave
     {
         get
         {
-            return p_blood;
-        }
-
-        set
-        {
-            p_blood = value;
-        }
-    }
-
-    public float Attack
-    {
-        get
-        {
-            return p_attack;
-        }
-
-        set
-        {
-            p_attack = value;
+            return p_behave;
         }
     }
 
@@ -76,29 +50,55 @@ public class Player
         }
     }
 
+    public int Id
+    {
+        get
+        {
+            return g_id;
+        }
+
+        set
+        {
+            g_id = value;
+        }
+    }
+
+    public float Blood
+    {
+        get
+        {
+            return g_blood;
+        }
+
+        set
+        {
+            g_blood = value;
+        }
+    }
+
+    public float Attack
+    {
+        get
+        {
+            return g_attack;
+        }
+
+        set
+        {
+            g_attack = value;
+        }
+    }
+
     public float Defend
     {
         get
         {
-            return p_defend;
+            return g_defend;
         }
 
         set
         {
-            p_defend = value;
-        }
-    }
-
-    public int Level
-    {
-        get
-        {
-            return p_level;
-        }
-
-        set
-        {
-            p_level = value;
+            g_defend = value;
         }
     }
 
@@ -106,25 +106,25 @@ public class Player
     {
         get
         {
-            return p_speed;
+            return g_speed;
         }
 
         set
         {
-            p_speed = value;
+            g_speed = value;
         }
     }
 
-    public PlayerBehave Behave
+    public int Level
     {
         get
         {
-            return p_behave;
+            return g_level;
         }
 
         set
         {
-            p_behave = value;
+            g_level = value;
         }
     }
 

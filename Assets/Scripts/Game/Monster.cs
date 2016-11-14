@@ -9,25 +9,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class Monster : GameCharator
+public class Monster
 {
-    private int m_id;
-    private float m_blood;
-    private float m_attack;
-    private float m_defend;
-    private float m_speed;
-    private MonsterBehave m_behave;
+    private int g_id;
+    private float g_blood;
+    private float g_attack;
+    private float g_defend;
+    private float g_speed;
+    private int g_level;
 
     public int Id
     {
         get
         {
-            return m_id;
+            return g_id;
         }
 
         set
         {
-            m_id = value;
+            g_id = value;
         }
     }
 
@@ -35,12 +35,12 @@ public class Monster : GameCharator
     {
         get
         {
-            return m_blood;
+            return g_blood;
         }
 
         set
         {
-            m_blood = value;
+            g_blood = value;
         }
     }
 
@@ -48,12 +48,12 @@ public class Monster : GameCharator
     {
         get
         {
-            return m_attack;
+            return g_attack;
         }
 
         set
         {
-            m_attack = value;
+            g_attack = value;
         }
     }
 
@@ -61,12 +61,12 @@ public class Monster : GameCharator
     {
         get
         {
-            return m_defend;
+            return g_defend;
         }
 
         set
         {
-            m_defend = value;
+            g_defend = value;
         }
     }
 
@@ -74,13 +74,32 @@ public class Monster : GameCharator
     {
         get
         {
-            return m_speed;
+            return g_speed;
         }
 
         set
         {
-            m_speed = value;
+            g_speed = value;
         }
+    }
+
+    public int Level
+    {
+        get
+        {
+            return g_level;
+        }
+
+        set
+        {
+            g_level = value;
+        }
+    }
+    private MonsterBehave m_behave;
+
+    public Monster()
+    {
+        m_behave = new MonsterBehave();
     }
 
     public MonsterBehave Behave
@@ -88,11 +107,6 @@ public class Monster : GameCharator
         get
         {
             return m_behave;
-        }
-
-        set
-        {
-            m_behave = value;
         }
     }
 }

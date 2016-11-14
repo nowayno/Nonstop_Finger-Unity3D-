@@ -5,9 +5,12 @@ using System.Collections.Generic;
 public class GameManager : TemplateClass<GameManager>
 {
     int buffTarget = -1;
+    int mission = 0;
+    int monsterAllDead = 0;
 
-    GameObject playerGO;
-    List<GameObject> monsterGOList;
+
+    public GameObject playerGO;
+    public GameObject[] monsterGOList;
     static List<float> monsterAttack;
     static List<float> playerAttack;
     List<MonsterBuff> monsterBuffList = new List<MonsterBuff>();
@@ -41,7 +44,9 @@ public class GameManager : TemplateClass<GameManager>
 
     void Awake()
     {
-
+        monsterAttack = new List<float>();
+        playerAttack = new List<float>();
+        //monsterGOList = new GameObject[5];
     }
 
     // Use this for initialization
@@ -60,19 +65,38 @@ public class GameManager : TemplateClass<GameManager>
     // Update is called once per frame
     void Update()
     {
-        if (playerGO != null)
+        if (monsterAllDead >= 15)
         {
-            if (monsterGOList.Count < 0)
+            mission += 1;
+            monsterAllDead = 0;
+        }
+        if (playerGO.GetComponent<PlayerScript>().isDead() != true)
+        {
+            Debug.Log(MonsterScript.deadnum);
+            if (MonsterScript.deadnum >= 4)
             {
-                float dir = Random.Range(-1, 1) <= 0 ? -1 : 1;
+                monsterAttack.Clear();
+                playerAttack.Clear();
+                float dir = Random.Range(-0.4f, 0.4f) <= 0 ? -1 : 1;
+                Debug.Log(dir);
                 foreach (GameObject m in monsterGOList)
                 {
                     float pos = Random.Range(20, 30) * dir;
-                    //获取怪物游戏体中的脚本中的Monster类，判断是否死亡
-                    //若全部死亡则重新生成
-                    //m.GetComponent<MonsterScript>().
-                    initMonsterGameObject();
+                    m.GetComponent<MonsterScript>().missionBlood(mission);
+                    m.GetComponent<MonsterScript>().missionAct(mission);
+                    m.GetComponent<MonsterScript>().Relife();
                     m.transform.position = playerGO.transform.localPosition + new Vector3(pos, 0, 0);
+                }
+                MonsterScript.deadnum = 0;
+            }
+            foreach (GameObject m in monsterGOList)
+            {
+                float dir = Vector3.Distance(m.transform.localPosition, playerGO.transform.localPosition);
+                if (dir < 2.0f)
+                {
+                    playerGO.GetComponent<PlayerScript>().Attack(m);
+
+                    m.GetComponent<MonsterScript>().Attack(playerGO);
                 }
             }
         }
@@ -80,18 +104,30 @@ public class GameManager : TemplateClass<GameManager>
         {
             if (monsterAttack[index - 1] > 0)
             {
-                playerGO.GetComponent<PlayerScript>().beAttacked(monsterAttack[index]);
+                playerGO.GetComponent<PlayerScript>().beAttacked(monsterAttack[index - 1]);
                 monsterAttack.Remove(index);
             }
         }
         for (int index = playerAttack.Count; index > 0; --index)
         {
-            if (playerAttack[index] > 0)
+            if (playerAttack[index - 1] > 0)
             {
-                monsterGOList[0].GetComponent<MonsterScript>().beAttacked(playerAttack[index]);
-                playerAttack.Remove(index);
+                foreach (GameObject m in monsterGOList)
+                {
+                    if (m.GetComponent<MonsterScript>().isDead() == false)
+                    {
+                        m.GetComponent<MonsterScript>().beAttacked(playerAttack[index - 1]);
+                        playerAttack.Remove(index);
+                        break;
+                    }
+                }
             }
         }
+    }
+
+    public void deadNum()
+    {
+        monsterAllDead += 1;
     }
 
     public void addMonsterBuff(MonsterBuff bfs, float tar_length)

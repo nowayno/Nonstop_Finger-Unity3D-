@@ -16,8 +16,8 @@ public class Behave : TemplateClass<Behave>
     public Behave()
     {
         _action = ACTION.ALIVE;
-        ani.GetComponent<Animator>();
-        stateInfo = ani.GetCurrentAnimatorStateInfo(0);
+        //ani.GetComponent<Animator>();
+        //stateInfo = ani.GetCurrentAnimatorStateInfo(0);
     }
     virtual protected void attackBehave()
     {

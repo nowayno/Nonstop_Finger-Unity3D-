@@ -7,7 +7,7 @@ public class PlayerBuff : TemplateClass<PlayerBuff>
     const int sleepTime = 1000;
 
     Buff buff;
-
+    bool flag = true;
     //public Buff Buff
     //{
     //    get
@@ -24,7 +24,9 @@ public class PlayerBuff : TemplateClass<PlayerBuff>
     void initBuff()
     {
         buff = new Buff();
-        buff.BuffTime = Random.Range(1.0f, 5.0f);
+        buff.IsEnd = false;
+        buff.IsAdd = false;
+        buff.BuffTime = Random.Range(2.0f, 5.0f);
         buff.BuffMission = Random.Range(1.0f, 5.0f);
         buff.BuffData = Random.Range(0.1f, 1.0f);
         int r = Random.Range(0, 6);
@@ -67,23 +69,14 @@ public class PlayerBuff : TemplateClass<PlayerBuff>
 
     void buffTime()
     {
-        while (buff.IsEnd)
+        while (flag)
         {
-            --buff.BuffTime;
-
-            Thread.Sleep(sleepTime);
-            if (buff.BuffTime <= 0)
-            {
-                buff.PlayerBuff = Buff.PLAYERBUFF.NONE;
-                buff.IsEnd = true;
-            }
-            if (buff.BuffTime <= 0.9)
-            {
-                Thread.Sleep((int)(buff.BuffTime * 1000));
-                buff.PlayerBuff = Buff.PLAYERBUFF.NONE;
-                buff.IsEnd = true;
-            }
+            Thread.Sleep((int)(buff.BuffTime * 1000));
+            flag = false;
+            //buff.PlayerBuff = Buff.PLAYERBUFF.NONE;
+            buff.IsEnd = true;
         }
+        //buff.IsEnd = true;
     }
 
     public bool isEnd()
@@ -92,6 +85,7 @@ public class PlayerBuff : TemplateClass<PlayerBuff>
     }
     public void isEnd(bool end)
     {
+        //Debug.Log("thread done "+buff.BuffData+" time"+Time.time);
         buff.IsEnd = end;
     }
     public bool isAdd()

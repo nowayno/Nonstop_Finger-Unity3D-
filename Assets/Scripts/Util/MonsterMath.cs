@@ -48,30 +48,11 @@ class MonsterMath : IMathUtil
         return blood;
     }
 
-    public float addBuff(BUFF _buff, params float[] param)
+    public float addBuff(params float[] param)
     {
         float damage = 0;
         if (param[0] < 0)
             return -1;
-
-        switch (_buff._MONSTERBUFF)
-        {
-            case BUFF.MONSTERBUFF.FIREDAMAGE:
-                param[0] = param[0] - param[1];
-                break;
-            case BUFF.MONSTERBUFF.HARDDAMAGE:
-                param[0] = param[0] - param[1];
-                break;
-            case BUFF.MONSTERBUFF.ICEDAMAGE:
-                param[0] = param[0] - param[1];
-                break;
-            case BUFF.MONSTERBUFF.POISIONDAMAGE:
-                param[0] = param[0] - param[1];
-                break;
-            case BUFF.MONSTERBUFF.NONE:
-                param[0] = param[0] - param[1];
-                break;
-        }
         damage = param[0];
         return damage;
     }
