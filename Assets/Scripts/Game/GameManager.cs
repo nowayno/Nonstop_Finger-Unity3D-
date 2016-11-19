@@ -5,10 +5,10 @@ using System.Collections.Generic;
 public class GameManager : TemplateClass<GameManager>
 {
     int buffTarget = -1;
-    int mission = 0;
+    public int mission = 0;
     int monsterAllDead = 0;
 
-
+    public GameObject uiL;
     public GameObject playerGO;
     public GameObject[] monsterGOList;
     static List<float> monsterAttack;
@@ -67,18 +67,27 @@ public class GameManager : TemplateClass<GameManager>
     {
         if (monsterAllDead >= 15)
         {
-            mission += 1;
             monsterAllDead = 0;
+            mission += 1;
+            playerGO.GetComponent<PlayerScript>().missionBlood(mission);
+            playerGO.GetComponent<PlayerBuffScript>().destoryAllBuff();
+            //Debug.Log("the mission is " + mission);
         }
         if (playerGO.GetComponent<PlayerScript>().isDead() != true)
         {
-            Debug.Log(MonsterScript.deadnum);
-            if (MonsterScript.deadnum >= 4)
+            //Debug.Log(MonsterScript.deadnum);
+            if (MonsterScript.deadnum >= 5)
             {
+                playerGO.GetComponent<PlayerScript>().canNowAttack(false);
+                MonsterScript.deadnum = 0;
+                //deadNum();
                 monsterAttack.Clear();
                 playerAttack.Clear();
+                playerGO.GetComponent<PlayerScript>().reLife();
+
                 float dir = Random.Range(-0.4f, 0.4f) <= 0 ? -1 : 1;
-                Debug.Log(dir);
+                //Debug.Log(dir);
+                int i = 0;
                 foreach (GameObject m in monsterGOList)
                 {
                     float pos = Random.Range(20, 30) * dir;
@@ -86,43 +95,38 @@ public class GameManager : TemplateClass<GameManager>
                     m.GetComponent<MonsterScript>().missionAct(mission);
                     m.GetComponent<MonsterScript>().Relife();
                     m.transform.position = playerGO.transform.localPosition + new Vector3(pos, 0, 0);
+                    restoreUI(i);
+                    restoreUI(5);
+                    ++i;
                 }
-                MonsterScript.deadnum = 0;
+
             }
             foreach (GameObject m in monsterGOList)
             {
                 float dir = Vector3.Distance(m.transform.localPosition, playerGO.transform.localPosition);
-                if (dir < 2.0f)
+                if (dir < 3.0f)
                 {
-                    playerGO.GetComponent<PlayerScript>().Attack(m);
+                    playerGO.GetComponent<PlayerScript>().canNowAttack(true);
+                    m.GetComponent<MonsterScript>().canNowAttack(true);
+                }
+                else
+                {
+                    //playerGO.GetComponent<PlayerScript>().canNowAttack(false);
+                    m.GetComponent<MonsterScript>().canNowAttack(false);
+                }
+            }
+        }
+    }
 
-                    m.GetComponent<MonsterScript>().Attack(playerGO);
-                }
-            }
-        }
-        for (int index = monsterAttack.Count; index > 0; --index)
-        {
-            if (monsterAttack[index - 1] > 0)
-            {
-                playerGO.GetComponent<PlayerScript>().beAttacked(monsterAttack[index - 1]);
-                monsterAttack.Remove(index);
-            }
-        }
-        for (int index = playerAttack.Count; index > 0; --index)
-        {
-            if (playerAttack[index - 1] > 0)
-            {
-                foreach (GameObject m in monsterGOList)
-                {
-                    if (m.GetComponent<MonsterScript>().isDead() == false)
-                    {
-                        m.GetComponent<MonsterScript>().beAttacked(playerAttack[index - 1]);
-                        playerAttack.Remove(index);
-                        break;
-                    }
-                }
-            }
-        }
+    public void bloodUI(int index, float nowBlood, float blood, float damage)
+    {
+        UISprite uiObject = GameObject.Find("Blood0" + index).GetComponent<UISprite>();
+        uiObject.fillAmount = (nowBlood - damage) / blood;
+    }
+    public void restoreUI(int index)
+    {
+        UISprite uiObject = GameObject.Find("Blood0" + index).GetComponent<UISprite>();
+        uiObject.fillAmount = 1;
     }
 
     public void deadNum()
@@ -146,13 +150,66 @@ public class GameManager : TemplateClass<GameManager>
         playerGO.GetComponent<PlayerBuffScript>().addBuff(pfs);
     }
 
-    public static void monsterAttackplayer(float attack)
+    public void monsterAttackplayer(float attack)
     {
-        monsterAttack.Insert(0, attack);
+        //monsterAttack.Insert(0, attack);
+        //foreach (GameObject m in monsterGOList)
+        //{
+        //    float dir = Vector3.Distance(m.transform.localPosition, playerGO.transform.localPosition);
+        //    if (dir < 3.0f)
+        //    {
+        //UILabel uiL = GameObject.Find("damage").GetComponent<UILabel>();
+
+        GameObject uiLabel = Instantiate(uiL);
+        uiLabel.transform.parent = GameObject.Find("UI Root").transform;
+        uiLabel.GetComponent<UILabel>().text = attack.ToString();
+        float goX = playerGO.transform.position.x;
+        float goY = playerGO.transform.position.y;
+        float goZ = playerGO.transform.position.z;
+        uiLabel.transform.position = UICamera.mainCamera.ScreenToWorldPoint(Camera.main.WorldToScreenPoint(new Vector3(goX, goY, goZ)));
+        uiLabel.transform.localScale = new Vector3(1, 1, 1);
+
+        playerGO.GetComponent<PlayerScript>().beAttacked(attack);
+        bloodUI(5, playerGO.GetComponent<PlayerScript>().getNowBlood(), playerGO.GetComponent<PlayerScript>().getBlood(), attack);
+        //m.GetComponent<MonsterScript>().Attack(playerGO);
+        //    }
+        //}
     }
 
-    public static void playerAttackmonster(float attack)
+    public void playerAttackmonster(float attack)
     {
-        playerAttack.Insert(0, attack);
+        //playerAttack.Insert(0, attack);
+        if (playerGO.GetComponent<PlayerScript>().isDead() == false)
+        {
+            //UILabel uiL;
+            int i = 0;
+            foreach (GameObject m in monsterGOList)
+            {
+                //uiL = GameObject.Find("damage").GetComponent<UILabel>();
+                if (m.GetComponent<MonsterScript>().isDead() == false)
+                {
+                    //uiL = GameObject.Find("damage").GetComponent<UILabel>();
+                    GameObject uiLabel = Instantiate(uiL);
+                    uiLabel.transform.parent = GameObject.Find("UI Root").transform;
+                    uiLabel.GetComponent<UILabel>().text = attack.ToString();
+                    
+                    
+                    float goX = m.transform.position.x;
+                    float goY = m.transform.position.y;
+                    float goZ = m.transform.position.z;
+                    uiLabel.transform.position = UICamera.mainCamera.ScreenToWorldPoint(Camera.main.WorldToScreenPoint(new Vector3(goX, goY, goZ)));
+                    uiLabel.transform.localScale = new Vector3(1, 1, 1);
+
+                    m.GetComponent<MonsterScript>().beAttacked(attack);
+                    bloodUI(i, m.GetComponent<MonsterScript>().getNowBlood(), m.GetComponent<MonsterScript>().getBlood(), attack);
+                    break;
+                }
+                else
+                {
+                    //m.transform.position = new Vector3(100, 100, 0);
+                }
+                ++i;
+            }
+        }
     }
 }

@@ -106,6 +106,7 @@ public class PlayerBuff : TemplateClass<PlayerBuff>
     }
     public void destroySelf()
     {
+        flag = false;
         if (buff.IsEnd)
         {
             buff = null;

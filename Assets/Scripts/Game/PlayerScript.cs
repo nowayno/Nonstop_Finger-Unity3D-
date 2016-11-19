@@ -21,6 +21,7 @@ public class PlayerScript : MonoBehaviour
     float p_defend;
     float p_speed;
     int p_level;
+    bool canAttack = false;
 
     float buff_p_xxx;
 
@@ -76,7 +77,7 @@ public class PlayerScript : MonoBehaviour
         temp_defend = p_defend;
         temp_speed = p_speed;
 
-        mission = Manager.mission;
+        //mission = GameManager.mission;
         //Debug.Log(p_blood);
     }
 
@@ -97,29 +98,22 @@ public class PlayerScript : MonoBehaviour
         //}
         if (p_blood <= 0)
         {
-            p_blood = player.Blood;
-            //gameObject.SetActive(false);
-            //player.Behave.setAction(Behave.ACTION.DEAD);
+
+            p_speed = player.Speed;
+            gameObject.SetActive(false);
+            player.Behave.setAction(Behave.ACTION.DEAD);
             //Destroy(gameObject);
         }
-        if (isBuff == true)
+        else
         {
-            if (mission < Manager.mission)
+            p_speed -= Time.deltaTime;
+            if ((p_speed <= 0) && canAttack)
             {
-                p_blood = DoAction.getInstance().bloodAndMission(0, Manager.mission, p_defend + p_blood);
-                temp_blood = DoAction.getInstance().bloodAndMission(0, Manager.mission, temp_defend + temp_blood);
-                //Debug.Log("player_blood:" + p_blood);
-            }
-            else if (mission == Manager.mission)
-            {
-                if (buffCount <= 0)
-                {
-                    _buff.getBuff().PlayerBuff = Buff.PLAYERBUFF.NONE;
-                    isBuff = false;
-                }
+                p_speed = temp_speed;
+                gameManager.GetComponent<GameManager>().playerAttackmonster(p_attack);
             }
         }
-        //Debug.Log("血量:"+p_blood + " 攻击力:" + p_attack + " 防御力:" + p_defend + " 速度:" + p_speed);
+        //Debug.Log("血量:" + temp_blood + "  " + p_blood);
     }
 
     public void beAttacked(float damage)
@@ -133,12 +127,12 @@ public class PlayerScript : MonoBehaviour
     public void Attack(GameObject g)
     {
         //g.GetComponent<MonsterScript>().beAttacked(p_attack);
-        GameManager.playerAttackmonster(p_attack);
+        gameManager.GetComponent<GameManager>().playerAttackmonster(p_attack);
     }
     public void skillAttack(GameObject g, Skill skill)
     {
         //g.GetComponent<MonsterScript>().beAttacked(skill.Skill_attack);
-        GameManager.playerAttackmonster(skill.Skill_attack);
+        gameManager.GetComponent<GameManager>().playerAttackmonster(skill.Skill_attack);
         float buffCatch = Random.Range(0.0f, 50.0f);
         if (buffCatch > 10.0f && buffCatch < 30.0f)
         {
@@ -166,16 +160,35 @@ public class PlayerScript : MonoBehaviour
             //gameManager.GetComponent<GameManager>().addMonsterBuff(mb, p_skill.Skill_Dir);
         }
     }
-
+    public void canNowAttack(bool can)
+    {
+        canAttack = can;
+    }
+    public float getBlood()
+    {
+        return temp_blood;
+    }
+    public float getNowBlood()
+    {
+        return p_blood;
+    }
     public void missionBlood(int mission)
     {
-        p_blood = DoAction.getInstance().bloodAndMission(0, p_blood, mission);
-        temp_blood = p_blood;
+        temp_blood = DoAction.getInstance().bloodAndMission(0, mission, temp_blood);
+        p_blood = temp_blood;
+        p_attack = temp_attack;
+        p_defend = temp_defend;
+        p_speed = temp_speed;
+        //temp_blood = p_blood;
     }
 
     public bool isDead()
     {
         return player.Behave.getAction() == Behave.ACTION.DEAD ? true : false;
+    }
+    public void reLife()
+    {
+        p_blood = temp_blood;
     }
 
     public void addSpeedBuff(float data)
@@ -220,6 +233,7 @@ public class PlayerScript : MonoBehaviour
 
     public void minActBuff(float data)
     {
+        Debug.Log(p_attack + "  " + temp_attack);
         p_attack = buffChange(p_attack, temp_attack, data);
     }
 

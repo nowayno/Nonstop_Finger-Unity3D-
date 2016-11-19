@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="gb2312"?>
 <Player xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Id>0</Id>
-  <Blood>23</Blood>
+  <Blood>30</Blood>
   <Attack>10</Attack>
   <Defend>10</Defend>
   <Speed>1</Speed>

@@ -51,13 +51,23 @@ public class PlayerBuffScript : MonoBehaviour
         //Debug.Log("Adding buff" + " count:" + playerBuffList.Count);
         playerBuffList.Insert(0, pbs);
     }
-
+    public void destoryAllBuff()
+    {
+        for (int index = playerBuffList.Count; index > 0; --index)
+        {
+            //playerBuffList[index - 1].isEnd(true);
+            //float data = playerBuffList[index - 1].getBuffData() * -1;
+            //buffMIN(playerBuffList[index - 1].getBuff(), data);
+            //playerBuffList[index - 1].destroySelf();
+            playerBuffList.Remove(playerBuffList[index - 1]);
+        }
+    }
     void buffADD(Buff buff, float data)
     {
         switch (buff.PlayerBuff)
         {
             case Buff.PLAYERBUFF.ADDSPEED:
-                gameObject.GetComponent<PlayerScript>().addSpeedBuff(data);
+                gameObject.GetComponent<PlayerScript>().addSpeedBuff(-data);
                 break;
             case Buff.PLAYERBUFF.ADDDEFEND:
                 gameObject.GetComponent<PlayerScript>().addDefendBuff(data);
@@ -81,7 +91,7 @@ public class PlayerBuffScript : MonoBehaviour
         switch (buff.PlayerBuff)
         {
             case Buff.PLAYERBUFF.ADDSPEED:
-                gameObject.GetComponent<PlayerScript>().minSpeedBuff(data);
+                gameObject.GetComponent<PlayerScript>().minSpeedBuff(-data);
                 break;
             case Buff.PLAYERBUFF.ADDDEFEND:
                 gameObject.GetComponent<PlayerScript>().minDefendBuff(data);

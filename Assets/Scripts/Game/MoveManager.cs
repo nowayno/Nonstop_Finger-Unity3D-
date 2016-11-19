@@ -19,7 +19,7 @@ public class MoveManager : MonoBehaviour
         {
             float dir = Vector3.Distance(mg.transform.position, player.transform.position);
             //Debug.Log(dir);
-            if (dir >= 2.0f)
+            if (dir >= 1.0f)
             {
                 mg.transform.position = Vector3.Lerp(mg.transform.position, player.transform.position, Time.deltaTime);
             }

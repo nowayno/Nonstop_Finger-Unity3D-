@@ -9,11 +9,14 @@ public class MonsterScript : MonoBehaviour
 
     GameObject gameManager;
 
+    public Transform boom;
+
     private int m_id;
     private float m_blood;
     private float m_attack;
     private float m_speed;
     private float m_defend;
+    private bool canAttack = false;
 
     float buff_p_xxx;
 
@@ -26,6 +29,7 @@ public class MonsterScript : MonoBehaviour
     float countMission = 0;
     float temp_countTime = 0;
     float temp_countMission = 0;
+    float temp_blood;
     float temp_speed = 0;
     float temp_damage = 0;
 
@@ -42,6 +46,8 @@ public class MonsterScript : MonoBehaviour
         m_attack = monster.Attack;
         m_defend = monster.Defend;
         m_speed = monster.Speed;
+
+        temp_blood = m_blood;
     }
 
     // Use this for initialization
@@ -55,7 +61,15 @@ public class MonsterScript : MonoBehaviour
     {
         if (m_blood <= 0)
         {
+            //Instantiate(boom, gameObject.transform.position, gameObject.transform.rotation);
             //Debug.Log("dead");
+            if (monster.Behave.getAction() != Behave.ACTION.DEAD)
+            {
+                //Debug.Log(deadnum);
+                deadnum += 1;
+                gameManager.GetComponent<GameManager>().deadNum();
+                gameObject.SetActive(false);
+            }
             monster.Behave.setAction(Behave.ACTION.DEAD);
             float buffCatch = Random.Range(0.0f, 50.0f);
             if (buffCatch > 10.0f && buffCatch < 20.0f)
@@ -63,23 +77,24 @@ public class MonsterScript : MonoBehaviour
                 gameManager.GetComponent<GameManager>().addPlayerBuff(new PlayerBuff());
                 //Debug.Log("add buff");
             }
-            deadnum += 1;
-            gameManager.GetComponent<GameManager>().deadNum();
+
+
             m_blood = monster.Blood;
             m_attack = monster.Attack;
-
+            m_speed = monster.Speed;
             //gameObject.SetActive(false);
         }
-
-        timeCount += Time.deltaTime;
-        if (timeCount >= 1)
+        else
         {
-            if (m_blood > 0)
+            m_speed -= Time.deltaTime;
+            if ((m_speed <= 0) && canAttack)
             {
-                m_blood -= temp_damage;
+                m_speed = monster.Speed;
+                gameManager.GetComponent<GameManager>().monsterAttackplayer(m_attack);
             }
-            timeCount = 0;
         }
+        //Debug.Log((m_speed <= 0));
+
     }
 
     public void buffChange(Buff _b, bool isTimeup = false, params float[] param)
@@ -126,19 +141,29 @@ public class MonsterScript : MonoBehaviour
     public void Attack(GameObject g)
     {
         //g.GetComponent<PlayerScript>().beAttacked(m_attack);
-        GameManager.monsterAttackplayer(m_attack);
+        gameManager.GetComponent<GameManager>().monsterAttackplayer(m_attack);
     }
-
+    public void canNowAttack(bool can)
+    {
+        canAttack = can;
+    }
     public void missionAct(int mission)
     {
-        m_attack = DoAction.getInstance().actAndMission(1, m_attack, mission);
+        m_attack = DoAction.getInstance().actAndMission(1, mission);
     }
 
     public void missionBlood(int mission)
     {
-        m_blood = DoAction.getInstance().bloodAndMission(1, m_blood, mission);
+        m_blood = DoAction.getInstance().bloodAndMission(1, mission);
     }
-
+    public float getBlood()
+    {
+        return temp_blood;
+    }
+    public float getNowBlood()
+    {
+        return m_blood;
+    }
     public void reBlood()
     {
         m_blood = monster.Blood;
@@ -155,6 +180,7 @@ public class MonsterScript : MonoBehaviour
     }
     public void Relife()
     {
+        gameObject.SetActive(true);
         monster.Behave.setAction(Behave.ACTION.ALIVE);
     }
     public void addFireBuff(float delaydamage)
@@ -164,7 +190,7 @@ public class MonsterScript : MonoBehaviour
 
     public void addIceBuff(float dtime)
     {
-        m_speed = m_speed * dtime;
+        //m_speed = m_speed * dtime;
     }
 
     public void addPoisionBuff(float delaydamage)
@@ -174,8 +200,8 @@ public class MonsterScript : MonoBehaviour
 
     public void addHardBuff()
     {
-        temp_speed = m_speed;
-        m_speed = 0;
+        //temp_speed = m_speed;
+        //m_speed = 0;
     }
 
     public void minFireBuff()
@@ -190,12 +216,12 @@ public class MonsterScript : MonoBehaviour
 
     public void minPoisionBuff()
     {
-        m_speed = m_speed * 2;
+        //m_speed = m_speed * 2;
     }
 
     public void minHardBuff()
     {
-        m_speed = temp_speed;
+        // m_speed = temp_speed;
     }
 
     float buffChange(float preData, float damage)
