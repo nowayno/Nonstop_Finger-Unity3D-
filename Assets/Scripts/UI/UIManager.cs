@@ -30,4 +30,8 @@ public class UIManager : MonoBehaviour
     {
 
     }
+    void UIDamagePosition(Vector3 position)
+    {
+        gameObject.transform.position = position;
+    }
 }

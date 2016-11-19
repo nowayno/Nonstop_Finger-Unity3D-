@@ -169,6 +169,7 @@ public class GameManager : TemplateClass<GameManager>
         uiLabel.transform.position = UICamera.mainCamera.ScreenToWorldPoint(Camera.main.WorldToScreenPoint(new Vector3(goX, goY, goZ)));
         uiLabel.transform.localScale = new Vector3(1, 1, 1);
 
+
         playerGO.GetComponent<PlayerScript>().beAttacked(attack);
         bloodUI(5, playerGO.GetComponent<PlayerScript>().getNowBlood(), playerGO.GetComponent<PlayerScript>().getBlood(), attack);
         //m.GetComponent<MonsterScript>().Attack(playerGO);
@@ -192,8 +193,7 @@ public class GameManager : TemplateClass<GameManager>
                     GameObject uiLabel = Instantiate(uiL);
                     uiLabel.transform.parent = GameObject.Find("UI Root").transform;
                     uiLabel.GetComponent<UILabel>().text = attack.ToString();
-                    
-                    
+    
                     float goX = m.transform.position.x;
                     float goY = m.transform.position.y;
                     float goZ = m.transform.position.z;
