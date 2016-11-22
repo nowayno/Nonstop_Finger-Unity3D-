@@ -15,6 +15,5 @@ public class UIDamage : MonoBehaviour
     {
         y += Time.deltaTime * 0.1f;
         gameObject.transform.position = new Vector3(gameObject.transform.position.x, y, gameObject.transform.position.z);
-
     }
 }

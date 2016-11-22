@@ -233,7 +233,7 @@ public class PlayerScript : MonoBehaviour
 
     public void minActBuff(float data)
     {
-        Debug.Log(p_attack + "  " + temp_attack);
+        //Debug.Log(p_attack + "  " + temp_attack);
         p_attack = buffChange(p_attack, temp_attack, data);
     }
 

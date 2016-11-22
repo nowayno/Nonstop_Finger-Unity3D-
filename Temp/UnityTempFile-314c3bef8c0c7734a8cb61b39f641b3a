@@ -246,7 +246,9 @@ Assets/Scripts/MonsterSpawn.cs
 Assets/Scripts/PlayerBehaver.cs
 Assets/Scripts/PlayerGame.cs
 Assets/Scripts/Score.cs
+Assets/Scripts/UI/UIDamage.cs
 Assets/Scripts/UI/UIManager.cs
+Assets/Scripts/UI/UISkill.cs
 Assets/Scripts/Util/DoAction.cs
 Assets/Scripts/Util/IMathUtil.cs
 Assets/Scripts/Util/MonsterMath.cs

@@ -24,7 +24,8 @@ public class UIManager : MonoBehaviour
         float goY = go.transform.position.y + 2;
         float goZ = go.transform.position.z;
 
-        gameObject.transform.position = UICamera.mainCamera.ScreenToWorldPoint(Camera.main.WorldToScreenPoint(new Vector3(goX, goY, goZ)));
+        gameObject.transform.position = UICamera.mainCamera.ScreenToWorldPoint(Camera.main.WorldToScreenPoint(new Vector3(goX, goY, 0)));
+        //gameObject.transform.LookAt(UICamera.mainCamera.transform);
     }
     public void UIDamage(float damage, int which)
     {

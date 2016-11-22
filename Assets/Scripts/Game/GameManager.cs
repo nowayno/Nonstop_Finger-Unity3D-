@@ -162,11 +162,11 @@ public class GameManager : TemplateClass<GameManager>
 
         GameObject uiLabel = Instantiate(uiL);
         uiLabel.transform.parent = GameObject.Find("UI Root").transform;
-        uiLabel.GetComponent<UILabel>().text = attack.ToString();
+        uiLabel.GetComponent<UILabel>().text = string.Format("{0:F}",attack);
         float goX = playerGO.transform.position.x;
         float goY = playerGO.transform.position.y;
         float goZ = playerGO.transform.position.z;
-        uiLabel.transform.position = UICamera.mainCamera.ScreenToWorldPoint(Camera.main.WorldToScreenPoint(new Vector3(goX, goY, goZ)));
+        uiLabel.transform.position = UICamera.mainCamera.ScreenToWorldPoint(Camera.main.WorldToScreenPoint(new Vector3(goX, goY, 0)));
         uiLabel.transform.localScale = new Vector3(1, 1, 1);
 
 
@@ -192,12 +192,12 @@ public class GameManager : TemplateClass<GameManager>
                     //uiL = GameObject.Find("damage").GetComponent<UILabel>();
                     GameObject uiLabel = Instantiate(uiL);
                     uiLabel.transform.parent = GameObject.Find("UI Root").transform;
-                    uiLabel.GetComponent<UILabel>().text = attack.ToString();
+                    uiLabel.GetComponent<UILabel>().text = string.Format("{0:F}", attack);
     
                     float goX = m.transform.position.x;
                     float goY = m.transform.position.y;
                     float goZ = m.transform.position.z;
-                    uiLabel.transform.position = UICamera.mainCamera.ScreenToWorldPoint(Camera.main.WorldToScreenPoint(new Vector3(goX, goY, goZ)));
+                    uiLabel.transform.position = UICamera.mainCamera.ScreenToWorldPoint(Camera.main.WorldToScreenPoint(new Vector3(goX, goY, 0)));
                     uiLabel.transform.localScale = new Vector3(1, 1, 1);
 
                     m.GetComponent<MonsterScript>().beAttacked(attack);

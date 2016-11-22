@@ -1,4 +1,4 @@
 sceneSetups:
-- path: F:/allprojects/unitypro/2dgametest/Assets/No1.unity
+- path: Assets/main.unity
   isLoaded: 1
   isActive: 1
