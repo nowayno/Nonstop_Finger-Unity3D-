@@ -20,7 +20,10 @@ public class Player
     private float g_defend;
     private float g_speed;
     private int g_level;
-    private Skill p_skill;
+    private Skill p_skill01;
+    private Skill p_skill02;
+    private Skill p_skill03;
+    private Skill p_skill04;
     private PlayerBehave p_behave;
     //private GameObject p_gameobject;
 
@@ -37,18 +40,7 @@ public class Player
         }
     }
 
-    public Skill Skill
-    {
-        get
-        {
-            return p_skill;
-        }
-
-        set
-        {
-            p_skill = value;
-        }
-    }
+    
 
     public int Id
     {
@@ -125,6 +117,58 @@ public class Player
         set
         {
             g_level = value;
+        }
+    }
+
+    public Skill Skill01
+    {
+        get
+        {
+            return p_skill01;
+        }
+
+        set
+        {
+            p_skill01 = value;
+        }
+    }
+
+    public Skill P_skill02
+    {
+        get
+        {
+            return p_skill02;
+        }
+
+        set
+        {
+            p_skill02 = value;
+        }
+    }
+
+    public Skill P_skill03
+    {
+        get
+        {
+            return p_skill03;
+        }
+
+        set
+        {
+            p_skill03 = value;
+        }
+    }
+
+    public Skill P_skill04
+    {
+        get
+        {
+            return p_skill04;
+        }
+
+        set
+        {
+            p_skill04 = value;
         }
     }
 

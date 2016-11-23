@@ -17,10 +17,13 @@ public class PlayerScript : MonoBehaviour
     int p_id;
     float p_blood;
     float p_attack;
-    Skill p_skill;
     float p_defend;
     float p_speed;
     int p_level;
+    Skill p_skill01;
+    Skill p_skill02;
+    Skill p_skill03;
+    Skill p_skill04;
     bool canAttack = false;
 
     float buff_p_xxx;
@@ -67,7 +70,7 @@ public class PlayerScript : MonoBehaviour
         p_id = player.Id;
         p_blood = player.Blood;
         p_attack = player.Attack;
-        p_skill = new Skill();
+        //p_skill = new Skill();
         p_defend = player.Defend;
         p_speed = player.Speed;
         p_level = player.Level;
@@ -213,12 +216,12 @@ public class PlayerScript : MonoBehaviour
 
     public void addSkillActBuff(float data)
     {
-        p_skill.Skill_attack = buffChange(p_skill.Skill_attack, 1, data);
+        //p_skill.Skill_attack = buffChange(p_skill.Skill_attack, 1, data);
     }
 
     public void addCDBuff(float data)
     {
-        p_skill.Skill_CD = buffChange(p_skill.Skill_CD, 1, data);
+        //p_skill.Skill_CD = buffChange(p_skill.Skill_CD, 1, data);
     }
 
     public void minSpeedBuff(float data)
@@ -244,16 +247,33 @@ public class PlayerScript : MonoBehaviour
 
     public void minSkillActBuff(float data)
     {
-        p_skill.Skill_attack = buffChange(p_skill.Skill_attack, 1, data);
+        //p_skill.Skill_attack = buffChange(p_skill.Skill_attack, 1, data);
     }
 
     public void minCDBuff(float data)
     {
-        p_skill.Skill_CD = buffChange(p_skill.Skill_CD, 1, data);
+        //p_skill.Skill_CD = buffChange(p_skill.Skill_CD, 1, data);
     }
 
     float buffChange(float predata, float tempdata, float adddata)
     {
         return DoAction.getInstance().addBuff(0, predata, tempdata, adddata);
+    }
+
+    public void setSkill01(int id)
+    {
+
+    }
+    public void setSkill02(int id)
+    {
+
+    }
+    public void setSkill03(int id)
+    {
+
+    }
+    public void setSkill04(int id)
+    {
+
     }
 }
