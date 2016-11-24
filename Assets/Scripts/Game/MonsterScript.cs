@@ -61,6 +61,7 @@ public class MonsterScript : MonoBehaviour
     {
         if (m_blood <= 0)
         {
+            gameObject.GetComponent<MonsterBuffScript>().buffClear();
             //Instantiate(boom, gameObject.transform.position, gameObject.transform.rotation);
             //Debug.Log("dead");
             if (monster.Behave.getAction() != Behave.ACTION.DEAD)
@@ -185,7 +186,8 @@ public class MonsterScript : MonoBehaviour
     }
     public void addFireBuff(float delaydamage)
     {
-        temp_damage = delaydamage;
+        //temp_damage = delaydamage;
+       addDamage(delaydamage);
     }
 
     public void addIceBuff(float dtime)
@@ -195,7 +197,8 @@ public class MonsterScript : MonoBehaviour
 
     public void addPoisionBuff(float delaydamage)
     {
-        temp_damage = delaydamage;
+        //temp_damage = delaydamage;
+       addDamage(delaydamage);
     }
 
     public void addHardBuff()
@@ -222,6 +225,11 @@ public class MonsterScript : MonoBehaviour
     public void minHardBuff()
     {
         // m_speed = temp_speed;
+    }
+
+    public void addDamage(float damage)
+    {
+        gameManager.GetComponent<GameManager>().playerAttackmonster(damage);
     }
 
     float buffChange(float preData, float damage)

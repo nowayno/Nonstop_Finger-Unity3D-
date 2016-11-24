@@ -44,6 +44,17 @@ public class GameManager : TemplateClass<GameManager>
 
     void Awake()
     {
+        //SkillCreat sc = new SkillCreat();
+        //sc.skill01Create();
+        //sc.skill02Create();
+        //sc.skill03Create();
+        //sc.skill04Create();
+        //sc.skill05Create();
+        //sc.skill06Create();
+        //sc.skill07Create();
+        //sc.skill08Create();
+
+
         monsterAttack = new List<float>();
         playerAttack = new List<float>();
         //monsterGOList = new GameObject[5];

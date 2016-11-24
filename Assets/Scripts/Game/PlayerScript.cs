@@ -50,7 +50,15 @@ public class PlayerScript : MonoBehaviour
         gameManager = Camera.main.gameObject;
 
         player = new Player();
+        p_skill01 = new Skill();
+        p_skill02 = new Skill();
+        p_skill03 = new Skill();
+        p_skill04 = new Skill();
 
+        setSkill01(1);
+        setSkill02(2);
+        setSkill03(3);
+        setSkill04(4);
         //try
         //{
         player = DoAction.getInstance().readData<Player>(player);
@@ -137,7 +145,7 @@ public class PlayerScript : MonoBehaviour
         //g.GetComponent<MonsterScript>().beAttacked(skill.Skill_attack);
         gameManager.GetComponent<GameManager>().playerAttackmonster(sk.Skill_attack);
         float buffCatch = Random.Range(0.0f, 50.0f);
-        if (buffCatch > 10.0f && buffCatch < 30.0f)
+        if ((buffCatch > 10.0f) && (buffCatch < 30.0f) && (sk.BuffType.MonsterBuff != Buff.MONSTERBUFF.NONE))
         {
             MonsterBuff mb = new MonsterBuff();
             switch (sk.BuffType.MonsterBuff)
@@ -285,18 +293,26 @@ public class PlayerScript : MonoBehaviour
     public void setSkill01(int id)
     {
         p_skill01 = DoAction.getInstance().readData<Skill>(p_skill01, "Skill0" + id);
+        GameObject.Find("Skill01").GetComponent<UISkill>().skilltime = p_skill01.Skill_CD;
+        GameObject.Find("Skill01").transform.FindChild("icon").GetComponent<UISprite>().spriteName="skill01";
     }
     public void setSkill02(int id)
     {
         p_skill02 = DoAction.getInstance().readData<Skill>(p_skill02, "Skill0" + id);
+        GameObject.Find("Skill02").GetComponent<UISkill>().skilltime = p_skill02.Skill_CD;
+        GameObject.Find("Skill02").transform.FindChild("icon").GetComponent<UISprite>().spriteName = "skill02";
     }
     public void setSkill03(int id)
     {
         p_skill03 = DoAction.getInstance().readData<Skill>(p_skill03, "Skill0" + id);
+        GameObject.Find("Skill03").GetComponent<UISkill>().skilltime = p_skill03.Skill_CD;
+        GameObject.Find("Skill03").transform.FindChild("icon").GetComponent<UISprite>().spriteName = "skill03";
     }
     public void setSkill04(int id)
     {
         p_skill04 = DoAction.getInstance().readData<Skill>(p_skill04, "Skill0" + id);
+        GameObject.Find("Skill04").GetComponent<UISkill>().skilltime = p_skill04.Skill_CD;
+        GameObject.Find("Skill04").transform.FindChild("icon").GetComponent<UISprite>().spriteName = "skill03";
     }
 
 }

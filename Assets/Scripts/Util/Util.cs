@@ -44,10 +44,14 @@ public class Util
         }
         return flag;
     }
-    public bool writeXML<T>(T t, string name)
+    public bool writeXML<T>(T t, string name, bool isNew = false)
     {
         bool flag = false;
         name += ".xml";
+        if (isNew == false)
+        {
+            name = filename + name;
+        }
         using (Stream stream = new FileStream(filename + name, FileMode.Create))
         {
             stream.Position = 0;
@@ -80,10 +84,14 @@ public class Util
         }
         return t;
     }
-    public T readXML<T>(T t, string name)
+    public T readXML<T>(T t, string name, bool isNew = false)
     {
         name += ".xml";
-        using (Stream stream = new FileStream(filename + name, FileMode.Open))
+        if (isNew == false)
+        {
+            name = filename + name;
+        }
+        using (Stream stream = new FileStream(name, FileMode.Open))
         {
             stream.Position = 0;
             XmlSerializer xmlFomart = new XmlSerializer(t.GetType(), new Type[] { t.GetType() });

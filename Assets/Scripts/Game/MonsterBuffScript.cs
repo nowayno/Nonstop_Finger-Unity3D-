@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class MonsterBuffScript : MonoBehaviour
 {
     List<MonsterBuff> monsterBuffList;
-
+    bool buffDoing;
     void Awake()
     {
         monsterBuffList = new List<MonsterBuff>();
@@ -13,28 +13,37 @@ public class MonsterBuffScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        
     }
-
+    float ti = 0;
     // Update is called once per frame
     void Update()
     {
+        ti += Time.deltaTime;
         for (int index = monsterBuffList.Count; index > 0; --index)
         {
             if (monsterBuffList[index - 1].isAdd() != true)
             {
+                //buffDoing = true;
                 monsterBuffList[index - 1].isAdd(true);
-                buffADD(monsterBuffList[index - 1].getBuff(), monsterBuffList[index - 1].getBuffData());
+                //buffADD(monsterBuffList[index - 1].getBuff(), monsterBuffList[index - 1].getBuffData());
                 monsterBuffList[index - 1].startBuff();
                 //gameObject.GetComponent<PlayerScript>().buffChange(pb.getBuff(), false, pb.getBuffData());
             }
+
             if (monsterBuffList[index - 1].isEnd())
             {
+                monsterBuffList[index - 1].isDoing(false);
                 monsterBuffList[index - 1].isEnd(false);
                 float data = monsterBuffList[index - 1].getBuffData() * -1;
                 buffMIN(monsterBuffList[index - 1].getBuff(), data);
                 monsterBuffList[index - 1].destroySelf();
                 monsterBuffList.Remove(monsterBuffList[index - 1]);
+            }
+            else if (ti > 1 && monsterBuffList[index - 1].isDoing())
+            {
+                ti = 0;
+                gameObject.GetComponent<MonsterScript>().addDamage(monsterBuffList[index - 1].getBuffData());
             }
         }
     }
@@ -79,5 +88,9 @@ public class MonsterBuffScript : MonoBehaviour
                 gameObject.GetComponent<MonsterScript>().minHardBuff();
                 break;
         }
+    }
+    public void buffClear()
+    {
+        monsterBuffList.Clear();
     }
 }

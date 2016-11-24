@@ -22,6 +22,9 @@ public class MonsterBuff : TemplateClass<MonsterBuff>
     void initBuff()
     {
         buff = new Buff();
+        buff.IsEnd = false;
+        buff.IsAdd = false;
+        buff.IsDoing = true;
         buff.BuffTime = Random.Range(1.0f, 5.0f);
         buff.BuffMission = Random.Range(1.0f, 5.0f);
         buff.BuffData = Random.Range(0.1f, 1.0f);
@@ -53,27 +56,19 @@ public class MonsterBuff : TemplateClass<MonsterBuff>
 
     public void endBuff()
     {
-        buff.IsEnd = false;
+        buff.IsEnd = true;
     }
-
+    bool flag = true;
     void buffTime()
     {
-        while (buff.IsEnd)
+        while (flag)
         {
-            --buff.BuffTime;
-
-            Thread.Sleep(sleepTime);
-            if (buff.BuffTime <= 0)
-            {
-                buff.PlayerBuff = Buff.PLAYERBUFF.NONE;
-                buff.IsEnd = false;
-            }
-            if (buff.BuffTime <= 0.9)
-            {
-                Thread.Sleep((int)(buff.BuffTime * 1000));
-                buff.PlayerBuff = Buff.PLAYERBUFF.NONE;
-                buff.IsEnd = false;
-            }
+            //--buff.BuffTime;
+            Thread.Sleep((int)(buff.BuffTime * 1000));
+            buff.PlayerBuff = Buff.PLAYERBUFF.NONE;
+            flag = false;
+            buff.IsEnd = true;
+            buff.IsDoing = false;
         }
     }
 
@@ -93,6 +88,14 @@ public class MonsterBuff : TemplateClass<MonsterBuff>
     {
         buff.IsAdd = add;
     }
+    public bool isDoing()
+    {
+        return buff.IsDoing;
+    }
+    public void isDoing(bool isd)
+    {
+        buff.IsDoing = isd;
+    }
     public float getBuffData()
     {
         return buff.BuffData;
@@ -105,7 +108,7 @@ public class MonsterBuff : TemplateClass<MonsterBuff>
     {
         return buff;
     }
-   public void setMonsterBuff(Buff b)
+    public void setMonsterBuff(Buff b)
     {
         buff.MonsterBuff = b.MonsterBuff;
     }

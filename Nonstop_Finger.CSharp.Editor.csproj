@@ -186,6 +186,14 @@
     <None Include="Assets\Data\Monster.xml" />
     <None Include="Assets\Data\Player.xml" />
     <None Include="Assets\Data\Skill.xml" />
+    <None Include="Assets\Data\Skill01.xml" />
+    <None Include="Assets\Data\Skill02.xml" />
+    <None Include="Assets\Data\Skill03.xml" />
+    <None Include="Assets\Data\Skill04.xml" />
+    <None Include="Assets\Data\Skill05.xml" />
+    <None Include="Assets\Data\Skill06.xml" />
+    <None Include="Assets\Data\Skill07.xml" />
+    <None Include="Assets\Data\Skill08.xml" />
     <None Include="Assets\NGUI\Examples\Atlases\Fantasy\Fantasy Font - Normal.txt" />
     <None Include="Assets\NGUI\Examples\Atlases\Refractive\Refractive Font - Header.txt" />
     <None Include="Assets\NGUI\Examples\Atlases\Refractive\Refractive Font - Normal.txt" />
