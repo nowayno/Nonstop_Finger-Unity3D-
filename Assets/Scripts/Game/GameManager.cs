@@ -53,7 +53,8 @@ public class GameManager : TemplateClass<GameManager>
         //sc.skill06Create();
         //sc.skill07Create();
         //sc.skill08Create();
-
+        OtherCreate oc = new OtherCreate();
+        oc.usingSkill(1,2,3,4);
 
         monsterAttack = new List<float>();
         playerAttack = new List<float>();

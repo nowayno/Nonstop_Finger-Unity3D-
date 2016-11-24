@@ -52,7 +52,7 @@ public class Util
         {
             name = filename + name;
         }
-        using (Stream stream = new FileStream(filename + name, FileMode.Create))
+        using (Stream stream = new FileStream(name, FileMode.Create))
         {
             stream.Position = 0;
             XmlSerializer xmlFomart = new XmlSerializer(t.GetType(), new Type[] { t.GetType() });
