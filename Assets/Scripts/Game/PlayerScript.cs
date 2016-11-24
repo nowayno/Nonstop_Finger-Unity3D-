@@ -132,35 +132,57 @@ public class PlayerScript : MonoBehaviour
         //g.GetComponent<MonsterScript>().beAttacked(p_attack);
         gameManager.GetComponent<GameManager>().playerAttackmonster(p_attack);
     }
-    public void skillAttack(GameObject g, Skill skill)
+    void skillAttack(Skill sk)
     {
         //g.GetComponent<MonsterScript>().beAttacked(skill.Skill_attack);
-        gameManager.GetComponent<GameManager>().playerAttackmonster(skill.Skill_attack);
+        gameManager.GetComponent<GameManager>().playerAttackmonster(sk.Skill_attack);
         float buffCatch = Random.Range(0.0f, 50.0f);
         if (buffCatch > 10.0f && buffCatch < 30.0f)
         {
             MonsterBuff mb = new MonsterBuff();
-            switch (skill.Skill_id)
+            switch (sk.BuffType.MonsterBuff)
             {
-                case 0:
-                    mb.getBuff().MonsterBuff = Buff.MONSTERBUFF.FIREDAMAGE;
+                case Buff.MONSTERBUFF.FIREDAMAGE:
+                    mb.getBuff().MonsterBuff = sk.BuffType.MonsterBuff;
                     mb.setMonsterBuff(mb.getBuff());
-                    mb.setBuffData(mb.getBuffData() * skill.Skill_attack);
+                    mb.setBuffData(mb.getBuffData() * sk.Skill_attack);
                     break;
-                case 1:
-                    mb.getBuff().MonsterBuff = Buff.MONSTERBUFF.ICEDAMAGE;
+                case Buff.MONSTERBUFF.ICEDAMAGE:
+                    mb.getBuff().MonsterBuff = sk.BuffType.MonsterBuff;
                     mb.setMonsterBuff(mb.getBuff());
                     break;
-                case 2:
-                    mb.getBuff().MonsterBuff = Buff.MONSTERBUFF.POISIONDAMAGE;
+                case Buff.MONSTERBUFF.POISIONDAMAGE:
+                    mb.getBuff().MonsterBuff = sk.BuffType.MonsterBuff;
                     mb.setMonsterBuff(mb.getBuff());
-                    mb.setBuffData(mb.getBuffData() * skill.Skill_attack);
+                    mb.setBuffData(mb.getBuffData() * sk.Skill_attack);
                     break;
-                case 3:
-                    mb.getBuff().MonsterBuff = Buff.MONSTERBUFF.HARDDAMAGE;
+                case Buff.MONSTERBUFF.HARDDAMAGE:
+                    mb.getBuff().MonsterBuff = sk.BuffType.MonsterBuff;
                     break;
             }
-            //gameManager.GetComponent<GameManager>().addMonsterBuff(mb, p_skill.Skill_Dir);
+            gameManager.GetComponent<GameManager>().addMonsterBuff(mb, sk.Skill_Dir);
+        }
+    }
+    public void skillRelease(int id)
+    {
+        switch (id)
+        {
+            case 1:
+                skillAttack(p_skill01);
+                //Debug.Log("skill 1 is acting");
+                break;
+            case 2:
+                skillAttack(p_skill02);
+                //Debug.Log("skill 2 is acting");
+                break;
+            case 3:
+                skillAttack(p_skill03);
+                //Debug.Log("skill 3 is acting");
+                break;
+            case 4:
+                skillAttack(p_skill04);
+                //Debug.Log("skill 4 is acting");
+                break;
         }
     }
     public void canNowAttack(bool can)
@@ -276,30 +298,5 @@ public class PlayerScript : MonoBehaviour
     {
         p_skill04 = DoAction.getInstance().readData<Skill>(p_skill04, "Skill0" + id);
     }
-    public void skillRelease(int id)
-    {
-        switch (id)
-        {
-            case 1:
-                //gameManager.GetComponent<GameManager>().playerAttackmonster(p_skill01.Skill_attack);
-                gameManager.GetComponent<GameManager>().playerAttackmonster(12);
-                //Debug.Log("skill 1 is acting");
-                break;
-            case 2:
-                //gameManager.GetComponent<GameManager>().playerAttackmonster(p_skill02.Skill_attack);
-                gameManager.GetComponent<GameManager>().playerAttackmonster(13);
-                //Debug.Log("skill 2 is acting");
-                break;
-            case 3:
-                //gameManager.GetComponent<GameManager>().playerAttackmonster(p_skill03.Skill_attack);
-                gameManager.GetComponent<GameManager>().playerAttackmonster(14);
-                //Debug.Log("skill 3 is acting");
-                break;
-            case 4:
-                //gameManager.GetComponent<GameManager>().playerAttackmonster(p_skill04.Skill_attack);
-                gameManager.GetComponent<GameManager>().playerAttackmonster(15);
-                //Debug.Log("skill 4 is acting");
-                break;
-        }
-    }
+
 }

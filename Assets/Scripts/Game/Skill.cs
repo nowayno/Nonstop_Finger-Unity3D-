@@ -20,6 +20,7 @@ public class Skill
     private float skill_CD;
     private float skill_Dir;
     private Buff buffType;
+    private string resName;
 
     public int Skill_id
     {
@@ -122,6 +123,19 @@ public class Skill
         set
         {
             buffType = value;
+        }
+    }
+
+    public string ResName
+    {
+        get
+        {
+            return resName;
+        }
+
+        set
+        {
+            resName = value;
         }
     }
 }
