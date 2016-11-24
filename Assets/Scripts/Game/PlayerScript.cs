@@ -262,18 +262,44 @@ public class PlayerScript : MonoBehaviour
 
     public void setSkill01(int id)
     {
-
+        p_skill01 = DoAction.getInstance().readData<Skill>(p_skill01, "Skill0" + id);
     }
     public void setSkill02(int id)
     {
-
+        p_skill02 = DoAction.getInstance().readData<Skill>(p_skill02, "Skill0" + id);
     }
     public void setSkill03(int id)
     {
-
+        p_skill03 = DoAction.getInstance().readData<Skill>(p_skill03, "Skill0" + id);
     }
     public void setSkill04(int id)
     {
-
+        p_skill04 = DoAction.getInstance().readData<Skill>(p_skill04, "Skill0" + id);
+    }
+    public void skillRelease(int id)
+    {
+        switch (id)
+        {
+            case 1:
+                //gameManager.GetComponent<GameManager>().playerAttackmonster(p_skill01.Skill_attack);
+                gameManager.GetComponent<GameManager>().playerAttackmonster(12);
+                //Debug.Log("skill 1 is acting");
+                break;
+            case 2:
+                //gameManager.GetComponent<GameManager>().playerAttackmonster(p_skill02.Skill_attack);
+                gameManager.GetComponent<GameManager>().playerAttackmonster(13);
+                //Debug.Log("skill 2 is acting");
+                break;
+            case 3:
+                //gameManager.GetComponent<GameManager>().playerAttackmonster(p_skill03.Skill_attack);
+                gameManager.GetComponent<GameManager>().playerAttackmonster(14);
+                //Debug.Log("skill 3 is acting");
+                break;
+            case 4:
+                //gameManager.GetComponent<GameManager>().playerAttackmonster(p_skill04.Skill_attack);
+                gameManager.GetComponent<GameManager>().playerAttackmonster(15);
+                //Debug.Log("skill 4 is acting");
+                break;
+        }
     }
 }

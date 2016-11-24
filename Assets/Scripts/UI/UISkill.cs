@@ -7,9 +7,10 @@ public class UISkill : MonoBehaviour
     UISprite hover;
     UILabel cd;
     float cdtime;
-    float skilltime = 10;
+    public float skilltime = 10;
 
     bool isready = true;
+    bool skillready = true;
     // Use this for initialization
     void Start()
     {
@@ -37,6 +38,7 @@ public class UISkill : MonoBehaviour
         {
             if (gameObject.name == "Skill01")
             {
+                skill01Release();
                 onClick();
             }
         }
@@ -44,6 +46,7 @@ public class UISkill : MonoBehaviour
         {
             if (gameObject.name == "Skill02")
             {
+                skill02Release();
                 onClick();
             }
         }
@@ -51,6 +54,7 @@ public class UISkill : MonoBehaviour
         {
             if (gameObject.name == "Skill03")
             {
+                skill03Release();
                 onClick();
             }
         }
@@ -58,6 +62,7 @@ public class UISkill : MonoBehaviour
         {
             if (gameObject.name == "Skill04")
             {
+                skill04Release();
                 onClick();
             }
         }
@@ -77,6 +82,7 @@ public class UISkill : MonoBehaviour
             else
             {
                 isready = true;
+                skillready = true;
                 hover.fillAmount = 0;
                 cd.text = "";
 
@@ -89,6 +95,38 @@ public class UISkill : MonoBehaviour
         {
             isready = false;
             cdtime = skilltime;
+        }
+    }
+    public void skill01Release()
+    {
+        if (skillready)
+        {
+            skillready = false;
+            GameObject.Find("Player").GetComponent<PlayerScript>().skillRelease(1);
+        }
+    }
+    public void skill02Release()
+    {
+        if (skillready)
+        {
+            skillready = false;
+            GameObject.Find("Player").GetComponent<PlayerScript>().skillRelease(2);
+        }
+    }
+    public void skill03Release()
+    {
+        if (skillready)
+        {
+            skillready = false;
+            GameObject.Find("Player").GetComponent<PlayerScript>().skillRelease(3);
+        }
+    }
+    public void skill04Release()
+    {
+        if (skillready)
+        {
+            skillready = false;
+            GameObject.Find("Player").GetComponent<PlayerScript>().skillRelease(4);
         }
     }
 }

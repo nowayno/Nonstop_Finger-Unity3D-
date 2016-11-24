@@ -23,14 +23,20 @@ class DoAction
 
     public bool writeData<T>(T t)
     {
-        bool flag = false;
-        Util.getInstance().writeXML<T>(t);
-        return flag;
+        return Util.getInstance().writeXML<T>(t);
+    }
+    public bool writeData<T>(T t, string name)
+    {
+        return Util.getInstance().writeXML<T>(t, name);
     }
 
     public T readData<T>(T t)
     {
         return Util.getInstance().readXML<T>(t);
+    }
+    public T readData<T>(T t, string name)
+    {
+        return Util.getInstance().readXML<T>(t, name);
     }
 
     public float bloodAndMission(int which, params float[] param)

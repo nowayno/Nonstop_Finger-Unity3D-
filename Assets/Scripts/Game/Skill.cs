@@ -19,7 +19,7 @@ public class Skill
     private float skill_time;
     private float skill_CD;
     private float skill_Dir;
-    private BUFF _buff = new BUFF();
+    private Buff buffType;
 
     public int Skill_id
     {
@@ -99,19 +99,6 @@ public class Skill
         }
     }
 
-    public BUFF Buff
-    {
-        get
-        {
-            return _buff;
-        }
-
-        set
-        {
-            _buff._MONSTERBUFF = BUFF.MONSTERBUFF.NONE;
-        }
-    }
-
     public float Skill_Dir
     {
         get
@@ -122,6 +109,19 @@ public class Skill
         set
         {
             skill_Dir = value;
+        }
+    }
+
+    public Buff BuffType
+    {
+        get
+        {
+            return buffType;
+        }
+
+        set
+        {
+            buffType = value;
         }
     }
 }

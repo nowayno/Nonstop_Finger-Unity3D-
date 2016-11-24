@@ -44,6 +44,20 @@ public class Util
         }
         return flag;
     }
+    public bool writeXML<T>(T t, string name)
+    {
+        bool flag = false;
+        name += ".xml";
+        using (Stream stream = new FileStream(filename + name, FileMode.Create))
+        {
+            stream.Position = 0;
+            XmlSerializer xmlFomart = new XmlSerializer(t.GetType(), new Type[] { t.GetType() });
+            xmlFomart.Serialize(stream, t);
+            stream.Flush();
+            stream.Close();
+        }
+        return flag;
+    }
 
     /// <summary>
     /// 读取xml文件
@@ -57,6 +71,19 @@ public class Util
         class_name = t.GetType().Name;
         class_name += ".xml";
         using (Stream stream = new FileStream(filename + class_name, FileMode.Open))
+        {
+            stream.Position = 0;
+            XmlSerializer xmlFomart = new XmlSerializer(t.GetType(), new Type[] { t.GetType() });
+            t = (T)xmlFomart.Deserialize(stream);
+            stream.Flush();
+            stream.Close();
+        }
+        return t;
+    }
+    public T readXML<T>(T t, string name)
+    {
+        name += ".xml";
+        using (Stream stream = new FileStream(filename + name, FileMode.Open))
         {
             stream.Position = 0;
             XmlSerializer xmlFomart = new XmlSerializer(t.GetType(), new Type[] { t.GetType() });
