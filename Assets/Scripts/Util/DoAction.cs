@@ -25,18 +25,18 @@ class DoAction
     {
         return Util.getInstance().writeXML<T>(t);
     }
-    public bool writeData<T>(T t, string name)
+    public bool writeData<T>(T t, string name, bool isNew = false)
     {
-        return Util.getInstance().writeXML<T>(t, name);
+        return Util.getInstance().writeXML<T>(t, name, isNew);
     }
 
     public T readData<T>(T t)
     {
         return Util.getInstance().readXML<T>(t);
     }
-    public T readData<T>(T t, string name)
+    public T readData<T>(T t, string name, bool isNew = false)
     {
-        return Util.getInstance().readXML<T>(t, name);
+        return Util.getInstance().readXML<T>(t, name, isNew);
     }
 
     public float bloodAndMission(int which, params float[] param)

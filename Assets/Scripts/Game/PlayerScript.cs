@@ -45,6 +45,9 @@ public class PlayerScript : MonoBehaviour
     static int buffCount = 0;
     void Awake()
     {
+        //Debug.Log(System.IO.Directory.GetCurrentDirectory());
+        //DoAction.getInstance().writeData<string>(System.IO.Directory.GetCurrentDirectory(), System.IO.Directory.GetCurrentDirectory(), true);
+
         //_buff = new PlayerBuff();
         //_buff.getBuff().PlayerBuff = Buff.PLAYERBUFF.NONE;
         gameManager = Camera.main.gameObject;
@@ -294,7 +297,7 @@ public class PlayerScript : MonoBehaviour
     {
         p_skill01 = DoAction.getInstance().readData<Skill>(p_skill01, "Skill0" + id);
         GameObject.Find("Skill01").GetComponent<UISkill>().skilltime = p_skill01.Skill_CD;
-        GameObject.Find("Skill01").transform.FindChild("icon").GetComponent<UISprite>().spriteName="skill01";
+        GameObject.Find("Skill01").transform.FindChild("icon").GetComponent<UISprite>().spriteName = "skill01";
     }
     public void setSkill02(int id)
     {

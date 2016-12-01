@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Skill xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Skill_id>5</Skill_id>
+  <Skill_name>no.5</Skill_name>
+  <Skill_attack>10</Skill_attack>
+  <Skill_CD>5</Skill_CD>
+  <Skill_tattack>0</Skill_tattack>
+  <Skill_time>0</Skill_time>
+  <Skill_Dir>10</Skill_Dir>
+  <BuffType>
+    <BuffTime>0</BuffTime>
+    <BuffMission>0</BuffMission>
+    <PlayerBuff>NONE</PlayerBuff>
+    <MonsterBuff>FIREDAMAGE</MonsterBuff>
+    <BuffData>0</BuffData>
+    <IsEnd>false</IsEnd>
+    <IsAdd>false</IsAdd>
+  </BuffType>
+  <ResName />
+</Skill>

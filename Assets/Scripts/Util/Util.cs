@@ -12,7 +12,12 @@ using System;
 public class Util
 {
     static Util util;
+
+#if UNITY_EDITOR
     string filename = @"F:\allprojects\unitypro\Nonstop_Finger\Assets\Data\";
+#else
+    string filename = System.IO.Directory.GetCurrentDirectory() + @"\Data\";
+#endif
     /// <summary>
     /// 获取单例
     /// </summary>
@@ -47,10 +52,17 @@ public class Util
     public bool writeXML<T>(T t, string name, bool isNew = false)
     {
         bool flag = false;
-        name += ".xml";
+
         if (isNew == false)
         {
+            name += ".xml";
             name = filename + name;
+        }
+        else
+        {
+            string class_name = t.GetType().Name;
+            class_name += ".xml";
+            name = name + @"\" + class_name;
         }
         using (Stream stream = new FileStream(name, FileMode.Create))
         {
@@ -76,20 +88,33 @@ public class Util
         class_name += ".xml";
         using (Stream stream = new FileStream(filename + class_name, FileMode.Open))
         {
-            stream.Position = 0;
-            XmlSerializer xmlFomart = new XmlSerializer(t.GetType(), new Type[] { t.GetType() });
-            t = (T)xmlFomart.Deserialize(stream);
-            stream.Flush();
-            stream.Close();
+            try
+            {
+                stream.Position = 0;
+                XmlSerializer xmlFomart = new XmlSerializer(t.GetType(), new Type[] { t.GetType() });
+                t = (T)xmlFomart.Deserialize(stream);
+                stream.Flush();
+                stream.Close();
+            }
+            catch (Exception e)
+            {
+                DoAction.getInstance().writeData<string>(e.Message, filename, true);
+            }
         }
         return t;
     }
     public T readXML<T>(T t, string name, bool isNew = false)
     {
-        name += ".xml";
         if (isNew == false)
         {
+            name += ".xml";
             name = filename + name;
+        }
+        else
+        {
+            string class_name = t.GetType().Name;
+            class_name += ".xml";
+            name = name + @"\" + class_name;
         }
         using (Stream stream = new FileStream(name, FileMode.Open))
         {
