@@ -40,8 +40,13 @@ public class MonsterScript : MonoBehaviour
     {
         gameManager = Camera.main.gameObject;
         monster = new Monster();
-        monster = DoAction.getInstance().readData<Monster>(monster);
-        m_id = id;
+        for (int index = 0; index < 5; ++index)
+        {
+            if (transform.name == ("Monster0" + (index + 1)))
+                monster = DoAction.getInstance().readData<Monster>(monster, "Monster0" + (index + 1));
+        }
+        m_id = monster.Id;
+        id = m_id;
         m_blood = monster.Blood;
         m_attack = monster.Attack;
         m_defend = monster.Defend;
@@ -91,13 +96,24 @@ public class MonsterScript : MonoBehaviour
             if ((m_speed <= 0) && canAttack)
             {
                 m_speed = monster.Speed;
-                gameManager.GetComponent<GameManager>().monsterAttackplayer(m_attack);
+                GetComponent<MonsterBehave>().attackBehave("Attack01");
+                //monsterAttackPlayer();
             }
+            //else if(canAttack==false)
+            //{
+            //    GetComponent<MonsterBehave>().aliveBehave("idle");
+            //}
         }
         //Debug.Log((m_speed <= 0));
 
     }
-
+    public void monsterAttackPlayer()
+    {
+        if (canAttack)
+        {
+            gameManager.GetComponent<GameManager>().monsterAttackplayer(m_attack);
+        }
+    }
     public void buffChange(Buff _b, bool isTimeup = false, params float[] param)
     {
         _buff.getBuff().MonsterBuff = _b.MonsterBuff;
@@ -142,6 +158,7 @@ public class MonsterScript : MonoBehaviour
     public void Attack(GameObject g)
     {
         //g.GetComponent<PlayerScript>().beAttacked(m_attack);
+        GetComponent<MonsterBehave>().attackBehave("Attack");
         gameManager.GetComponent<GameManager>().monsterAttackplayer(m_attack);
     }
     public void canNowAttack(bool can)
@@ -156,6 +173,10 @@ public class MonsterScript : MonoBehaviour
     public void missionBlood(int mission)
     {
         m_blood = DoAction.getInstance().bloodAndMission(1, mission);
+    }
+    public float getSpeed()
+    {
+        return m_speed;
     }
     public float getBlood()
     {
@@ -187,7 +208,7 @@ public class MonsterScript : MonoBehaviour
     public void addFireBuff(float delaydamage)
     {
         //temp_damage = delaydamage;
-       addDamage(delaydamage);
+        addDamage(delaydamage);
     }
 
     public void addIceBuff(float dtime)
@@ -198,7 +219,7 @@ public class MonsterScript : MonoBehaviour
     public void addPoisionBuff(float delaydamage)
     {
         //temp_damage = delaydamage;
-       addDamage(delaydamage);
+        addDamage(delaydamage);
     }
 
     public void addHardBuff()

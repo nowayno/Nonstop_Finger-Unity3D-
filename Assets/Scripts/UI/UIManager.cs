@@ -21,7 +21,7 @@ public class UIManager : MonoBehaviour
     void UIPosition()
     {
         float goX = go.transform.position.x;
-        float goY = go.transform.position.y + 2;
+        float goY = go.transform.position.y + go.GetComponent<CapsuleCollider>().bounds.size.y;
         float goZ = go.transform.position.z;
 
         gameObject.transform.position = UICamera.mainCamera.ScreenToWorldPoint(Camera.main.WorldToScreenPoint(new Vector3(goX, goY, 0)));

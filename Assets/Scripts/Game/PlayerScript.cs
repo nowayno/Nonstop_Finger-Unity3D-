@@ -123,13 +123,24 @@ public class PlayerScript : MonoBehaviour
             p_speed -= Time.deltaTime;
             if ((p_speed <= 0) && canAttack)
             {
-                p_speed = temp_speed;
-                gameManager.GetComponent<GameManager>().playerAttackmonster(p_attack);
+                p_speed = player.Speed;
+                GetComponent<PlayerBehave>().attackBehave("AttackA");
+                //playerAttackMonster();
             }
+            //else if (canAttack == false)
+            //{
+            //    GetComponent<PlayerBehave>().attackBehave("idle");
+            //}
         }
         //Debug.Log("血量:" + temp_blood + "  " + p_blood);
     }
-
+    public void playerAttackMonster()
+    {
+        if (canAttack)
+        {
+            gameManager.GetComponent<GameManager>().playerAttackmonster(p_attack);
+        }
+    }
     public void beAttacked(float damage)
     {
         if (p_blood > 0)

@@ -24,15 +24,15 @@ public class UISkill : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-//#if UNITY_ANDROID
-//        checkCD();
-//#endif
+#if UNITY_ANDROID
+        checkCD();
+#endif
 
-//#if UNITY_IPHONE
-//        checkCD();
-//#endif
+#if UNITY_IPHONE
+        checkCD();
+#endif
 
-//#if UNITY_STANDALONE_WIN
+#if UNITY_STANDALONE_WIN
         checkCD();
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -66,7 +66,7 @@ public class UISkill : MonoBehaviour
                 onClick();
             }
         }
-//#endif
+#endif
 
     }
     void checkCD()

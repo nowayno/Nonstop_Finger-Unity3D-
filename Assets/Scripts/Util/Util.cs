@@ -13,11 +13,10 @@ public class Util
 {
     static Util util;
 
-#if UNITY_EDITOR
+
     string filename = @"F:\allprojects\unitypro\Nonstop_Finger\Assets\Data\";
-#else
-    string filename = System.IO.Directory.GetCurrentDirectory() + @"\Data\";
-#endif
+    //string filename = System.IO.Directory.GetCurrentDirectory() + @"\Data\";
+
     /// <summary>
     /// 获取单例
     /// </summary>

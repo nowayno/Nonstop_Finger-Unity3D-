@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class GameManager : TemplateClass<GameManager>
 {
     int buffTarget = -1;
-    public int mission = 0;
+    public int mission = 1;
     int monsterAllDead = 0;
 
     public GameObject uiL;
@@ -53,8 +53,9 @@ public class GameManager : TemplateClass<GameManager>
         //sc.skill06Create();
         //sc.skill07Create();
         //sc.skill08Create();
+
         OtherCreate oc = new OtherCreate();
-        oc.usingSkill(1,2,3,4);
+        oc.usingSkill(1, 2, 3, 4);
 
         monsterAttack = new List<float>();
         playerAttack = new List<float>();
@@ -120,6 +121,7 @@ public class GameManager : TemplateClass<GameManager>
                 {
                     playerGO.GetComponent<PlayerScript>().canNowAttack(true);
                     m.GetComponent<MonsterScript>().canNowAttack(true);
+
                 }
                 else
                 {
@@ -174,9 +176,9 @@ public class GameManager : TemplateClass<GameManager>
 
         GameObject uiLabel = Instantiate(uiL);
         uiLabel.transform.parent = GameObject.Find("UI Root").transform;
-        uiLabel.GetComponent<UILabel>().text = string.Format("{0:F}",attack);
+        uiLabel.GetComponent<UILabel>().text = string.Format("{0:F}", attack);
         float goX = playerGO.transform.position.x;
-        float goY = playerGO.transform.position.y;
+        float goY = playerGO.transform.position.y + playerGO.GetComponent<CapsuleCollider>().bounds.size.y + 2.0f;
         float goZ = playerGO.transform.position.z;
         uiLabel.transform.position = UICamera.mainCamera.ScreenToWorldPoint(Camera.main.WorldToScreenPoint(new Vector3(goX, goY, 0)));
         uiLabel.transform.localScale = new Vector3(1, 1, 1);
@@ -205,9 +207,9 @@ public class GameManager : TemplateClass<GameManager>
                     GameObject uiLabel = Instantiate(uiL);
                     uiLabel.transform.parent = GameObject.Find("UI Root").transform;
                     uiLabel.GetComponent<UILabel>().text = string.Format("{0:F}", attack);
-    
+
                     float goX = m.transform.position.x;
-                    float goY = m.transform.position.y;
+                    float goY = m.transform.position.y + m.GetComponent<CapsuleCollider>().bounds.size.y + 2.0f;
                     float goZ = m.transform.position.z;
                     uiLabel.transform.position = UICamera.mainCamera.ScreenToWorldPoint(Camera.main.WorldToScreenPoint(new Vector3(goX, goY, 0)));
                     uiLabel.transform.localScale = new Vector3(1, 1, 1);

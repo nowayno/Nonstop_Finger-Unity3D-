@@ -1,10 +1,15 @@
 ﻿using UnityEngine;
 public class MonsterBehave : Behave
 {
+    void Start()
+    {
+        ani = GetComponent<Animator>();
+        stateInfo = ani.GetCurrentAnimatorStateInfo(0);
+    }
+
     public MonsterBehave()
     {
-        //ani.GetComponent<Animator>();
-        //stateInfo = ani.GetCurrentAnimatorStateInfo(0);
+       
     }
 
     public ACTION getAction()
@@ -17,23 +22,24 @@ public class MonsterBehave : Behave
         _action = ac;
     }
 
-    protected override void attackBehave()
+    public override void attackBehave(string aniName = "attack")
     {
-        ani.SetBool("idle", false);
-        base.attackBehave();
+        //ani.speed = 0.1f;
+        //ani.SetBool("idle", false);
+        base.attackBehave(aniName);
     }
-    protected override void runBehave()
+    public override void runBehave(string aniName = "run", bool isBool = true)
     {
-        ani.SetBool("idle", false);
-        base.runBehave();
+        //ani.SetBool("idle", false);
+        base.runBehave(aniName,isBool);
     }
-    protected override void aliveBehave()
+    public override void aliveBehave(string aniName = "dead")
     {
-        base.aliveBehave();
+        base.aliveBehave(aniName);
     }
 
-    protected override void deadBehave()
+    public override void deadBehave(string aniName = "idle")
     {
-        base.deadBehave();
+        base.deadBehave(aniName);
     }
 }

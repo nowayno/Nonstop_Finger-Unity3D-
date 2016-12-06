@@ -1,12 +1,16 @@
 ﻿using UnityEngine;
 public class PlayerBehave : Behave
 {
-    public PlayerBehave()
+    void Start()
     {
-        //ani.GetComponent<Animator>();
-        //stateInfo = ani.GetCurrentAnimatorStateInfo(0);
-    }
+        ani = GetComponent<Animator>();
+        stateInfo = ani.GetCurrentAnimatorStateInfo(0);
 
+    }
+    void Update()
+    {
+
+    }
     public ACTION getAction()
     {
         return _action;
@@ -17,23 +21,31 @@ public class PlayerBehave : Behave
         _action = ac;
     }
 
-    override protected void attackBehave()
+    public void changeSpeed(float speed)
     {
-        ani.SetBool("idle", false);
-        base.attackBehave();
+        if (speed < 1.0f)
+            speed = 1.0f;
+        ani.speed = speed;
     }
-    protected override void runBehave()
+
+    override public void attackBehave(string aniName = "attack")
     {
-        ani.SetBool("idle", false);
-        base.runBehave();
+        //ani.speed = 2.0f;
+        //ani.SetBool("idle", false);
+        base.attackBehave(aniName);
     }
-    protected override void aliveBehave()
+    public override void runBehave(string aniName = "run", bool isBool = true)
     {
-        base.aliveBehave();
+        //ani.SetBool("idle", false);
+        base.runBehave(aniName,isBool);
     }
-    protected override void deadBehave()
+    public override void aliveBehave(string aniName = "dead")
     {
-        base.deadBehave();
+        base.aliveBehave(aniName);
+    }
+    public override void deadBehave(string aniName = "idle")
+    {
+        base.deadBehave(aniName);
     }
     protected void skill01Behave()
     {

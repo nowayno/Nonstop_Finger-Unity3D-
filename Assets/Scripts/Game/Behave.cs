@@ -19,39 +19,40 @@ public class Behave : TemplateClass<Behave>
         //ani.GetComponent<Animator>();
         //stateInfo = ani.GetCurrentAnimatorStateInfo(0);
     }
-    virtual protected void attackBehave()
+    virtual public void attackBehave(string aniName = "attack")
     {
         if (_action == ACTION.ALIVE)
-            if (stateInfo.fullPathHash == Animator.StringToHash("Base Layer.run") && !ani.IsInTransition(0))
-            {
-                ani.SetBool("run", false);
-                ani.SetBool("attack", true);
-            }
+            //if (stateInfo.fullPathHash == Animator.StringToHash("Base Layer.run") && !ani.IsInTransition(0))
+            //{
+            ani.SetBool("Run", false);
+        ani.SetTrigger(aniName);
+
+        //}
     }
-    virtual protected void runBehave()
+    virtual public void runBehave(string aniName = "run", bool isBool = true)
     {
         if (_action == ACTION.ALIVE)
-            if (stateInfo.fullPathHash == Animator.StringToHash("Base Layer.attack") && !ani.IsInTransition(0))
-            {
-                ani.SetBool("attack", false);
-                ani.SetBool("run", true);
-            }
+            //if (stateInfo.fullPathHash == Animator.StringToHash("Base Layer.BossStand01") && !ani.IsInTransition(0))
+            //{
+            //    ani.SetBool("attack", false);
+            ani.SetBool(aniName, isBool);
+        //}
     }
-    virtual protected void deadBehave()
+    virtual public void deadBehave(string aniName = "dead")
     {
-        ani.SetBool("idle", true);
+        ani.SetTrigger("idle");
     }
-    virtual protected void aliveBehave()
+    virtual public void aliveBehave(string aniName = "idle")
     {
         _action = ACTION.DEAD;
-        if (stateInfo.fullPathHash == Animator.StringToHash("Base Layer.attack") && !ani.IsInTransition(0))
-        {
-            ani.SetBool("attack", false);
-        }
-        if (stateInfo.fullPathHash == Animator.StringToHash("Base Layer.run") && !ani.IsInTransition(0))
-        {
-            ani.SetBool("run", false);
-        }
-        ani.SetBool("dead", true);
+        //if (stateInfo.fullPathHash == Animator.StringToHash("Base Layer.attack") && !ani.IsInTransition(0))
+        //{
+        //    ani.SetTrigger("attack");
+        //}
+        //if (stateInfo.fullPathHash == Animator.StringToHash("Base Layer.run") && !ani.IsInTransition(0))
+        //{
+        //    ani.SetTrigger("run", false);
+        //}
+        ani.SetTrigger(aniName);
     }
 }
