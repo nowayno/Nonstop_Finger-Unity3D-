@@ -13,7 +13,7 @@ public class MonsterBuffScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        
+
     }
     float ti = 0;
     // Update is called once per frame
@@ -91,6 +91,10 @@ public class MonsterBuffScript : MonoBehaviour
     }
     public void buffClear()
     {
+        foreach (MonsterBuff mb in monsterBuffList)
+        {
+            mb.isEnd(true);
+        }
         monsterBuffList.Clear();
     }
 }

@@ -5,6 +5,7 @@ public class MonsterMove : MonoBehaviour
 {
     public GameObject player;
     float speed;
+    float dir = 0;
     //public GameObject[] monsters;
     // Use this for initialization
     void Start()
@@ -18,7 +19,7 @@ public class MonsterMove : MonoBehaviour
     void Update()
     {
         transform.LookAt(player.transform);
-        float dir = Vector3.Distance(transform.position, player.transform.position);
+        dir = Vector3.Distance(transform.position, player.transform.position);
         //Debug.Log(dir);
         if (dir >= 3.0f)
         {
@@ -31,5 +32,9 @@ public class MonsterMove : MonoBehaviour
         {
             GetComponent<MonsterBehave>().runBehave("Run", false);
         }
+    }
+    public float getDir()
+    {
+        return dir;
     }
 }

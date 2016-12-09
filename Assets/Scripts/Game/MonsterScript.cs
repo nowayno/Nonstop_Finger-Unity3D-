@@ -8,7 +8,7 @@ public class MonsterScript : MonoBehaviour
     Monster monster;
 
     GameObject gameManager;
-
+    public GameObject player;
     public Transform boom;
 
     private int m_id;
@@ -24,6 +24,7 @@ public class MonsterScript : MonoBehaviour
     static PlayerBuff _buff;
     bool isBuff = false;
     bool isFrozen = true;
+    bool isBoom = true;
 
     float counttime = 0;
     float countMission = 0;
@@ -32,6 +33,8 @@ public class MonsterScript : MonoBehaviour
     float temp_blood;
     float temp_speed = 0;
     float temp_damage = 0;
+
+    float dir = 0;
 
     static int buffCount = 0;
     float timeCount = 0;
@@ -64,11 +67,18 @@ public class MonsterScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        dir = Vector3.Distance(transform.position, player.transform.position);
         if (m_blood <= 0)
         {
+            if (isBoom)
+            {
+                isBoom = false;
+                Instantiate(boom, gameObject.transform.position, Quaternion.identity);
+                //Debug.Log("dead");
+            }
             gameObject.GetComponent<MonsterBuffScript>().buffClear();
-            //Instantiate(boom, gameObject.transform.position, gameObject.transform.rotation);
-            //Debug.Log("dead");
+            transform.position = new Vector3(0, transform.position.z + 100, 0);
+
             if (monster.Behave.getAction() != Behave.ACTION.DEAD)
             {
                 //Debug.Log(deadnum);
@@ -185,6 +195,14 @@ public class MonsterScript : MonoBehaviour
     public float getNowBlood()
     {
         return m_blood;
+    }
+    public float getDir()
+    {
+        return dir;
+    }
+    public void setDir(float d)
+    {
+        dir = d;
     }
     public void reBlood()
     {

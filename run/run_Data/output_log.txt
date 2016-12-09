@@ -14,7 +14,7 @@ Platform assembly: F:\allprojects\unitypro\Nonstop_Finger\run\run_Data\Managed\U
 Loading F:\allprojects\unitypro\Nonstop_Finger\run\run_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
 Platform assembly: F:\allprojects\unitypro\Nonstop_Finger\run\run_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
 Loading F:\allprojects\unitypro\Nonstop_Finger\run\run_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.071 seconds
+- Completed reload, in  0.157 seconds
 Platform assembly: F:\allprojects\unitypro\Nonstop_Finger\run\run_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: F:\allprojects\unitypro\Nonstop_Finger\run\run_Data\Managed\System.dll (this message is harmless)
 desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
@@ -25,7 +25,7 @@ The referenced script on this Behaviour (Game Object 'FX') is missing!
  
 (Filename:  Line: 1656)
 
-UnloadTime: 0.942640 ms
+UnloadTime: 1.333823 ms
 Platform assembly: F:\allprojects\unitypro\Nonstop_Finger\run\run_Data\Managed\System.Xml.dll (this message is harmless)
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 352c -> priority: 1 
+  Thread -> id: 5360 -> priority: 1 

@@ -7,6 +7,7 @@ public class GameManager : TemplateClass<GameManager>
     int buffTarget = -1;
     public int mission = 1;
     int monsterAllDead = 0;
+    float tempDir = 1;
 
     public GameObject uiL;
     public GameObject playerGO;
@@ -91,7 +92,9 @@ public class GameManager : TemplateClass<GameManager>
             //Debug.Log(MonsterScript.deadnum);
             if (MonsterScript.deadnum >= 5)
             {
+                playerGO.GetComponent<PlayerMove>().clearDirtyTag();
                 playerGO.GetComponent<PlayerScript>().canNowAttack(false);
+
                 MonsterScript.deadnum = 0;
                 //deadNum();
                 monsterAttack.Clear();
@@ -99,6 +102,11 @@ public class GameManager : TemplateClass<GameManager>
                 playerGO.GetComponent<PlayerScript>().reLife();
 
                 float dir = Random.Range(-0.4f, 0.4f) <= 0 ? -1 : 1;
+
+                if (dir != tempDir)
+                    playerGO.GetComponent<PlayerMove>().setFlip();
+                tempDir = dir;
+
                 //Debug.Log(dir);
                 int i = 0;
                 foreach (GameObject m in monsterGOList)
@@ -136,6 +144,7 @@ public class GameManager : TemplateClass<GameManager>
     {
         UISprite uiObject = GameObject.Find("Blood0" + index).GetComponent<UISprite>();
         uiObject.fillAmount = (nowBlood - damage) / blood;
+        //Debug.Log(damage);
     }
     public void restoreUI(int index)
     {
@@ -166,14 +175,6 @@ public class GameManager : TemplateClass<GameManager>
 
     public void monsterAttackplayer(float attack)
     {
-        //monsterAttack.Insert(0, attack);
-        //foreach (GameObject m in monsterGOList)
-        //{
-        //    float dir = Vector3.Distance(m.transform.localPosition, playerGO.transform.localPosition);
-        //    if (dir < 3.0f)
-        //    {
-        //UILabel uiL = GameObject.Find("damage").GetComponent<UILabel>();
-
         GameObject uiLabel = Instantiate(uiL);
         uiLabel.transform.parent = GameObject.Find("UI Root").transform;
         uiLabel.GetComponent<UILabel>().text = string.Format("{0:F}", attack);
@@ -198,32 +199,54 @@ public class GameManager : TemplateClass<GameManager>
         {
             //UILabel uiL;
             int i = 0;
+            string name = playerGO.GetComponent<PlayerMove>().nearMonsterName();
             foreach (GameObject m in monsterGOList)
             {
                 //uiL = GameObject.Find("damage").GetComponent<UILabel>();
-                if (m.GetComponent<MonsterScript>().isDead() == false)
+                if ((m.GetComponent<MonsterScript>().isDead() == false) && (name == m.name))
                 {
-                    //uiL = GameObject.Find("damage").GetComponent<UILabel>();
-                    GameObject uiLabel = Instantiate(uiL);
-                    uiLabel.transform.parent = GameObject.Find("UI Root").transform;
-                    uiLabel.GetComponent<UILabel>().text = string.Format("{0:F}", attack);
-
-                    float goX = m.transform.position.x;
-                    float goY = m.transform.position.y + m.GetComponent<CapsuleCollider>().bounds.size.y + 2.0f;
-                    float goZ = m.transform.position.z;
-                    uiLabel.transform.position = UICamera.mainCamera.ScreenToWorldPoint(Camera.main.WorldToScreenPoint(new Vector3(goX, goY, 0)));
-                    uiLabel.transform.localScale = new Vector3(1, 1, 1);
-
+                    bloodUI(i, m, attack);
                     m.GetComponent<MonsterScript>().beAttacked(attack);
-                    bloodUI(i, m.GetComponent<MonsterScript>().getNowBlood(), m.GetComponent<MonsterScript>().getBlood(), attack);
+
                     break;
-                }
-                else
-                {
-                    //m.transform.position = new Vector3(100, 100, 0);
                 }
                 ++i;
             }
         }
     }
+    public void bloodUI(int i, GameObject m, float attack)
+    {
+        GameObject uiLabel = Instantiate(uiL);
+        uiLabel.transform.parent = GameObject.Find("UI Root").transform;
+        uiLabel.GetComponent<UILabel>().text = string.Format("{0:F}", attack);
+
+        float goX = m.transform.position.x;
+        float goY = m.transform.position.y + m.GetComponent<CapsuleCollider>().bounds.size.y + 2.0f;
+        float goZ = m.transform.position.z;
+        uiLabel.transform.position = UICamera.mainCamera.ScreenToWorldPoint(Camera.main.WorldToScreenPoint(new Vector3(goX, goY, 0)));
+        uiLabel.transform.localScale = new Vector3(1, 1, 1);
+
+        m.GetComponent<MonsterScript>().beAttacked(attack);
+        bloodUI(i, m.GetComponent<MonsterScript>().getNowBlood(), m.GetComponent<MonsterScript>().getBlood(), attack);
+    }
+    public void playerSkillAttackMonster(Skill skill)
+    {
+        if (playerGO.GetComponent<PlayerScript>().isDead() == false)
+        {
+            //UILabel uiL;
+            int i = 0;
+            //string name = playerGO.GetComponent<PlayerMove>().nearMonsterName();
+            foreach (GameObject m in monsterGOList)
+            {
+                //uiL = GameObject.Find("damage").GetComponent<UILabel>();
+                if ((m.GetComponent<MonsterScript>().isDead() == false) && (m.GetComponent<MonsterMove>().getDir() <= skill.Skill_Dir))
+                {
+                    bloodUI(i, m, skill.Skill_attack);
+                    m.GetComponent<MonsterScript>().beAttacked(skill.Skill_tattack);
+                }
+                ++i;
+            }
+        }
+    }
+
 }

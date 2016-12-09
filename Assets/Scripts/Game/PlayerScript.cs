@@ -157,7 +157,8 @@ public class PlayerScript : MonoBehaviour
     void skillAttack(Skill sk)
     {
         //g.GetComponent<MonsterScript>().beAttacked(skill.Skill_attack);
-        gameManager.GetComponent<GameManager>().playerAttackmonster(sk.Skill_attack);
+        
+        gameManager.GetComponent<GameManager>().playerSkillAttackMonster(sk);
         float buffCatch = Random.Range(0.0f, 50.0f);
         if ((buffCatch > 10.0f) && (buffCatch < 30.0f) && (sk.BuffType.MonsterBuff != Buff.MONSTERBUFF.NONE))
         {
