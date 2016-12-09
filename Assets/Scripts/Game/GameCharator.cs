@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿/**
+ * 游戏角色基类
+ * 怎么说呢，我好像最后没用基类了，所以不解释了 
+ **/
+using UnityEngine;
 using System.Collections;
 
 public class GameCharator : MonoBehaviour

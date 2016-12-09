@@ -1,10 +1,14 @@
-﻿using UnityEngine;
+﻿/**
+ * 敌人Buff处理脚本 
+ * 有了Buff了，但要处理一下
+ **/
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 public class MonsterBuffScript : MonoBehaviour
 {
-    List<MonsterBuff> monsterBuffList;
+    List<MonsterBuff> monsterBuffList;//敌人获得Buff集合，记录了当前身上的所有Buff
     bool buffDoing;
     void Awake()
     {
@@ -24,9 +28,8 @@ public class MonsterBuffScript : MonoBehaviour
         {
             if (monsterBuffList[index - 1].isAdd() != true)
             {
-                //buffDoing = true;
                 monsterBuffList[index - 1].isAdd(true);
-                //buffADD(monsterBuffList[index - 1].getBuff(), monsterBuffList[index - 1].getBuffData());
+                buffADD(monsterBuffList[index - 1].getBuff(), monsterBuffList[index - 1].getBuffData());
                 monsterBuffList[index - 1].startBuff();
                 //gameObject.GetComponent<PlayerScript>().buffChange(pb.getBuff(), false, pb.getBuffData());
             }
@@ -89,6 +92,8 @@ public class MonsterBuffScript : MonoBehaviour
                 break;
         }
     }
+    //当敌人死了，重新生成的时候，其实是游戏体的复用，这样就不能让他死而复生的时候还有之前的Buff
+    //还没打他呢，怎么就死了？这可不对
     public void buffClear()
     {
         foreach (MonsterBuff mb in monsterBuffList)

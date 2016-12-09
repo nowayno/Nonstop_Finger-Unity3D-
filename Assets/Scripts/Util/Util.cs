@@ -2,6 +2,7 @@
  * 作者：佯疯(crazYoung) 
  * 起始时间：2015.9.7
  * 完成时间：
+ * 工具类
  */
 using UnityEngine;
 using System.Collections;
@@ -13,7 +14,7 @@ public class Util
 {
     static Util util;
 
-
+    //一种是编辑的时候用，一种是生成PC端用的
     string filename = @"F:\allprojects\unitypro\Nonstop_Finger\Assets\Data\";
     //string filename = System.IO.Directory.GetCurrentDirectory() + @"\Data\";
 
@@ -29,7 +30,7 @@ public class Util
     }
 
     /// <summary>
-    /// 读取xml文件
+    /// 写入xml文件
     /// </summary>
     /// <typeparam name="T">传入类型</typeparam>
     /// <param name="t">对象</param>
@@ -48,6 +49,14 @@ public class Util
         }
         return flag;
     }
+    /// <summary>
+    /// 写入xml文件
+    /// </summary>
+    /// <typeparam name="T">传入类型</typeparam>
+    /// <param name="t">传入对象</param>
+    /// <param name="name">名字</param>
+    /// <param name="isNew">如果为false，则根据name来创建文件名，为true则根据类型名字创建</param>
+    /// <returns></returns>
     public bool writeXML<T>(T t, string name, bool isNew = false)
     {
         bool flag = false;
@@ -102,6 +111,14 @@ public class Util
         }
         return t;
     }
+    /// <summary>
+    /// 读取xml文件
+    /// </summary>
+    /// <typeparam name="T">传入类型</typeparam>
+    /// <param name="t">传入对象</param>
+    /// <param name="name">名字</param>
+    /// <param name="isNew">如果为false，则根据name来查找文件名，为true则用类型查找</param>
+    /// <returns></returns>
     public T readXML<T>(T t, string name, bool isNew = false)
     {
         if (isNew == false)

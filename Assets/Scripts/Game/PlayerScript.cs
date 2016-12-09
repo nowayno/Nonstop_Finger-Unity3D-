@@ -2,6 +2,8 @@
  * 作者：佯疯(crazYoung) 
  * 起始时间：2016/9/16 14:20:34
  * 完成时间：
+ * 玩家总脚本
+ * 总体和敌人总脚本差不多
  */
 using UnityEngine;
 using System.Collections;
@@ -104,12 +106,7 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //counttime += Time.deltaTime;
-        //if (counttime >= 5)
-        //{
-        //    gameObject.GetComponent<MonsterScript>().beAttacked(p_attack);
-        //    counttime = 0;
-        //}
+        //活着就该战斗，死亡并不是结束
         if (p_blood <= 0)
         {
 
@@ -127,13 +124,10 @@ public class PlayerScript : MonoBehaviour
                 GetComponent<PlayerBehave>().attackBehave("AttackA");
                 //playerAttackMonster();
             }
-            //else if (canAttack == false)
-            //{
-            //    GetComponent<PlayerBehave>().attackBehave("idle");
-            //}
         }
-        //Debug.Log("血量:" + temp_blood + "  " + p_blood);
     }
+    #region 玩家攻击和被攻击
+    //玩家必须挥动武器(攻击动画)才能攻击敌人
     public void playerAttackMonster()
     {
         if (canAttack)
@@ -151,13 +145,11 @@ public class PlayerScript : MonoBehaviour
 
     public void Attack(GameObject g)
     {
-        //g.GetComponent<MonsterScript>().beAttacked(p_attack);
         gameManager.GetComponent<GameManager>().playerAttackmonster(p_attack);
     }
+    //玩家使用技能，或许该给敌人点Buff
     void skillAttack(Skill sk)
     {
-        //g.GetComponent<MonsterScript>().beAttacked(skill.Skill_attack);
-        
         gameManager.GetComponent<GameManager>().playerSkillAttackMonster(sk);
         float buffCatch = Random.Range(0.0f, 50.0f);
         if ((buffCatch > 10.0f) && (buffCatch < 30.0f) && (sk.BuffType.MonsterBuff != Buff.MONSTERBUFF.NONE))
@@ -192,19 +184,15 @@ public class PlayerScript : MonoBehaviour
         {
             case 1:
                 skillAttack(p_skill01);
-                //Debug.Log("skill 1 is acting");
                 break;
             case 2:
                 skillAttack(p_skill02);
-                //Debug.Log("skill 2 is acting");
                 break;
             case 3:
                 skillAttack(p_skill03);
-                //Debug.Log("skill 3 is acting");
                 break;
             case 4:
                 skillAttack(p_skill04);
-                //Debug.Log("skill 4 is acting");
                 break;
         }
     }
@@ -212,6 +200,9 @@ public class PlayerScript : MonoBehaviour
     {
         canAttack = can;
     }
+    #endregion
+
+    #region 以下便是什么获取啊，Buff改变啊
     public float getBlood()
     {
         return temp_blood;
@@ -304,7 +295,9 @@ public class PlayerScript : MonoBehaviour
     {
         return DoAction.getInstance().addBuff(0, predata, tempdata, adddata);
     }
+    #endregion
 
+    #region 玩家得明白选了什么技能就该使用说明技能 （这里的方法还没有做，定死了的前4个技能，当然可以去UsingSkill.xml文件里稍稍修改一下数字）
     public void setSkill01(int id)
     {
         p_skill01 = DoAction.getInstance().readData<Skill>(p_skill01, "Skill0" + id);
@@ -329,5 +322,5 @@ public class PlayerScript : MonoBehaviour
         GameObject.Find("Skill04").GetComponent<UISkill>().skilltime = p_skill04.Skill_CD;
         GameObject.Find("Skill04").transform.FindChild("icon").GetComponent<UISprite>().spriteName = "skill03";
     }
-
+    #endregion
 }

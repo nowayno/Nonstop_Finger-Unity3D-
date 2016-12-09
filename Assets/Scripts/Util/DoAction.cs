@@ -2,6 +2,8 @@
  * 作者：佯疯(crazYoung) 
  * 起始时间：2016/9/16 11:57:34
  * 完成时间：
+ * 工具类的中间类，调用其他工具类的时候直接调用这个类
+ * 注意：这是一个单例类
  */
 
 using System;
@@ -21,6 +23,7 @@ class DoAction
         return _action;
     }
 
+    //就像他们的名字一样，去相关的文件中寻求更多的信息吧
     public bool writeData<T>(T t)
     {
         return Util.getInstance().writeXML<T>(t);

@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿/**
+ * 玩家的Buff，和敌人的一样理解，不多写了
+ * 除了某些数值变了，其实就是复制过来的
+ **/
+using UnityEngine;
 using System.Collections;
 using System.Threading;
 
@@ -8,13 +12,6 @@ public class PlayerBuff : TemplateClass<PlayerBuff>
 
     Buff buff;
     bool flag = true;
-    //public Buff Buff
-    //{
-    //    get
-    //    {
-    //        return buff;
-    //    }
-    //}
 
     public PlayerBuff()
     {
@@ -76,7 +73,6 @@ public class PlayerBuff : TemplateClass<PlayerBuff>
             //buff.PlayerBuff = Buff.PLAYERBUFF.NONE;
             buff.IsEnd = true;
         }
-        //buff.IsEnd = true;
     }
 
     public bool isEnd()
@@ -85,7 +81,6 @@ public class PlayerBuff : TemplateClass<PlayerBuff>
     }
     public void isEnd(bool end)
     {
-        //Debug.Log("thread done "+buff.BuffData+" time"+Time.time);
         buff.IsEnd = end;
     }
     public bool isAdd()

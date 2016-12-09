@@ -1,8 +1,13 @@
-﻿using UnityEngine;
+﻿/**
+ * Buff类 
+ **/
+using UnityEngine;
 using System.Collections;
 
 public class Buff
 {
+    #region 玩家和敌人能够获取的Buff
+    //玩家能够获得的Buff
     public enum PLAYERBUFF
     {
         ADDSPEED,
@@ -13,7 +18,7 @@ public class Buff
         CD,
         NONE
     }
-
+    //敌人能够获得的Buff
     public enum MONSTERBUFF
     {
         FIREDAMAGE,
@@ -22,6 +27,8 @@ public class Buff
         HARDDAMAGE,
         NONE
     }
+    #endregion
+
     private PLAYERBUFF _PLAYERBUFF;
     private MONSTERBUFF _MONSTERBUFF;
 
@@ -34,7 +41,12 @@ public class Buff
         buffMission = 0;
         next = null;
     }
-
+    /// <summary>
+    /// 已抛弃
+    /// </summary>
+    /// <param name="buffTime"></param>
+    /// <param name="buffMission"></param>
+    /// <param name="buffData"></param>
     public Buff(float buffTime, float buffMission, float buffData)
     {
         this.buffTime = buffTime;
@@ -50,8 +62,16 @@ public class Buff
     private bool isEnd;
     private bool isAdd;
     private bool isDoing;
-    private Buff next;
-    private Buff previous;
+    #region     特别说明：方法和属性是用来形成双向链表，目的是为了动态添加删除功能
+    //用于双向链表
+    private Buff next;//下一个Buff类
+    private Buff previous;//前一个Buff类
+
+    /// <summary>
+    /// Buff类的链，暂时不用
+    /// </summary>
+    /// <param name="n">下一个Buff的对象</param>
+    /// <returns>是否添加成功</returns>
 
     public bool addNextBuff(ref Buff n)
     {
@@ -63,7 +83,9 @@ public class Buff
         }
         return add;
     }
-
+    /// <summary>
+    /// 将结束的Buff类重置，并将结束的Buff的前链置空
+    /// </summary>
     public void setNextBuffEnd()
     {
         if (next != null)
@@ -72,7 +94,9 @@ public class Buff
             next.previous = null;
         }
     }
+    #endregion
 
+    #region 不想多说这里的方法
     public float BuffTime
     {
         get
@@ -176,4 +200,5 @@ public class Buff
             isDoing = value;
         }
     }
+    #endregion
 }

@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿/**
+ * 敌人Buff脚本，Buff的作用就在这里体现了 
+ **/
+using UnityEngine;
 using System.Collections;
 using System.Threading;
 
@@ -18,7 +21,7 @@ public class MonsterBuff : TemplateClass<MonsterBuff>
     {
         initBuff();
     }
-
+    //我们给敌人Buff初始化一下吧
     void initBuff()
     {
         buff = new Buff();
@@ -48,8 +51,10 @@ public class MonsterBuff : TemplateClass<MonsterBuff>
                 break;
         }
     }
+    //开始计时
     public void startBuff()
     {
+        //我用了线程，学艺不深，不知道移动端是否可行
         Thread start = new Thread(buffTime);
         start.Start();
     }
@@ -58,12 +63,13 @@ public class MonsterBuff : TemplateClass<MonsterBuff>
     {
         buff.IsEnd = true;
     }
+    //来一场说来就来，说走就走的Buff挂载吧
     bool flag = true;
     void buffTime()
     {
         while (flag)
         {
-            //--buff.BuffTime;
+            //没记错的话，睡眠时间应该是以毫秒为单位，所以咯
             Thread.Sleep((int)(buff.BuffTime * 1000));
             buff.PlayerBuff = Buff.PLAYERBUFF.NONE;
             flag = false;
@@ -71,7 +77,7 @@ public class MonsterBuff : TemplateClass<MonsterBuff>
             buff.IsDoing = false;
         }
     }
-
+    //下面所有的方法，不是用来判断Buff是否还在，是否已挂载，就是用来销毁自身，获取Buff的状态
     public bool isEnd()
     {
         return buff.IsEnd;

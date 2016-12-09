@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿/**
+ * 技能展示
+ * 
+ **/
+using UnityEngine;
 using System.Collections;
 
 public class UISkill : MonoBehaviour

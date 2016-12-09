@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿/**
+ * 动作类的玩家从类 
+ **/
+using UnityEngine;
 public class PlayerBehave : Behave
 {
     void Start()
@@ -47,6 +50,7 @@ public class PlayerBehave : Behave
     {
         base.deadBehave(aniName);
     }
+    //下面的还没有，忽略
     protected void skill01Behave()
     {
         ani.SetBool("skill01", true);

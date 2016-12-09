@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿/**
+ * 敌人行动起来
+ * 
+ **/
+using UnityEngine;
 using System.Collections;
 
 public class MonsterMove : MonoBehaviour
@@ -6,26 +10,23 @@ public class MonsterMove : MonoBehaviour
     public GameObject player;
     float speed;
     float dir = 0;
-    //public GameObject[] monsters;
     // Use this for initialization
     void Start()
     {
         speed = GetComponent<MonsterScript>().getSpeed();
-        //player = base.playerGO;
-        //monsters = base.monsterGOList;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //不管是谁，背对着人家打人家，是不对的
         transform.LookAt(player.transform);
         dir = Vector3.Distance(transform.position, player.transform.position);
-        //Debug.Log(dir);
+        //我与他的距离，使我们不停的奔跑，当我们相近的时候，就是兵刃相见
         if (dir >= 3.0f)
         {
             GetComponent<MonsterBehave>().runBehave("Run");
             Vector3.RotateTowards(transform.position, player.transform.position, 0.5f, 0.5f);
-            //transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * 10.0f);
             transform.Translate(Vector3.forward * (speed / 100.0f));
         }
         else
@@ -33,6 +34,7 @@ public class MonsterMove : MonoBehaviour
             GetComponent<MonsterBehave>().runBehave("Run", false);
         }
     }
+    //获取敌人与玩家的距离
     public float getDir()
     {
         return dir;

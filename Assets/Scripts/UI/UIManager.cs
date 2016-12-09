@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿/**
+ * 血条跟踪
+ * 名字很迷惑人，但只进行了血条跟踪的处理
+ * 
+ **/
+using UnityEngine;
 using System.Collections;
 
 public class UIManager : MonoBehaviour

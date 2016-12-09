@@ -2,6 +2,8 @@
  * 作者：佯疯(crazYoung) 
  * 起始时间：2015.9.12
  * 完成时间：
+ * 敌人的一些数学运算
+ * 可以在tellme.txt文件中找到相关的信息
  */
 
 using System;
@@ -18,6 +20,11 @@ class MonsterMath : IMathUtil
         throw new NotImplementedException();
     }
 
+    /// <summary>
+    /// 敌人攻击和关卡
+    /// </summary>
+    /// <param name="param">穿过来的相关值</param>
+    /// <returns>改变后的数值</returns>
     public float actAndMission(params float[] param)
     {
         if (param[0] <= 0)
@@ -27,7 +34,11 @@ class MonsterMath : IMathUtil
         act = 0.25f * param[0] + 0.2f;
         return act;
     }
-
+    /// <summary>
+    /// 血量和官气
+    /// </summary>
+    /// <param name="param">关卡</param>
+    /// <returns>修改后的值</returns>
     public float bloodAndMission(params float[] param)
     {
         if (param[0] <= 0)
@@ -47,7 +58,11 @@ class MonsterMath : IMathUtil
         }
         return blood;
     }
-
+    /// <summary>
+    /// 敌人得到了Buff
+    /// </summary>
+    /// <param name="param">buff的值</param>
+    /// <returns>buff计算后的值</returns>
     public float addBuff(params float[] param)
     {
         float damage = 0;

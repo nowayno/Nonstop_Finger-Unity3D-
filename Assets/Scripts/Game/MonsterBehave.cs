@@ -1,8 +1,13 @@
-﻿using UnityEngine;
+﻿/**
+ * 动作类的敌人从类
+ * 
+ **/
+using UnityEngine;
 public class MonsterBehave : Behave
 {
     void Start()
     {
+        //初始化
         ani = GetComponent<Animator>();
         stateInfo = ani.GetCurrentAnimatorStateInfo(0);
     }

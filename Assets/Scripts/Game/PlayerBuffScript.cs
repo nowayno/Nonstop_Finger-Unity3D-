@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿/**
+ * 玩家Buff处理 
+ * 也是复制的，和敌人的一样理解
+ **/
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -25,10 +29,8 @@ public class PlayerBuffScript : MonoBehaviour
         }
         for (int index = playerBuffList.Count; index > 0; --index)
         {
-            //Debug.Log("index:" + playerBuffList.Count + " data:" + playerBuffList[index - 1].getBuffData() +" t:" + playerBuffList[index - 1].getBuff().BuffTime + " time:" + Time.time);
             if (playerBuffList[index - 1].isAdd() != true)
             {
-                //Debug.Log("Buff is added");
                 playerBuffList[index - 1].isAdd(true);
                 buffADD(playerBuffList[index - 1].getBuff(), playerBuffList[index - 1].getBuffData());
                 playerBuffList[index - 1].startBuff();
@@ -36,7 +38,6 @@ public class PlayerBuffScript : MonoBehaviour
             }
             if (playerBuffList[index - 1].isEnd())
             {
-                //Debug.Log("Buff is ending");
                 playerBuffList[index - 1].isEnd(false);
                 float data = playerBuffList[index - 1].getBuffData() * -1;
                 buffMIN(playerBuffList[index - 1].getBuff(), data);
@@ -48,19 +49,15 @@ public class PlayerBuffScript : MonoBehaviour
 
     public void addBuff(PlayerBuff pbs)
     {
-        //Debug.Log("Adding buff" + " count:" + playerBuffList.Count);
         playerBuffList.Insert(0, pbs);
     }
     public void destoryAllBuff()
     {
-        for (int index = playerBuffList.Count; index > 0; --index)
+        foreach (PlayerBuff pb in playerBuffList)
         {
-            //playerBuffList[index - 1].isEnd(true);
-            //float data = playerBuffList[index - 1].getBuffData() * -1;
-            //buffMIN(playerBuffList[index - 1].getBuff(), data);
-            //playerBuffList[index - 1].destroySelf();
-            playerBuffList.Remove(playerBuffList[index - 1]);
+            pb.isEnd(true);
         }
+        playerBuffList.Clear();
     }
     void buffADD(Buff buff, float data)
     {

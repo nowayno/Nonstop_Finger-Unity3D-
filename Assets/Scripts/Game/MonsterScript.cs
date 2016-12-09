@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿/**
+ * 敌人的总脚本
+ * 
+ **/
+using UnityEngine;
 using System.Collections;
 
 public class MonsterScript : MonoBehaviour
@@ -41,6 +45,7 @@ public class MonsterScript : MonoBehaviour
 
     void Awake()
     {
+        //先把总管理器获取了，然后再获得相关敌人的信息
         gameManager = Camera.main.gameObject;
         monster = new Monster();
         for (int index = 0; index < 5; ++index)
@@ -64,7 +69,7 @@ public class MonsterScript : MonoBehaviour
 
     }
 
-    // Update is called once per frame
+    // 下面的方法，就是死的时候该不该给玩家一个Buff，活的时候得攻击玩家
     void Update()
     {
         dir = Vector3.Distance(transform.position, player.transform.position);
@@ -74,14 +79,12 @@ public class MonsterScript : MonoBehaviour
             {
                 isBoom = false;
                 Instantiate(boom, gameObject.transform.position, Quaternion.identity);
-                //Debug.Log("dead");
             }
             gameObject.GetComponent<MonsterBuffScript>().buffClear();
             transform.position = new Vector3(0, transform.position.z + 100, 0);
 
             if (monster.Behave.getAction() != Behave.ACTION.DEAD)
             {
-                //Debug.Log(deadnum);
                 deadnum += 1;
                 gameManager.GetComponent<GameManager>().deadNum();
                 gameObject.SetActive(false);
@@ -107,16 +110,10 @@ public class MonsterScript : MonoBehaviour
             {
                 m_speed = monster.Speed;
                 GetComponent<MonsterBehave>().attackBehave("Attack01");
-                //monsterAttackPlayer();
             }
-            //else if(canAttack==false)
-            //{
-            //    GetComponent<MonsterBehave>().aliveBehave("idle");
-            //}
         }
-        //Debug.Log((m_speed <= 0));
-
     }
+    //是时候攻击玩家了，但得挥动武器（攻击动画）才行
     public void monsterAttackPlayer()
     {
         if (canAttack)
@@ -124,6 +121,7 @@ public class MonsterScript : MonoBehaviour
             gameManager.GetComponent<GameManager>().monsterAttackplayer(m_attack);
         }
     }
+    //弃用，有需再看看
     public void buffChange(Buff _b, bool isTimeup = false, params float[] param)
     {
         _buff.getBuff().MonsterBuff = _b.MonsterBuff;
@@ -156,18 +154,25 @@ public class MonsterScript : MonoBehaviour
         }
     }
 
+    #region 攻击和被攻击
+    /// <summary>
+    /// 敌人被打了
+    /// </summary>
+    /// <param name="damage">给他一击</param>
     public void beAttacked(float damage)
     {
-        //Debug.Log(id + " m_blood " + m_blood);
+        //对死人要尊敬
         if (m_blood > 0)
         {
             m_blood -= damage;
         }
     }
-
+    /// <summary>
+    /// 还击！
+    /// </summary>
+    /// <param name="g">好像不用了</param>
     public void Attack(GameObject g)
     {
-        //g.GetComponent<PlayerScript>().beAttacked(m_attack);
         GetComponent<MonsterBehave>().attackBehave("Attack");
         gameManager.GetComponent<GameManager>().monsterAttackplayer(m_attack);
     }
@@ -175,11 +180,13 @@ public class MonsterScript : MonoBehaviour
     {
         canAttack = can;
     }
+    #endregion
     public void missionAct(int mission)
     {
         m_attack = DoAction.getInstance().actAndMission(1, mission);
     }
 
+    #region 得好好讨论一下相关属性的增减，以及Buff给予的增减
     public void missionBlood(int mission)
     {
         m_blood = DoAction.getInstance().bloodAndMission(1, mission);
@@ -275,4 +282,5 @@ public class MonsterScript : MonoBehaviour
     {
         return DoAction.getInstance().addBuff(1, preData, damage);
     }
+    #endregion
 }
