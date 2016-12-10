@@ -50,6 +50,7 @@ public class GameManager : TemplateClass<GameManager>
 
     void Awake()
     {
+        //Debug.Log(Application.persistentDataPath);
         //SkillCreat sc = new SkillCreat();
         //sc.skill01Create();
         //sc.skill02Create();

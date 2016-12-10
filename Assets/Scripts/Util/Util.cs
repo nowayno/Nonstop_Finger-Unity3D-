@@ -13,11 +13,14 @@ using System;
 public class Util
 {
     static Util util;
-
+#if UNITY_ANDROID
+    //string filename = @"/data/data/com.crazyoung.Nonstop_Finger/raw/";
+    string filename = new AndroidJavaClass("android.os.Environment").CallStatic<AndroidJavaObject>("getExternalStorageDirectory").Call<string>("getAbsolutePath") + @"\";
+#elif UNITY_STANDALONE_WIN
     //一种是编辑的时候用，一种是生成PC端用的
     string filename = @"F:\allprojects\unitypro\Nonstop_Finger\Assets\Data\";
     //string filename = System.IO.Directory.GetCurrentDirectory() + @"\Data\";
-
+#endif
     /// <summary>
     /// 获取单例
     /// </summary>
@@ -40,6 +43,9 @@ public class Util
         bool flag = false;
         string class_name = t.GetType().Name;
         class_name += ".xml";
+#if UNITY_ANDROID
+        class_name = class_name.ToLower();
+#endif
         using (Stream stream = new FileStream(filename + class_name, FileMode.Create))
         {
             XmlSerializer xmlFomart = new XmlSerializer(t.GetType(), new Type[] { t.GetType() });
@@ -64,12 +70,18 @@ public class Util
         if (isNew == false)
         {
             name += ".xml";
+#if UNITY_ANDROID
+            name = name.ToLower();
+#endif
             name = filename + name;
         }
         else
         {
             string class_name = t.GetType().Name;
             class_name += ".xml";
+#if UNITY_ANDROID
+            class_name = class_name.ToLower();
+#endif
             name = name + @"\" + class_name;
         }
         using (Stream stream = new FileStream(name, FileMode.Create))
@@ -94,6 +106,9 @@ public class Util
         string class_name = "";
         class_name = t.GetType().Name;
         class_name += ".xml";
+#if UNITY_ANDROID
+        class_name = class_name.ToLower();
+#endif
         using (Stream stream = new FileStream(filename + class_name, FileMode.Open))
         {
             try
@@ -124,12 +139,19 @@ public class Util
         if (isNew == false)
         {
             name += ".xml";
+#if UNITY_ANDROID
+            name = name.ToLower();
+#endif
             name = filename + name;
         }
         else
         {
             string class_name = t.GetType().Name;
             class_name += ".xml";
+#if UNITY_ANDROID
+            class_name = class_name.ToLower();
+#endif
+            Debug.Log(class_name);
             name = name + @"\" + class_name;
         }
         using (Stream stream = new FileStream(name, FileMode.Open))
