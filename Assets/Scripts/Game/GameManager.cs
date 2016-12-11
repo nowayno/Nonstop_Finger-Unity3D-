@@ -6,6 +6,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class GameManager : TemplateClass<GameManager>
 {
@@ -61,12 +62,49 @@ public class GameManager : TemplateClass<GameManager>
         //sc.skill07Create();
         //sc.skill08Create();
         //除了玩家和敌人的角色信息获取之外的信息获取
-        OtherCreate oc = new OtherCreate();
-        oc.usingSkill(1, 2, 3, 4);//这里获取了玩家所使用的技能信息
+
+        StartCoroutine(createData());
+
+
+        //OtherCreate.getInstance().usingSkill(1, 2, 3, 4);//这里获取了玩家所使用的技能信息
 
         monsterAttack = new List<float>();
         playerAttack = new List<float>();
         //monsterGOList = new GameObject[5];
+    }
+
+    private IEnumerator createData()
+    {
+        bool exist = true;
+        if (DoAction.getInstance().findFiles("monster01") == false)
+        {
+            MonsterCreate.getInstance().m01Create();
+            MonsterCreate.getInstance().m02Create();
+            MonsterCreate.getInstance().m03Create();
+            MonsterCreate.getInstance().m04Create();
+            MonsterCreate.getInstance().m05Create();
+        }
+        if (DoAction.getInstance().findFiles("skill01") == false)
+        {
+            SkillCreat.getInstance().skill01Create();
+            SkillCreat.getInstance().skill02Create();
+            SkillCreat.getInstance().skill03Create();
+            SkillCreat.getInstance().skill04Create();
+            SkillCreat.getInstance().skill05Create();
+            SkillCreat.getInstance().skill06Create();
+            SkillCreat.getInstance().skill07Create();
+            SkillCreat.getInstance().skill08Create();
+        }
+        if (DoAction.getInstance().findFiles("player") == false)
+        {
+            PlayerCreate.getInstance().playerCreate();
+        }
+        if (DoAction.getInstance().findFiles("usingskill") == false)
+        {
+            OtherCreate.getInstance().usingSkill(1, 2, 3, 4);
+        }
+
+        yield return 0;
     }
 
     // Use this for initialization

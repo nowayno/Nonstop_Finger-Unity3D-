@@ -12,7 +12,14 @@ using System.Linq;
 using System.Text;
 class SkillCreat
 {
-    public SkillCreat() { }
+    static SkillCreat _sc;
+    public static SkillCreat getInstance()
+    {
+        if (_sc == null)
+            _sc = new SkillCreat();
+        return _sc;
+    }
+    private SkillCreat() { }
     public void skill01Create()
     {
         Skill s = new Skill();

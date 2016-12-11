@@ -11,6 +11,13 @@ using System.Linq;
 using System.Text;
 class PlayerCreate
 {
+    static PlayerCreate _pc;
+    public static PlayerCreate getInstance()
+    {
+        if (_pc == null)
+            _pc = new PlayerCreate();
+        return _pc;
+    }
     public void playerCreate()
     {
         Player p = new Player();

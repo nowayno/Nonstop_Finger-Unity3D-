@@ -14,6 +14,14 @@ using System.Text;
 
 class OtherCreate
 {
+    static OtherCreate _oc;
+    public static OtherCreate getInstance()
+    {
+        if (_oc == null)
+            _oc = new OtherCreate();
+        return _oc;
+    }
+    private OtherCreate() { }
     public void usingSkill(params int[] ID)
     {
         DoAction.getInstance().writeData(ID,"UsingSkill");

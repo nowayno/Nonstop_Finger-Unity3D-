@@ -149,6 +149,10 @@ class DoAction
         }
         return 0;
     }
+    public bool findFiles(string name)
+    {
+        return Util.getInstance().findFiles(name);
+    }
 }
 
 //public float Attack()

@@ -13,6 +13,14 @@ using System.Text;
 
 class MonsterCreate
 {
+    static MonsterCreate mc;
+    public static MonsterCreate getInstance()
+    {
+        if (mc == null)
+            mc = new MonsterCreate();
+        return mc;
+    }
+    private MonsterCreate() { }
     public void m01Create()
     {
         Monster m = new Monster();

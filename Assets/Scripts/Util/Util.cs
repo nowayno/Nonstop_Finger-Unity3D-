@@ -15,7 +15,7 @@ public class Util
     static Util util;
 #if UNITY_ANDROID
     //string filename = @"/data/data/com.crazyoung.Nonstop_Finger/raw/";
-    string filename = new AndroidJavaClass("android.os.Environment").CallStatic<AndroidJavaObject>("getExternalStorageDirectory").Call<string>("getAbsolutePath") + @"\";
+    string filename = Application.persistentDataPath + @"/";
 #elif UNITY_STANDALONE_WIN
     //一种是编辑的时候用，一种是生成PC端用的
     string filename = @"F:\allprojects\unitypro\Nonstop_Finger\Assets\Data\";
@@ -121,7 +121,7 @@ public class Util
             }
             catch (Exception e)
             {
-                DoAction.getInstance().writeData<string>(e.Message, filename, true);
+
             }
         }
         return t;
@@ -163,5 +163,18 @@ public class Util
             stream.Close();
         }
         return t;
+    }
+
+    public bool findFiles(string name)
+    {
+        bool flag = false;
+#if UNITY_ANDROID
+        string path = filename + name + ".xml";
+        if (File.Exists(path))
+            flag = true;
+        else
+            flag = false;
+#endif
+        return flag;
     }
 }
