@@ -276,9 +276,16 @@ public class GameManager : TemplateClass<GameManager>
         uiLabel.transform.position = UICamera.mainCamera.ScreenToWorldPoint(Camera.main.WorldToScreenPoint(new Vector3(goX, goY, 0)));
         uiLabel.transform.localScale = new Vector3(1, 1, 1);
 
-        m.GetComponent<MonsterScript>().beAttacked(attack);
+        //m.GetComponent<MonsterScript>().beAttacked(attack);
         //有趣，可这个方法是用来更新血条的！！！
-        bloodUI(i, m.GetComponent<MonsterScript>().getNowBlood(), m.GetComponent<MonsterScript>().getBlood(), attack);
+        if (m.name != "Player")
+        {
+            bloodUI(i, m.GetComponent<MonsterScript>().getNowBlood(), m.GetComponent<MonsterScript>().getBlood(), attack);
+        }
+        else
+        {
+            bloodUI(i, m.GetComponent<PlayerScript>().getNowBlood(), m.GetComponent<PlayerScript>().getBlood(), attack);
+        }
     }
     /// <summary>
     /// 血条更新方法

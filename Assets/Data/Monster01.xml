@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="gb2312"?>
 <Monster xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Id>1</Id>
   <Blood>22.5</Blood>
   <Attack>0.45</Attack>
   <Defend>0</Defend>
   <Speed>1.5</Speed>
+  <Level>0</Level>
 </Monster>

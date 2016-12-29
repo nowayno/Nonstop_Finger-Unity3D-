@@ -6,7 +6,7 @@
   <Skill_CD>7</Skill_CD>
   <Skill_tattack>0</Skill_tattack>
   <Skill_time>0</Skill_time>
-  <Skill_Dir>5</Skill_Dir>
+  <Skill_Dir>10</Skill_Dir>
   <BuffType>
     <BuffTime>0</BuffTime>
     <BuffMission>0</BuffMission>
@@ -15,6 +15,7 @@
     <BuffData>0</BuffData>
     <IsEnd>false</IsEnd>
     <IsAdd>false</IsAdd>
+    <IsDoing>false</IsDoing>
   </BuffType>
   <ResName />
 </Skill>
