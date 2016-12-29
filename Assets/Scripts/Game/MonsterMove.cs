@@ -11,7 +11,7 @@ public class MonsterMove : MonoBehaviour
     float speed;
     float dir = 0;
     float angle = 45.0f;
-    float maxView = 10.0f;
+    float maxView = 5.0f;
     // Use this for initialization
     void Start()
     {
@@ -58,6 +58,18 @@ public class MonsterMove : MonoBehaviour
                 else
                 {
                     Debug.Log("hey get out of my way!");
+                    float distance = Vector3.Distance(transform.position, ray.transform.position);
+                    if (distance < maxView)
+                    {
+                        if (transform.position.z <= ray.transform.position.z)
+                        {
+                            transform.Translate(Vector3.left * (speed / 100.0f));
+                        }
+                        else
+                        {
+                            transform.Translate(Vector3.right * (speed / 100.0f));
+                        }
+                    }
                 }
             }
         }
