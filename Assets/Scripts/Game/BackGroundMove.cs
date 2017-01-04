@@ -27,19 +27,24 @@ public class BackGroundMove : MonoBehaviour
         float ratio = Camera.main.aspect;
         float height = distance * Mathf.Tan(ang);
         float width = height * ratio;
-        Vector3 edgePos = Camera.main.transform.position -
+        Vector3 rightEdgePos = Camera.main.transform.position +
             Camera.main.transform.right * width +
             Camera.main.transform.up * height +
             Camera.main.transform.forward * distance;
-        float rightX = edgePos.x;
-        Debug.DrawLine(edgePos, new Vector3(0, 0, 0));
+        Vector3 leftEdgePos = Camera.main.transform.position -
+            Camera.main.transform.right * width +
+            Camera.main.transform.up * height +
+            Camera.main.transform.forward * distance;
+        float leftX = leftEdgePos.x;
+        float rightX = rightEdgePos.x;
+        Debug.DrawLine(leftEdgePos, new Vector3(0, 0, 0));
         if (transform.name != "BackGround")
         {
-            float nowPosX1 = rightX + widthBack;
-            float nowPosX2 = rightX - widthBack;
-            if (transform.position.x > rightX && transform.position.x < nowPosX1)
+            float nowPosX1 = leftX + widthBack;
+            float nowPosX2 = leftX - widthBack;
+            if (transform.position.x > leftX && transform.position.x < nowPosX1)
             {
-                transform.position = new Vector3(nowPosX1 + widthBack, trans.position.y, trans.position.z);
+                transform.position = new Vector3(rightX, trans.position.y, trans.position.z);
             }
             //else if (transform.position.x < rightX && transform.position.x > nowPosX2)
             //{
