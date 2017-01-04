@@ -17,7 +17,7 @@ public class UIDamage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        y += Time.deltaTime * 0.1f;
+        y += Time.deltaTime * 0.4f;
         gameObject.transform.position = new Vector3(gameObject.transform.position.x, y, gameObject.transform.position.z);
     }
 }

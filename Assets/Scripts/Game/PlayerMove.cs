@@ -50,7 +50,7 @@ public class PlayerMove : MonoBehaviour
     public void Run(Transform trans)
     {
         GetComponent<PlayerBehave>().runBehave("Run");
-        transform.position = Vector3.MoveTowards(transform.position, trans.position, Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, trans.position, Time.deltaTime*2);
     }
     //获取最近敌人的名字，好告诉总管理器我要攻击谁
     public string nearMonsterName()
