@@ -8,10 +8,14 @@ public class BackGroundMove : MonoBehaviour
     GameObject _preGO;
     float distance;
     float widthBack;
+    float leftX;
+    float rightX;
+
+    public BackGroundMove() { }
     // Use this for initialization
     void Start()
     {
-        distance = Vector3.Distance(trans.position, Camera.main.transform.position);
+
         if (transform.name != "BackGround")
         {
             widthBack = transform.GetComponent<Renderer>().bounds.size.x / 2.0f;
@@ -21,23 +25,8 @@ public class BackGroundMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //获取摄像机左右大致范围
-        //利用弧度以及数学tan公式算出范围再确定点的位置
-        float ang = Camera.main.fieldOfView * 0.5f * Mathf.Deg2Rad;
-        float ratio = Camera.main.aspect;
-        float height = distance * Mathf.Tan(ang);
-        float width = height * ratio;
-        Vector3 rightEdgePos = Camera.main.transform.position +
-            Camera.main.transform.right * width +
-            Camera.main.transform.up * height +
-            Camera.main.transform.forward * distance;
-        Vector3 leftEdgePos = Camera.main.transform.position -
-            Camera.main.transform.right * width +
-            Camera.main.transform.up * height +
-            Camera.main.transform.forward * distance;
-        float leftX = leftEdgePos.x;
-        float rightX = rightEdgePos.x;
-        Debug.DrawLine(leftEdgePos, new Vector3(0, 0, 0));
+
+        //Debug.DrawLine(leftEdgePos, new Vector3(0, 0, 0));
         if (transform.name != "BackGround")
         {
             float nowPosX1 = leftX + widthBack;
@@ -51,6 +40,16 @@ public class BackGroundMove : MonoBehaviour
             //    transform.position = new Vector3(-(nowPosX1 + widthBack), trans.position.y, trans.position.z);
             //}
         }
+    }
+
+    public void watchBack(BackGroundMoveTemplate bk)
+    {
+        bk.edge += new BackGroundMoveTemplate.GetEdge(getE);
+    }
+    public void getE(float left, float right)
+    {
+        leftX = left;
+        rightX = right;
     }
     public void addOrDeleteNext()
     {

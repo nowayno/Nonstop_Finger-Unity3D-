@@ -13,11 +13,23 @@ using System.Text;
 using UnityEngine;
 public class TemplateClass<T> : MonoBehaviour
 {
-    protected delegate void GetNumber(int number);
-    protected event GetNumber getNumber_;
-
-    virtual protected void GetNumber_Event(int number)
+    virtual protected TemplateClass<T> getEvent()
     {
-        getNumber_(number);
+        return new TemplateClass<T>();
+    }
+    //protected delegate void GetNumber(int number);
+    //protected event GetNumber getNumber_;
+
+    public delegate void GetEdge(float left, float right);
+    public event GetEdge edge;
+
+    //virtual protected void GetNumber_Event(int number)
+    //{
+    //    getNumber_(number);
+    //}
+
+    virtual protected void GetEdge_Event(float left, float right)
+    {
+        edge(left, right);
     }
 }
