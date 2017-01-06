@@ -15,11 +15,7 @@ public class BackGroundMove : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
-        if (transform.name != "BackGround")
-        {
-            widthBack = transform.GetComponent<Renderer>().bounds.size.x / 2.0f;
-        }
+        widthBack = transform.GetComponent<Renderer>().bounds.size.x / 2.0f;
     }
 
     // Update is called once per frame
@@ -27,18 +23,15 @@ public class BackGroundMove : MonoBehaviour
     {
 
         //Debug.DrawLine(leftEdgePos, new Vector3(0, 0, 0));
-        if (transform.name != "BackGround")
+        float leftEgdeX = transform.position.x - widthBack;
+        float rightEdgeX = transform.position.x + widthBack;
+        if (rightEdgeX <= leftX)
         {
-            float nowPosX1 = leftX + widthBack;
-            float nowPosX2 = leftX - widthBack;
-            if (transform.position.x > leftX && transform.position.x < nowPosX1)
-            {
-                transform.position = new Vector3(rightX, trans.position.y, trans.position.z);
-            }
-            //else if (transform.position.x < rightX && transform.position.x > nowPosX2)
-            //{
-            //    transform.position = new Vector3(-(nowPosX1 + widthBack), trans.position.y, trans.position.z);
-            //}
+            transform.position = new Vector3(rightX, trans.position.y, trans.position.z);
+        }
+        else if (leftEgdeX >= rightX)
+        {
+            transform.position = new Vector3(leftX, trans.position.y, trans.position.z);
         }
     }
 
