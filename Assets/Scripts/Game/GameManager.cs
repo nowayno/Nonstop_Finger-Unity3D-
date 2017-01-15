@@ -314,7 +314,7 @@ public class GameManager : TemplateClass<GameManager>
     /// </summary>
     /// <param name="skill">呼唤技能吧</param>
     /// 技能是范围内群攻，打一个人怎么行
-    public void playerSkillAttackMonster(Skill skill)
+    public void playerSkillAttackMonster(Skill skill, MonsterBuff bfs,bool addBuff=false)
     {
         if (playerGO.GetComponent<PlayerScript>().isDead() == false)
         {
@@ -325,6 +325,10 @@ public class GameManager : TemplateClass<GameManager>
                 {
                     bloodUI(i, m, skill.Skill_attack);
                     m.GetComponent<MonsterScript>().beAttacked(skill.Skill_tattack);
+                    if (addBuff)
+                    {
+                        m.GetComponent<MonsterBuffScript>().addBuff(bfs);
+                    }
                 }
                 ++i;
             }

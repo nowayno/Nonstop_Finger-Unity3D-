@@ -150,11 +150,12 @@ public class PlayerScript : MonoBehaviour
     //玩家使用技能，或许该给敌人点Buff
     void skillAttack(Skill sk)
     {
-        gameManager.GetComponent<GameManager>().playerSkillAttackMonster(sk);
+        //gameManager.GetComponent<GameManager>().playerSkillAttackMonster(sk);
         float buffCatch = Random.Range(0.0f, 50.0f);
+        MonsterBuff mb = new MonsterBuff();
         if ((buffCatch > 10.0f) && (buffCatch < 30.0f) && (sk.BuffType.MonsterBuff != Buff.MONSTERBUFF.NONE))
         {
-            MonsterBuff mb = new MonsterBuff();
+
             switch (sk.BuffType.MonsterBuff)
             {
                 case Buff.MONSTERBUFF.FIREDAMAGE:
@@ -175,7 +176,12 @@ public class PlayerScript : MonoBehaviour
                     mb.getBuff().MonsterBuff = sk.BuffType.MonsterBuff;
                     break;
             }
-            gameManager.GetComponent<GameManager>().addMonsterBuff(mb, sk.Skill_Dir);
+            //gameManager.GetComponent<GameManager>().addMonsterBuff(mb, sk.Skill_Dir);
+            gameManager.GetComponent<GameManager>().playerSkillAttackMonster(sk, mb, true);
+        }
+        else
+        {
+            gameManager.GetComponent<GameManager>().playerSkillAttackMonster(sk, mb);
         }
     }
     public void skillRelease(int id)
