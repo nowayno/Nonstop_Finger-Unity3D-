@@ -75,6 +75,7 @@ public class MonsterScript : MonoBehaviour
         dir = Vector3.Distance(transform.position, player.transform.position);
         if (m_blood <= 0)
         {
+
             if (isBoom)
             {
                 isBoom = false;
