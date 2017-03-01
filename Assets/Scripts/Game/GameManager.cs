@@ -157,7 +157,7 @@ public class GameManager : TemplateClass<GameManager>
                 int i = 0;
                 foreach (GameObject m in monsterGOList)
                 {
-                    float pos = Random.Range(20, 30) * dir;
+                    float pos = Random.Range(2f, 4f) * dir * 10f;
                     m.GetComponent<MonsterScript>().missionBlood(mission);
                     m.GetComponent<MonsterScript>().missionAct(mission);
                     m.GetComponent<MonsterScript>().Relife();
@@ -314,7 +314,7 @@ public class GameManager : TemplateClass<GameManager>
     /// </summary>
     /// <param name="skill">呼唤技能吧</param>
     /// 技能是范围内群攻，打一个人怎么行
-    public void playerSkillAttackMonster(Skill skill, MonsterBuff bfs,bool addBuff=false)
+    public void playerSkillAttackMonster(Skill skill, MonsterBuff bfs, bool addBuff = false)
     {
         if (playerGO.GetComponent<PlayerScript>().isDead() == false)
         {

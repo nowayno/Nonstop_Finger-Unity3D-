@@ -51,25 +51,18 @@ public class MonsterMove : MonoBehaviour
             else
             {
                 float an = Vector3.Angle(transform.position, ray.transform.position);
-                if (an > angle)
+                float distance = Vector3.Distance(transform.position, ray.transform.position);
+                if ((an < angle) && (distance < maxView))
                 {
-                    //Debug.Log("out of my sight");
-                }
-                else
-                {
-                    //Debug.Log("hey get out of my way!");
-                    float distance = Vector3.Distance(transform.position, ray.transform.position);
-                    if (distance < maxView)
+                    if (Mathf.Ceil(transform.position.z) <= Mathf.Ceil(ray.transform.position.z))
                     {
-                        if (transform.position.z <= ray.transform.position.z)
-                        {
-                            transform.Translate(Vector3.left * (speed / 10.0f));
-                        }
-                        else
-                        {
-                            transform.Translate(Vector3.right * (speed / 10.0f));
-                        }
+                        transform.Translate(Vector3.left * (speed / 10.0f));
                     }
+                    else
+                    {
+                        transform.Translate(Vector3.right * (speed / 10.0f));
+                    }
+                    //Debug.Log("out of my sight");
                 }
             }
         }
