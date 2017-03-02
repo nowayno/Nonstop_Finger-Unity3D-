@@ -61,6 +61,12 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="DOTween">
+      <HintPath>Assets\Plugins\DOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="FairyGUI">
+      <HintPath>Assets\Plugins\FairyGUI.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Mirza Beig\Particle Twister\_scripts\DemoManager.cs" />
@@ -245,6 +251,7 @@
     <Compile Include="Assets\Scripts\PlayerGame.cs" />
     <Compile Include="Assets\Scripts\Score.cs" />
     <Compile Include="Assets\Scripts\UI\UIDamage.cs" />
+    <Compile Include="Assets\Scripts\UI\UIInfo.cs" />
     <Compile Include="Assets\Scripts\UI\UIManager.cs" />
     <Compile Include="Assets\Scripts\UI\UISkill.cs" />
     <Compile Include="Assets\Scripts\Util\DoAction.cs" />
@@ -317,10 +324,13 @@
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed 2.shader" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed 3.shader" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed.shader" />
+    <None Include="Assets\ReadMe - 1.8.0.txt" />
+    <None Include="Assets\Resources\Shaders\AddOn\FairyGUI-BlurFilter.shader" />
+    <None Include="Assets\Resources\Shaders\FairyGUI-BMFont.shader" />
+    <None Include="Assets\Resources\Shaders\FairyGUI-Image.shader" />
+    <None Include="Assets\Resources\Shaders\FairyGUI-Text-Brighter.shader" />
+    <None Include="Assets\Resources\Shaders\FairyGUI-Text.shader" />
     <None Include="Assets\Scripts\tellme.txt" />
-    <None Include="Assets\fairyui\fairy\dvag1.xml" />
-    <None Include="Assets\fairyui\fairy\package.xml" />
-    <None Include="Assets\fairyui\project.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
